@@ -1,0 +1,29 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Races/Human/Swordman/Skills/Slash.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Races/AccuracyCalculator.cs" Line="24" Column="15" />
+      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/Riptide.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/Slash.cs" Line="43" Column="2" />
+      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/Ravage.cs" Line="46" Column="2" />
+      <File FileName="Assets/Scripts/Races/Human/Swordman/Swordman.cs" Line="28" Column="59" />
+      <File FileName="Assets/Scripts/Init.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Races/Affect.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/HolyKnight.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Modules/StatModule.cs" Line="50" Column="1" />
+      <File FileName="Assets/Scripts/Races/Race.cs" Line="65" Column="16" />
+      <File FileName="Assets/Scripts/Races/AttackPowerCalculator.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Modules/HealthPowerModule.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Races/StatCalculator.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Races/LevelCalculator.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Constants.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/MonoHandler.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Races/Human/Human.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Races/Shared/Affects/StuntAffect.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
