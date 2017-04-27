@@ -29,52 +29,6 @@ namespace Mob
 			return race;
 		}
 
-		#region Affect functions
-
-		protected List<Affect> _affects = new List<Affect>();
-
-		public Affect[] affects{
-			get{
-				return _affects.ToArray();
-			}
-		}
-
-		public void AddAffect (Affect affect)
-		{
-			if (_affects == null) {
-				_affects = new List<Affect> ();
-			}
-			_affects.Add (affect);
-		}
-
-		protected void RefreshAffect ()
-		{
-			if (_affects == null)
-				return;
-			_affects.RemoveAll (x => x == null);
-		}
-
-		protected void StartRefreshAffect(){
-			StartCoroutine (RefreshingAffect());
-		}
-
-		IEnumerator RefreshingAffect(){
-			if (gameObject == null)
-				yield return null;
-			while (true) {
-				RefreshAffect ();
-				yield return null;
-			}
-			yield return null;
-		}
-
-		public bool HasAffect<T>() where T : Affect{
-			return _affects.Any (x => x.GetType ().IsEqual<T> ());
-		}
-
-		#endregion
-
-
 		#region Turn base
 
 		protected bool _isTurn;

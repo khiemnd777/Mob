@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Constants.cs" />
      <Compile Include="Assets\Scripts\Extensions\TypeExtensions.cs" />
      <Compile Include="Assets\Scripts\Init.cs" />
+     <Compile Include="Assets\Scripts\Modules\AffectModule.cs" />
      <Compile Include="Assets\Scripts\Modules\EnergyModule.cs" />
      <Compile Include="Assets\Scripts\Modules\GoldModule.cs" />
      <Compile Include="Assets\Scripts\Modules\HealthPowerModule.cs" />
@@ -61,6 +62,11 @@
      <Compile Include="Assets\Scripts\Races\AttackPowerCalculator.cs" />
      <Compile Include="Assets\Scripts\Races\ClassBuilder.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Human.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\Antidote.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\BurstStrength.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\GreatPotion.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\Potion.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\Speedy.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Distract.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\HolyKnight.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Ravage.cs" />
@@ -71,6 +77,7 @@
      <Compile Include="Assets\Scripts\Races\Orc\Orc.cs" />
      <Compile Include="Assets\Scripts\Races\Race.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\Affects\StuntAffect.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\INegativeAffect.cs" />
      <Compile Include="Assets\Scripts\Races\StatCalculator.cs" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>

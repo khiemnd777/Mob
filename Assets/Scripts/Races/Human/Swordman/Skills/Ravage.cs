@@ -22,9 +22,20 @@ namespace Mob
 
 				foreach (var target in targets) {
 					var targetStat = target.GetModule<StatModule> ();
-					var accuracy = own.HasAffect<HolyKnight>() ? 100f : AccuracyCalculator.ToPercent (stat.technique, targetStat.technique);
+					var accuracy = HasAffect<HolyKnight>(own) ? 1f : AccuracyCalculator.ToPercent (stat.technique, targetStat.technique);
+					if(HasAffect<BurstStrength>(own)){
+						var burstStrength = GetAffects<BurstStrength>(own)[0];
+						burstStrength.use = true;
+						accuracy = 1f;
+					}
 					if (accuracy > 0f) {
-						var damage = AttackPowerCalculator.TakeDamage(baseDamage, targetStat.resistance);
+						var dogde = 0f;
+						if(HasAffect<Speedy>(target)){
+							var speedy = GetAffects<Speedy>(target)[0];
+							speedy.use = true;
+							dogde = targetStat.resistance * .75f;
+						}
+						var damage = AttackPowerCalculator.TakeDamage(baseDamage, targetStat.resistance + dogde);
 						damage *= accuracy;
 						if (Mathf.Clamp (accuracy, .7f, 1f) == accuracy) {
 							damage *= _critTime;

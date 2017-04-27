@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public class StuntAffect : Affect
+	public class StuntAffect : Affect, INegativeAffect
 	{
 		
 	}

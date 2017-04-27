@@ -9,7 +9,6 @@ namespace Mob
 		HealthPowerModule _hp;
 
 		void Start(){
-			StartRefreshAffect();
 			_stat = GetModule<StatModule>();
 			_hp = GetModule<HealthPowerModule> ();
 			_level = GetModule<LevelModule>();

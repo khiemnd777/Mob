@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Mob
@@ -16,8 +17,23 @@ namespace Mob
 		}
 
 		protected void SubtractEnergy(float energy){
-			var energyModule = own.GetModule<EnergyModule> ();
-			energyModule.SubtractEnergy (energy);
+			var energyModule = own.GetModule<EnergyModule> ((e) => {
+				e.SubtractEnergy (energy);
+			});
+		}
+
+		protected void SubtractGold(float gold){
+			own.GetModule<GoldModule> ((g) => {
+				g.SubtractGold(gold);
+			});
+		}
+
+		protected bool EnoughGold(float gold, Action predicate){
+			var enough = false;
+			own.GetModule<GoldModule> ((g) => {
+				enough = g.gold >= gold;
+			});
+			return enough;
 		}
 
 		protected void ExecuteInTurn(Race who, Action predicate){
@@ -48,6 +64,19 @@ namespace Mob
 			return true;
 		}
 
+		public static bool HasAffect<T>(Race who) where T: Affect{
+			var affectModule = who.GetModule<AffectModule> ();
+			return affectModule != null && affectModule.HasAffect<T> ();
+		}
+
+		public static T[] GetAffects<T>(Race who) where T: Affect{
+			T[] result;
+			who.GetModule<AffectModule> ((a) => {
+				result = a.GetAffects<T>();
+			});
+			return result;
+		}
+
 		public static void Create<T>(string resource, Race own, Race target) where T : Affect{
 			Create<T> (resource, own, new Race[]{ target });
 		}
@@ -62,7 +91,9 @@ namespace Mob
 			a.own = own;
 			a.targets = targets;
 			foreach (var target in a.targets) {
-				target.AddAffect (a);
+				target.GetModule<AffectModule> ((am) => {
+					am.AddAffect(a);
+				});
 			}
 		}
 	}
