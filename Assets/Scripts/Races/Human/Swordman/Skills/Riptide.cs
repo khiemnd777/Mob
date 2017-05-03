@@ -35,6 +35,11 @@ namespace Mob
 						}
 						var damage = AttackPowerCalculator.TakeDamage(baseDamage, targetStat.resistance + dogde);
 						damage *= accuracy;
+						if(HasAffect<Aura1>(own) || HasAffect<Aura2>(own)){
+							if (Mathf.Clamp (accuracy, .7f, 1f) == accuracy) {
+								damage *= 2f;
+							}
+						}
 						var targetHp = target.GetModule<HealthPowerModule> ();
 						targetHp.SubtractHp (damage);
 

@@ -70,7 +70,7 @@ namespace Mob
 		}
 
 		public static T[] GetAffects<T>(Race who) where T: Affect{
-			T[] result;
+			T[] result = new T[0];
 			who.GetModule<AffectModule> ((a) => {
 				result = a.GetAffects<T>();
 			});

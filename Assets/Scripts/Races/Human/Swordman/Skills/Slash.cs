@@ -16,6 +16,9 @@ namespace Mob
 			EnoughLevel (_level, () => {
 				var stat = own.GetModule<StatModule> ();
 				var ownDamage = stat.damage;
+				var attackDamage = HasAffect<Tier1>(own) 
+					|| HasAffect<Tier2>(own) 
+					|| HasAffect<Tier3>(own) ? 120f : _attackDamage;
 				var baseDamage = ownDamage * _attackDamage / 100f;
 
 				foreach (var target in targets) {
@@ -35,6 +38,11 @@ namespace Mob
 						}
 						var damage = AttackPowerCalculator.TakeDamage(baseDamage, targetStat.resistance + dogde);
 						damage *= accuracy;
+						if(HasAffect<Aura1>(own) || HasAffect<Aura2>(own)){
+							if (Mathf.Clamp (accuracy, .7f, 1f) == accuracy) {
+								damage *= 2f;
+							}
+						}
 						var targetHp = target.GetModule<HealthPowerModule> ();
 						targetHp.SubtractHp (damage);	
 						// Add gain point when affect hit

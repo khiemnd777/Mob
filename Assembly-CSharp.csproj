@@ -62,6 +62,13 @@
      <Compile Include="Assets\Scripts\Races\AttackPowerCalculator.cs" />
      <Compile Include="Assets\Scripts\Races\ClassBuilder.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Human.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\Aura1.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\Aura2.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\Gear.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\Tier0.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\Tier1.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\Tier2.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\Tier3.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\Antidote.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\BurstStrength.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\GreatPotion.cs" />

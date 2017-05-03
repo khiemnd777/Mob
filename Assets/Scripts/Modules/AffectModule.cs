@@ -35,7 +35,7 @@ namespace Mob
 		}
 
 		public T[] GetAffects<T>() where T: Affect{
-			T[] result = _affects.Where(x => x.GetType().IsEqual<T>()).ToArray();
+			T[] result = _affects.Where(x => x.GetType().IsEqual<T>()).Cast<T>().ToArray();
 			return result;
 		}
 
