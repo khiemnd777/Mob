@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public class Tier1 : Gear
+	public class SwordmanGearTier1 : Gear, IAssignableDamage
 	{
 		void Start(){
 			EnoughGold (80f, () => {
@@ -19,10 +19,19 @@ namespace Mob
 
 		public override bool Upgrade(){
 			return EnoughGold (160f, () => {
-				InstantiateFromMonoResource<Tier2> ("Races/Human/Swordman/Gears/Tier2");
+				InstantiateFromMonoResource<SwordmanGearTier1> ("Races/Human/Swordman/Gears/Tier2");
 				Destroy(gameObject);
 			});
 		}
+
+		#region IAssignableDamage implementation
+
+		public float AssignDamage ()
+		{
+			return 120f;
+		}
+
+		#endregion
 	}
 }
 

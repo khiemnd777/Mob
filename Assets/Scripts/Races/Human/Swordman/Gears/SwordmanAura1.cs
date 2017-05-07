@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public class Aura1 : Gear
+	public class SwordmanAura1 : Gear, ICriticalHandler
 	{
 		void Start(){
 			EnoughGold (80f, () => {
@@ -20,10 +20,19 @@ namespace Mob
 		public override bool Upgrade ()
 		{
 			return EnoughGold (180f, () => {
-				InstantiateFromMonoResource<Aura2> ("Races/Human/Swordman/Gears/Aura2");
+				InstantiateFromMonoResource<SwordmanAura2> ("Races/Human/Swordman/Gears/Aura2");
 				Destroy(gameObject);
 			});
 		}
+
+		#region ICriticalHandler implementation
+
+		public float HandleCriticalDamage (float damage, float accuracy, Race target)
+		{
+			return damage * 2f;
+		}
+
+		#endregion
 	}
 }
 

@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public class Speedy : Affect
+	public class Speedy : Affect, IDodgeableChance
 	{
 		public bool use;
 
@@ -22,6 +22,16 @@ namespace Mob
 				Destroy (gameObject);
 			}
 		}
+
+		#region IDodgeableChance implementation
+
+		public float DodgeChance (float accuracy)
+		{
+			use = true;
+			return AccuracyCalculator.GetAccuracyWithProbability (100f, accuracy);
+		}
+
+		#endregion
 	}
 }
 

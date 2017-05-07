@@ -12,7 +12,7 @@ namespace Mob
 
 		List<Affect> _affects = new List<Affect>();
 
-		public Affect[] affects{
+		public Affect[] affects {
 			get {
 				return _affects.ToArray();
 			}
@@ -34,8 +34,27 @@ namespace Mob
 			return _affects.Any (x => x.GetType ().IsEqual<T> ());
 		}
 
-		public T[] GetAffects<T>() where T: Affect{
-			T[] result = _affects.Where(x => x.GetType().IsEqual<T>()).Cast<T>().ToArray();
+		public T[] GetAffects<T>(Action<T> predicate) where T: Affect{
+			T[] result = _affects
+				.Where(x => x.GetType().IsEqual<T>())
+				.Cast<T>()
+				.ToArray();
+			foreach (var r in result) {
+				predicate.Invoke (r);
+			}
+			return result;
+		}
+
+		public T[] GetSubAffects<T>(Action<T> predicate){
+			if (_affects == null)
+				return null;
+			var result = _affects
+				.Where (x => typeof(T).IsAssignableFrom (x.GetType ()))
+				.Cast<T> ()
+				.ToArray();
+			foreach (var r in result) {
+				predicate.Invoke (r);
+			}
 			return result;
 		}
 
@@ -44,14 +63,6 @@ namespace Mob
 			if (_affects == null)
 				return;
 			_affects.RemoveAll (x => x == null);
-		}
-
-		public Affect[] GetNegativeAffects(){
-			if (_affects == null)
-				return null;
-			return _affects
-				.Where (x => typeof(INegativeAffect).IsAssignableFrom (x.GetType ()))
-				.ToArray();
 		}
 
 		IEnumerator RefreshingAffect(){

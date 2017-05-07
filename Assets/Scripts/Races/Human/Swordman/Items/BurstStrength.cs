@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public class BurstStrength : Affect
+	public class BurstStrength : Affect, IAccurate
 	{
 		public bool use;
 
@@ -22,6 +22,16 @@ namespace Mob
 				Destroy(gameObject);
 			}
 		}
+
+		#region IAccurate implementation
+
+		public float HandleAccuracy (Race target)
+		{
+			use = true;
+			return 1f;
+		}
+
+		#endregion
 	}
 }
 

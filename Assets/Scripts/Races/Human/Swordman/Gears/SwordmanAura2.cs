@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public class Aura2 : Gear
+	public class SwordmanAura2 : Gear, ICriticalHandler
 	{
 		void Start(){
 			EnoughGold (180f, () => {
@@ -21,6 +21,16 @@ namespace Mob
 		{
 			return false;
 		}
+
+		#region ICriticalHandler implementation
+
+		public float HandleCriticalDamage (float damage, float accuracy, Race target)
+		{
+			own.GetModule<StatModule> (stat => stat.damage += 1f);
+			return damage * 2f;
+		}
+
+		#endregion
 	}
 }
 

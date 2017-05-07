@@ -17,7 +17,7 @@ namespace Mob
 		}
 
 		protected void SubtractEnergy(float energy){
-			var energyModule = own.GetModule<EnergyModule> ((e) => {
+			own.GetModule<EnergyModule> ((e) => {
 				e.SubtractEnergy (energy);
 			});
 		}
@@ -64,15 +64,27 @@ namespace Mob
 			return true;
 		}
 
-		public static bool HasAffect<T>(Race who) where T: Affect{
+		public static bool HasAffect<T>(Race who, Action predicate = null) where T: Affect{
 			var affectModule = who.GetModule<AffectModule> ();
-			return affectModule != null && affectModule.HasAffect<T> ();
+			var result = affectModule != null && affectModule.HasAffect<T> ();
+			if (result && predicate != null) {
+				predicate.Invoke ();
+			}
+			return result;
 		}
 
-		public static T[] GetAffects<T>(Race who) where T: Affect{
+		public static T[] GetAffects<T>(Race who, Action<T> predicate = null) where T: Affect{
 			T[] result = new T[0];
 			who.GetModule<AffectModule> ((a) => {
-				result = a.GetAffects<T>();
+				result = a.GetAffects<T>(predicate);
+			});
+			return result;
+		}
+
+		public static T[] GetSubAffects<T>(Race who, Action<T> predicate = null) {
+			T[] result = new T[0];
+			who.GetModule<AffectModule> ((a) => {
+				result = a.GetSubAffects<T>(predicate);
 			});
 			return result;
 		}

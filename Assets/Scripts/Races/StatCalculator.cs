@@ -16,30 +16,33 @@ namespace Mob
 			return point * upLevel;
 		}
 
+//		public static int[] InitProbability(params float[] percentStats) {
+//			var random = new System.Random ();
+//			// init array with 100 elements;
+//			var arr = new int[100];
+//			for (var x = 0; x < arr.Length; x++) {
+//				var t = 0f;
+//				var v = 0;
+//				for (var y = 0; y < percentStats.Length; y++) {
+//					t += percentStats [y];
+//					if (x == t) {
+//						continue;
+//					} else if (x < t) {
+//						v = y;
+//						break;
+//					}
+//				}
+//				arr [x] = v;
+//			}
+//			arr = arr.OrderBy (x => random.Next ()).ToArray ();
+//			return arr;
+//		}
+
 		public static int[] InitProbability(params float[] percentStats) {
-			var random = new System.Random ();
-			// init array with 100 elements;
-			var arr = new int[100];
-			for (var x = 0; x < arr.Length; x++) {
-				var t = 0f;
-				var v = 0;
-				for (var y = 0; y < percentStats.Length; y++) {
-					t += percentStats [y];
-					if (x == t) {
-						continue;
-					} else if (x < t) {
-						v = y;
-						break;
-					}
-				}
-				arr [x] = v;
-			}
-			arr = arr.OrderBy (x => random.Next ()).ToArray ();
-			return arr;
+			return Probability.Initialize (percentStats);
 		}
 
 		public static IEnumerable<int?> GetStatWithProbability(int point, int[] arr, params float[] percentStats){
-			var random = new System.Random ();
 			for (var x = 0; x < point; x++) {	
 				var index = Random.Range (0, arr.Length - 1);
 				yield return arr [index];
@@ -49,8 +52,8 @@ namespace Mob
 		}
 
 		public static IEnumerable<int?> GetStatWithProbability(int point , params float[] percentStats){
-			var random = new System.Random ();
-			var arr = InitProbability (percentStats);
+			//var arr = InitProbability (percentStats);
+			var arr = Probability.Initialize(percentStats);
 			for (var x = 0; x < point; x++) {	
 				var index = Random.Range (0, arr.Length - 1);
 				yield return arr [index];

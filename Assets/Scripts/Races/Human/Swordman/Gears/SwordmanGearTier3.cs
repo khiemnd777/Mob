@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public class Tier3 : Gear
+	public class SwordmanGearTier3 : Gear, IMissingHandler, IAssignableDamage
 	{
 		void Start(){
 			EnoughGold (280f, () => {
@@ -28,6 +28,24 @@ namespace Mob
 		public override bool Upgrade(){
 			return false;
 		}
+
+		#region IMissingHandler implementation
+
+		public void HandleMissing (float accuracy, Race target)
+		{
+			own.GetModule<StatModule> (stat => stat.technique += 1f);
+		}
+
+		#endregion
+
+		#region IAssignableDamage implementation
+
+		public float AssignDamage ()
+		{
+			return 120f;
+		}
+
+		#endregion
 	}
 }
 

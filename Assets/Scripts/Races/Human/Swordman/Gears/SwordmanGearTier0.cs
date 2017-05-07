@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public class Tier0 : Gear
+	public class SwordmanGearTier0 : Gear
 	{
 		void Start(){
 			own.GetModule<StatModule> (s => {
@@ -15,7 +15,7 @@ namespace Mob
 
 		public override bool Upgrade(){
 			return EnoughGold (80f, () => {
-				InstantiateFromMonoResource<Tier1> ("Races/Human/Swordman/Gears/Tier1");
+				InstantiateFromMonoResource<SwordmanGearTier1> ("Races/Human/Swordman/Gears/Tier1");
 				Destroy(gameObject);
 			});
 		}

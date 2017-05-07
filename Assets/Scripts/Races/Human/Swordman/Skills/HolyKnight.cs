@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public class HolyKnight : Affect
+	public class HolyKnight : Affect, IAccurate
 	{
 		int _level = 16;
 		float _energy = 12f;
@@ -39,6 +39,12 @@ namespace Mob
 			});
 		}
 		
+		#region IAccurate implementation
+		public float HandleAccuracy (Race target)
+		{
+			return 1f;
+		}
+		#endregion
 	}
 }
 

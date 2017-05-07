@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Mob
 {
-	public class Slash : Affect 
+	public class Slash : Affect
 	{
 		int _level = 1;
 		float _energy = 4f;
@@ -16,39 +16,57 @@ namespace Mob
 			EnoughLevel (_level, () => {
 				var stat = own.GetModule<StatModule> ();
 				var ownDamage = stat.damage;
-				var attackDamage = HasAffect<Tier1>(own) 
-					|| HasAffect<Tier2>(own) 
-					|| HasAffect<Tier3>(own) ? 120f : _attackDamage;
-				var baseDamage = ownDamage * _attackDamage / 100f;
+				var attackDamage = _attackDamage;
+
+				// Assign damage
+				AttackPowerCalculator.AssignDamage(ref attackDamage, own);
+
+				var baseDamage = ownDamage * attackDamage / 100f;
 
 				foreach (var target in targets) {
 					var targetStat = target.GetModule<StatModule> ();
-					var accuracy = HasAffect<HolyKnight>(own) ? 1f : AccuracyCalculator.ToPercent (stat.technique, targetStat.technique);
-					if(HasAffect<BurstStrength>(own)){
-						var burstStrength = GetAffects<BurstStrength>(own)[0];
-						burstStrength.use = true;
-						accuracy = 1f;
-					}
+					var accuracy = AccuracyCalculator.ToPercent (stat.technique, targetStat.technique);
+
+					// Extra accuracy
+					AccuracyCalculator.HandleAccuracy(ref accuracy, own, target);
+
+					// Dodge chance
+					AccuracyCalculator.DodgeChance(ref accuracy, own, target);
+
 					if (accuracy > 0f) {
-						var dogde = 0f;
-						if(HasAffect<Speedy>(target)){
-							var speedy = GetAffects<Speedy>(target)[0];
-							speedy.use = true;
-							dogde = targetStat.resistance * .75f;
-						}
-						var damage = AttackPowerCalculator.TakeDamage(baseDamage, targetStat.resistance + dogde);
+						var extraResistance = 0f;
+
+						// Extra resistance
+						ResistanceCalculator.HandleResistance(ref extraResistance, own, target);
+
+						// Calculate damage affect on each target
+						var damage = AttackPowerCalculator.TakeDamage(baseDamage, targetStat.resistance + extraResistance);
 						damage *= accuracy;
-						if(HasAffect<Aura1>(own) || HasAffect<Aura2>(own)){
-							if (Mathf.Clamp (accuracy, .7f, 1f) == accuracy) {
-								damage *= 2f;
-							}
+
+						// Handle damage from other
+						AttackPowerCalculator.HandleDamage(ref damage, own, target);
+
+						// Critical damage
+						if(Mathf.Clamp(accuracy, .7f, 1f) == accuracy){
+							GetSubAffects<ICriticalHandler>(own, handler => {
+								damage = Mathf.Max(damage, handler.HandleCriticalDamage(damage, accuracy, target));
+							});
 						}
-						var targetHp = target.GetModule<HealthPowerModule> ();
-						targetHp.SubtractHp (damage);	
+
+						// Subtract HP
+						target.GetModule<HealthPowerModule> (hp => {
+							hp.SubtractHp (damage);	
+						});
+
 						// Add gain point when affect hit
 						AddGainPoint(_gainPoint);
+
+						// Extra attackable affect
+						AttackPowerCalculator.ExtraAttackableAffect(own, target);
+					} else {
+						// Accuracy is zero is miss
+						GetSubAffects<IMissingHandler>(target, handler => handler.HandleMissing(accuracy, own));
 					}
-					// accuracy is zero is miss
 				}
 
 				// Subtract own energy
