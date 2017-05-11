@@ -46,5 +46,14 @@ namespace Mob
 		}
 		#endregion
 	}
+
+	// Item
+	public class HolyKnightSkill: Skill {
+
+		public override void Use (Race[] targets)
+		{
+			Affect.CreatePrimitive<HolyKnight> (own, targets);
+		}
+	}
 }
 

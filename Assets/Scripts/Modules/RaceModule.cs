@@ -4,7 +4,7 @@ namespace Mob
 {
 	public abstract class RaceModule : MonoHandler
 	{
-		protected Race _class 
+		protected Race _race 
 		{
 			get 
 			{

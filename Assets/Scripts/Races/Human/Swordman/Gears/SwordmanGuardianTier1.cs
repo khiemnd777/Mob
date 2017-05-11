@@ -8,10 +8,10 @@ namespace Mob
 		public bool use;
 
 		void Start(){
-			EnoughGold(100f, () => {
-				
-				AddGainPoint(60f);
-			});
+//			EnoughGold(100f, () => {
+//				
+//				AddGainPoint(60f);
+//			});
 		}
 
 		void Update(){

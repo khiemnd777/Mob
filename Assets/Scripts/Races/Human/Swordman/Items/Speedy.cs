@@ -11,10 +11,7 @@ namespace Mob
 				Destroy (gameObject);
 				return;
 			}
-			EnoughGold (40f, () => {
-				AddGainPoint (6f);
-				SubtractGold (40f);
-			});
+			AddGainPoint (6f);
 		}
 
 		void Update(){
@@ -32,6 +29,15 @@ namespace Mob
 		}
 
 		#endregion
+	}
+
+	// Item
+	public class SpeedyItem: Item {
+
+		public override void Use (Race[] targets)
+		{
+			Affect.CreatePrimitive<Speedy> (own, targets);
+		}
 	}
 }
 

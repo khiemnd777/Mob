@@ -4,7 +4,7 @@ namespace Mob
 {
 	public interface IMissingHandler
 	{
-		void HandleMissing(float accuracy, Race target);
+		void HandleMissing(float accuracy, float damage, Race target);
 	}
 }
 

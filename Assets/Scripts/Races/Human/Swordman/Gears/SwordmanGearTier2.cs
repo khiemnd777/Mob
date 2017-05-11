@@ -5,16 +5,17 @@ namespace Mob
 	public class SwordmanGearTier2 : Gear, IMissingHandler, IAssignableDamage
 	{
 		void Start(){
-			EnoughGold (160f, () => {
-				own.GetModule<StatModule> (s => {
-					s.damage += 25f;
-					s.resistance += 16f;
-					s.technique += 12f;
-					s.luck += 6f;
-				});
-				AddGainPoint(80f);
-				SubtractGold(160f);
+			own.GetModule<StatModule> (s => {
+				s.damage += 25f;
+				s.resistance += 16f;
+				s.technique += 12f;
+				s.luck += 6f;
 			});
+			AddGainPoint(80f);
+//			EnoughGold (160f, () => {
+//				
+//				SubtractGold(160f);
+//			});
 		}
 
 		public override bool Upgrade(){
@@ -26,7 +27,7 @@ namespace Mob
 
 		#region IMissingHandler implementation
 
-		public void HandleMissing (float accuracy, Race target)
+		public void HandleMissing (float accuracy, float damage, Race target)
 		{
 			this.own.GetModule<StatModule> (stat => stat.technique += 1f);
 		}

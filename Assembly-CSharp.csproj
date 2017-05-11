@@ -53,8 +53,10 @@
      <Compile Include="Assets\Scripts\Modules\EnergyModule.cs" />
      <Compile Include="Assets\Scripts\Modules\GoldModule.cs" />
      <Compile Include="Assets\Scripts\Modules\HealthPowerModule.cs" />
+     <Compile Include="Assets\Scripts\Modules\InventoryModule.cs" />
      <Compile Include="Assets\Scripts\Modules\LevelModule.cs" />
      <Compile Include="Assets\Scripts\Modules\RaceModule.cs" />
+     <Compile Include="Assets\Scripts\Modules\SkillModule.cs" />
      <Compile Include="Assets\Scripts\Modules\StatModule.cs" />
      <Compile Include="Assets\Scripts\MonoHandler.cs" />
      <Compile Include="Assets\Scripts\Probability.cs" />
@@ -73,8 +75,11 @@
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanGuardianTier1.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanGuardianTier2.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\Antidote.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\BlessingOfAmphitrite.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\BurstStrength.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\GaiaCell.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\GreatPotion.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\HeartOfHestia.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\Potion.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\Speedy.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Distract.cs" />
@@ -83,6 +88,7 @@
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Riptide.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Slash.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Swordman.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Treasures\TreasureTier1.cs" />
      <Compile Include="Assets\Scripts\Races\LevelCalculator.cs" />
      <Compile Include="Assets\Scripts\Races\Orc\Orc.cs" />
      <Compile Include="Assets\Scripts\Races\Race.cs" />
@@ -97,7 +103,24 @@
      <Compile Include="Assets\Scripts\Races\Shared\IMissingHandler.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\INegativeAffect.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\IResistant.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\IRestorableHealthPower.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Item.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Items\BurnAffect.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Items\DamageDealing.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Items\EnergyAdding.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Items\GoldAdding.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Items\HealthPowerRestoring.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Items\NegativeAffectDissolving.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Items\NegativeAffectDissolvingAndHealthPowerRestoring.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Items\StatDamageAdding.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Items\StatLuckAdding.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Items\StatResistanceAdding.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Items\StatTechniqueAdding.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Items\StunAffect.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Items\StunAffectAndDamageDealing.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Skill.cs" />
      <Compile Include="Assets\Scripts\Races\StatCalculator.cs" />
+     <Compile Include="Assets\Scripts\UI\Inventory.cs" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>

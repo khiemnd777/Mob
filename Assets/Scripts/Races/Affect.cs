@@ -11,6 +11,7 @@ namespace Mob
 
 		public Race own;
 		public Race[] targets;
+		public bool free;
 
 		protected void AddGainPoint(float gainPoint){
 			own.AddGainPoint (gainPoint);
@@ -23,6 +24,8 @@ namespace Mob
 		}
 
 		protected void SubtractGold(float gold){
+			if (free)
+				return;
 			own.GetModule<GoldModule> ((g) => {
 				g.SubtractGold(gold);
 			});
@@ -33,7 +36,7 @@ namespace Mob
 			own.GetModule<GoldModule> ((g) => {
 				enough = g.gold >= gold;
 			});
-			return enough;
+			return enough || free;
 		}
 
 		protected void ExecuteInTurn(Race who, Action predicate){
@@ -89,19 +92,37 @@ namespace Mob
 			return result;
 		}
 
-		public static void Create<T>(string resource, Race own, Race target) where T : Affect{
-			Create<T> (resource, own, new Race[]{ target });
+		public static void Create<T>(string resource, Race own, Race target, Action<T> predicate = null) where T : Affect {
+			Create<T> (resource, own, new Race[]{ target }, predicate);
 		}
 
-		public static void Create<T>(string resource, Race own, Race[] targets) where T : Affect{
+		public static void Create<T>(string resource, Race own, Race[] targets, Action<T> predicate = null) where T : Affect {
 			var a = GetMonoResource<T> (resource);
-			Create<T> (a, own, targets);
+			Create<T> (a, own, targets, predicate);
 		}
 
-		public static void Create<T>(T affect, Race own, Race[] targets) where T : Affect{
+		public static void Create<T>(T affect, Race own, Race[] targets, Action<T> predicate = null) where T : Affect {
 			var a = Instantiate<T>(affect);
 			a.own = own;
 			a.targets = targets;
+			if (predicate != null) {
+				predicate.Invoke (a);
+			}
+			foreach (var target in a.targets) {
+				target.GetModule<AffectModule> ((am) => {
+					am.AddAffect(a);
+				});
+			}
+		}
+
+		public static void CreatePrimitive<T>(Race own, Race[] targets, Action<T> predicate = null) where T: Affect {
+			var go = new GameObject (typeof(T).Name, typeof(T));
+			var a = go.GetComponent<T> ();
+			a.own = own;
+			a.targets = targets;
+			if (predicate != null) {
+				predicate.Invoke (a);
+			}
 			foreach (var target in a.targets) {
 				target.GetModule<AffectModule> ((am) => {
 					am.AddAffect(a);

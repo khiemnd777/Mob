@@ -27,7 +27,7 @@ namespace Mob
 			int up;
 			LevelCalculator.maxLevel = maxLevel;
 			LevelCalculator.seed = seed;
-			_dynamicLevel = LevelCalculator.Up (_class.gainPoint, level, out up);
+			_dynamicLevel = LevelCalculator.Up (_race.gainPoint, level, out up);
 			if (_dynamicLevel > level) {
 				level = _dynamicLevel;
 				upLevel = up;

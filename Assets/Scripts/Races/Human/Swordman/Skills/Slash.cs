@@ -65,7 +65,8 @@ namespace Mob
 						AttackPowerCalculator.ExtraAttackableAffect(own, target);
 					} else {
 						// Accuracy is zero is miss
-						GetSubAffects<IMissingHandler>(target, handler => handler.HandleMissing(accuracy, own));
+						var damage = AttackPowerCalculator.TakeDamage(baseDamage, targetStat.resistance);
+						GetSubAffects<IMissingHandler>(target, handler => handler.HandleMissing(accuracy, damage, own));
 					}
 				}
 
@@ -75,6 +76,15 @@ namespace Mob
 
 				Destroy (gameObject);	
 			});
+		}
+	}
+
+	// Item
+	public class SlashSkill: Skill {
+
+		public override void Use (Race[] targets)
+		{
+			Affect.CreatePrimitive<Slash> (own, targets);
 		}
 	}
 }

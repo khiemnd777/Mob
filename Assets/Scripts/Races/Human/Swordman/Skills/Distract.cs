@@ -25,5 +25,14 @@ namespace Mob
 			});
 		}
 	}
+
+	// Item
+	public class DistractSkill: Skill {
+
+		public override void Use (Race[] targets)
+		{
+			Affect.CreatePrimitive<Distract> (own, targets);
+		}
+	}
 }
 

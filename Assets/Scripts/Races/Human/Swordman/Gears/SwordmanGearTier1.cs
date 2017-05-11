@@ -5,16 +5,17 @@ namespace Mob
 	public class SwordmanGearTier1 : Gear, IAssignableDamage
 	{
 		void Start(){
-			EnoughGold (80f, () => {
-				own.GetModule<StatModule> (s => {
-					s.damage += 15f;
-					s.resistance += 10f;
-					s.technique += 8f;
-					s.luck += 4f;
-				});
-				AddGainPoint(40f);
-				SubtractGold(80f);
+			own.GetModule<StatModule> (s => {
+				s.damage += 15f;
+				s.resistance += 10f;
+				s.technique += 8f;
+				s.luck += 4f;
 			});
+			AddGainPoint(40f);
+//			EnoughGold (80f, () => {
+//				
+//				SubtractGold(80f);
+//			});
 		}
 
 		public override bool Upgrade(){

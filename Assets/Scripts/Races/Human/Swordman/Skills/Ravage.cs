@@ -61,9 +61,6 @@ namespace Mob
 							hp.SubtractHp (damage);	
 						});
 
-						// Add stunt affect
-						Affect.Create<StuntAffect>("Affects/StuntAffect", own, target);
-
 						// Add gain point when affect hit
 						AddGainPoint(_gainPoint);
 
@@ -73,7 +70,8 @@ namespace Mob
 					// accuracy is zero is miss
 					else{
 						// Accuracy is zero is miss
-						GetSubAffects<IMissingHandler>(target, handler => handler.HandleMissing(accuracy, own));
+						var damage = AttackPowerCalculator.TakeDamage(baseDamage, targetStat.resistance);
+						GetSubAffects<IMissingHandler>(target, handler => handler.HandleMissing(accuracy, damage, own));
 					}
 				}
 
@@ -82,6 +80,15 @@ namespace Mob
 
 				Destroy (gameObject);
 			});
+		}
+	}
+
+	// Item
+	public class RavageSkill: Skill {
+
+		public override void Use (Race[] targets)
+		{
+			Affect.CreatePrimitive<Ravage> (own, targets);
 		}
 	}
 }

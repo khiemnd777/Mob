@@ -62,12 +62,6 @@ namespace Mob
 		// Gain point
 		public float gainPoint;
 
-//		public float gainPoint{
-//			get {
-//				return _gainPoint;
-//			}
-//		}
-
 		public void AddGainPoint(float p){
 			gainPoint += p;
 		}
@@ -85,7 +79,19 @@ namespace Mob
 		bool _isAttack;
 		public void AllowAttack(bool allow)
 		{
-			_isAttack = allow;	
+			_isAttack = allow;
+		}
+
+		bool _isBuy;
+		public void AllowBuy(bool allow)
+		{
+			_isBuy = allow;
+		}
+
+		bool _isUpgrade;
+		public void AllowUpgrade(bool allow)
+		{
+			_isUpgrade = allow;
 		}
 
 		public abstract void Attack();

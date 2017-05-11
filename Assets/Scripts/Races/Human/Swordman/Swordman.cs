@@ -21,10 +21,6 @@ namespace Mob
 				// HP
 				_hp.SetMaxHp(upLevel);
 			};
-			var player1 = FindWithPlayerId(Constants.PLAYER1);
-			var player2 = FindWithPlayerId (Constants.PLAYER2);
-//			Affect.Create<PunchAffect> ("Affects/PunchAffect", player1[0], player1);
-			Affect.Create<Slash>("Races/Human/Swordman/Skills/Slash", player1[0], player2);
 		}
 
 		public override void DefaultValue ()
@@ -55,6 +51,24 @@ namespace Mob
 			});
 			GetModule<EnergyModule> ((energy) => {
 				energy.maxEnergy = 12f;
+			});
+
+			// Inventory is used to store the items
+			GetModule<InventoryModule> (inventory => {
+				inventory.Add<SpeedyItem>(99);
+				inventory.Add<PotionItem>(99);
+				inventory.Add<GreatPotionItem>(99);
+				inventory.Add<BurstStrengthItem>(99);
+				inventory.Add<AntidoteItem>(99);
+			});
+
+			// Skill is used to store the skills
+			GetModule<SkillModule> (skill => {
+				skill.Add<SlashSkill>(1, 1f);
+				skill.Add<RiptideSkill>(1, 3f);
+				skill.Add<RavageSkill>(1, 1f);
+				skill.Add<DistractSkill>(1, 2f);
+				skill.Add<HolyKnightSkill>(1, 4f);
 			});
 		}
 
