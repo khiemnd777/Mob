@@ -23,9 +23,29 @@ namespace Mob
 
 	public class BlessingOfAmphitriteItem: Item
 	{
+		public override string title {
+			get {
+				return "Blessing of Amphitrite";
+			}
+		}
+
 		public override void Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<BlessingOfAmphitrite> (own, targets);
+		}
+	}
+
+	public class BlessingOfAmphitriteBoughtItem: BoughtItem 
+	{
+		public override string title {
+			get {
+				return "Blessing of Amphitrite";
+			}
+		}
+
+		public override void Buy (Race who, float price, int quantity)
+		{
+			Buy<BlessingOfAmphitriteItem> (who, price, quantity);
 		}
 	}
 }

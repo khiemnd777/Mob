@@ -14,11 +14,8 @@ namespace Mob
 					if(turn == 1){
 						AddGainPoint(_gainPoint);
 
-						// Subtract own energy
-						SubtractEnergy(_energy);
-
 						own.AllowAttack (false);
-					} else if( turn > 4){
+					} else if( turn > 4) {
 						Destroy(gameObject);
 					}
 				});
@@ -29,9 +26,30 @@ namespace Mob
 	// Item
 	public class DistractSkill: Skill {
 
+		public override int level {
+			get {
+				return 8;
+			}
+		}
+
+		public override float energy {
+			get {
+				return 3f;
+			}
+		}
+
+		public override string title {
+			get {
+				return "Distract";
+			}
+		}
+
 		public override void Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<Distract> (own, targets);
+			if (EnoughLevel () && EnoughEnergy ()) {
+				Affect.CreatePrimitive<Distract> (own, targets);
+				SubtractEnergy();
+			}
 		}
 	}
 }

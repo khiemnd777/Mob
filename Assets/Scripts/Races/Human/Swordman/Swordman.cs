@@ -2,26 +2,31 @@
 
 namespace Mob
 {
-	public class Swordman : Human
+	public class Swordman : Human, ILevelUpEventHandler
 	{
-		LevelModule _level;
 		StatModule _stat;
 		HealthPowerModule _hp;
 
 		void Start(){
 			_stat = GetModule<StatModule>();
 			_hp = GetModule<HealthPowerModule> ();
-			_level = GetModule<LevelModule>();
-			_level.OnLevelUp += (level, upLevel) => {
-				// Stat
-				_stat.AllowAddPoint(true);
-				var point = StatCalculator.GeneratePoint(upLevel, _stat.initPoint);
-				_stat.SetPoint(point);
-
-				// HP
-				_hp.SetMaxHp(upLevel);
-			};
 		}
+
+		#region ILevelUpEventHandler implementation
+
+		public void OnLevelUp (int level, int levelUp)
+		{
+			// Stat
+			_stat.AllowAddPoint(true);
+			var point = StatCalculator.GeneratePoint(levelUp, _stat.initPoint);
+			_stat.SetPoint(point);
+			// HP
+			_hp.SetMaxHp(levelUp);
+			// Treasures
+			BattleController.treasure = Treasure.GetFor(this);
+		}
+
+		#endregion
 
 		public override void DefaultValue ()
 		{
@@ -70,11 +75,6 @@ namespace Mob
 				skill.Add<DistractSkill>(1, 2f);
 				skill.Add<HolyKnightSkill>(1, 4f);
 			});
-		}
-
-		public override void Attack ()
-		{
-			
 		}
 
 		public override void BuyItem ()

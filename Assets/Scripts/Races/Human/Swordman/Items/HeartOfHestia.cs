@@ -34,9 +34,29 @@ namespace Mob
 
 	public class HeartOfHestiaItem: Item
 	{
+		public override string title {
+			get {
+				return "Heart of Hestia";
+			}
+		}
+
 		public override void Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<HeartOfHestia> (own, targets);
+		}
+	}
+
+	public class HeartOfHestiaBoughtItem: BoughtItem 
+	{
+		public override string title {
+			get {
+				return "Heart of Hestia";
+			}
+		}
+
+		public override void Buy (Race who, float price, int quantity)
+		{
+			Buy<HeartOfHestiaItem> (who, price, quantity);
 		}
 	}
 }

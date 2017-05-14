@@ -14,9 +14,33 @@ namespace Mob
 
 	public class GoldAddingItem: Item
 	{
+		public override string title {
+			get {
+				return "+" + extraGold + " gold";
+			}
+		}
+
+		public float extraGold;
+
 		public override void Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<GoldAdding> (own, targets);
+			Affect.CreatePrimitive<GoldAdding> (own, targets, g => g.extraGold = extraGold);
+		}
+	}
+
+	public class GoldAddingBoughtItem: BoughtItem
+	{
+		public override string title {
+			get {
+				return "+" + extraGold + " gold";
+			}
+		}
+
+		public float extraGold;
+
+		public override void Buy (Race who, float price, int quantity)
+		{
+			Buy<GoldAddingItem> (who, price, quantity, e => e.extraGold = extraGold);
 		}
 	}
 }

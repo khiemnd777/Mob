@@ -22,9 +22,6 @@ namespace Mob
 						// Add gain point
 						AddGainPoint(_gainPoint);
 
-						// Subtract own energy
-						SubtractEnergy(_energy);
-
 					} else if (turn > 3) {
 						// decrease 5pt for all stats after using in 3 times
 						stat.damage -= 5f;
@@ -49,10 +46,30 @@ namespace Mob
 
 	// Item
 	public class HolyKnightSkill: Skill {
+		public override string title {
+			get {
+				return "Holy knight";
+			}
+		}
+
+		public override int level {
+			get {
+				return 16;
+			}
+		}
+
+		public override float energy {
+			get {
+				return 12f;
+			}
+		}
 
 		public override void Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<HolyKnight> (own, targets);
+			if (EnoughLevel () && EnoughEnergy ()) {
+				Affect.CreatePrimitive<HolyKnight> (own, targets);
+				SubtractEnergy();
+			}
 		}
 	}
 }

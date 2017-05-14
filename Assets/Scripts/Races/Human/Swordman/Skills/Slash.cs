@@ -70,10 +70,6 @@ namespace Mob
 					}
 				}
 
-				// Subtract own energy
-				var energy = HasAffect<Distract>(own) ? 2f : _energy;
-				SubtractEnergy(energy);
-
 				Destroy (gameObject);	
 			});
 		}
@@ -81,10 +77,33 @@ namespace Mob
 
 	// Item
 	public class SlashSkill: Skill {
+		
+		public override string title {
+			get {
+				return "Slash";
+			}
+		}
+
+		public override int level {
+			get {
+				return 1;
+			}
+		}
+
+		public override float energy {
+			get {
+				return 4f;
+			}
+		}
 
 		public override void Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<Slash> (own, targets);
+			if (EnoughLevel () && EnoughEnergy ()) {
+				Affect.CreatePrimitive<Slash> (own, targets);
+
+				var energy = Affect.HasAffect<Distract>(own) ? 2f : this.energy;
+				SubtractEnergy(energy);
+			}
 		}
 	}
 }

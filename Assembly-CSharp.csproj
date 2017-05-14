@@ -46,9 +46,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BattleController.cs" />
      <Compile Include="Assets\Scripts\Constants.cs" />
      <Compile Include="Assets\Scripts\Extensions\TypeExtensions.cs" />
-     <Compile Include="Assets\Scripts\Init.cs" />
+     <Compile Include="Assets\Scripts\Main.cs" />
      <Compile Include="Assets\Scripts\Modules\AffectModule.cs" />
      <Compile Include="Assets\Scripts\Modules\EnergyModule.cs" />
      <Compile Include="Assets\Scripts\Modules\GoldModule.cs" />
@@ -88,12 +89,13 @@
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Riptide.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Slash.cs" />
      <Compile Include="Assets\Scripts\Races\Human\Swordman\Swordman.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Treasures\TreasureTier1.cs" />
+     <Compile Include="Assets\Scripts\Races\Human\Swordman\Treasures\Treasure.cs" />
      <Compile Include="Assets\Scripts\Races\LevelCalculator.cs" />
      <Compile Include="Assets\Scripts\Races\Orc\Orc.cs" />
      <Compile Include="Assets\Scripts\Races\Race.cs" />
      <Compile Include="Assets\Scripts\Races\ResistanceCalculator.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\Affects\StuntAffect.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Boughttem.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\IAccurate.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\IAssignableDamage.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\IAttackableAffect.cs" />
@@ -121,6 +123,9 @@
      <Compile Include="Assets\Scripts\Races\Shared\Skill.cs" />
      <Compile Include="Assets\Scripts\Races\StatCalculator.cs" />
      <Compile Include="Assets\Scripts\UI\Inventory.cs" />
+     <Compile Include="Assets\Scripts\UI\ItemList.cs" />
+     <Compile Include="Assets\Scripts\UI\SkillList.cs" />
+     <Compile Include="Assets\Scripts\UI\TreasureList.cs" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>

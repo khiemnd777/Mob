@@ -11,7 +11,6 @@ namespace Mob
 
 		public Race own;
 		public Race[] targets;
-		public bool free;
 
 		protected void AddGainPoint(float gainPoint){
 			own.AddGainPoint (gainPoint);
@@ -24,8 +23,6 @@ namespace Mob
 		}
 
 		protected void SubtractGold(float gold){
-			if (free)
-				return;
 			own.GetModule<GoldModule> ((g) => {
 				g.SubtractGold(gold);
 			});
@@ -36,7 +33,7 @@ namespace Mob
 			own.GetModule<GoldModule> ((g) => {
 				enough = g.gold >= gold;
 			});
-			return enough || free;
+			return enough;
 		}
 
 		protected void ExecuteInTurn(Race who, Action predicate){

@@ -7,11 +7,7 @@ namespace Mob
 {
 	public class SkillModule : RaceModule
 	{
-		public List<Skill> skills;
-
-		void Start(){
-			skills = new List<Skill>();
-		}
+		public List<Skill> skills = new List<Skill>();
 
 		public void Add<T>(int quantity, float cooldown) where T: Skill{
 			if (!skills.Any (x => x.GetType().IsEqual<T> ())) {
@@ -30,6 +26,16 @@ namespace Mob
 
 			if (item.quantity == 0) {
 				item.quantity = 1;
+				return;
+			}
+		}
+
+		public void Use(Skill skill, Race[] targets){
+			skill.Use(targets);
+			--skill.quantity;
+
+			if (skill.quantity == 0) {
+				skill.quantity = 1;
 				return;
 			}
 		}

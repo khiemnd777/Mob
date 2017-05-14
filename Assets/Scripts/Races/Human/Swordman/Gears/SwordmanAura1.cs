@@ -35,5 +35,21 @@ namespace Mob
 
 		#endregion
 	}
+
+	public class SwordmanAura1Item: Item
+	{
+		public override void Use (Race[] targets)
+		{
+			Affect.CreatePrimitive<SwordmanAura1> (own, targets);
+		}
+	}
+
+	public class SwordmanAura1BoughtItem: BoughtItem
+	{
+		public override void Buy (Race who, float price, int quantity)
+		{
+			Buy<SwordmanAura1Item> (who, price, quantity);
+		}
+	}
 }
 

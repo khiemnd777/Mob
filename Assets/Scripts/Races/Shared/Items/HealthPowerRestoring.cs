@@ -24,9 +24,33 @@ namespace Mob
 
 	public class HealthPowerRestoringItem: Item
 	{
+		public override string title {
+			get {
+				return "+" + extraHp + " HP";
+			}
+		}
+
+		public float extraHp;
+
 		public override void Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<HealthPowerRestoring> (own, targets);
+			Affect.CreatePrimitive<HealthPowerRestoring> (own, targets, hp => hp.extraHp = extraHp);
+		}
+	}
+
+	public class HealthPowerRestoringBoughtItem: BoughtItem
+	{
+		public override string title {
+			get {
+				return "+" + extraHp + " HP";
+			}
+		}
+
+		public float extraHp;
+
+		public override void Buy (Race who, float price, int quantity)
+		{
+			Buy<HealthPowerRestoringItem> (who, price, quantity, e => e.extraHp = extraHp);
 		}
 	}
 }

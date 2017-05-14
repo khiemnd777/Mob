@@ -23,9 +23,29 @@ namespace Mob
 
 	public class GaiaCellItem: Item
 	{
+		public override string title {
+			get {
+				return "Gaia's cell";
+			}
+		}
+
 		public override void Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<GaiaCell> (own, targets);
+		}
+	}
+
+	public class GaiaCellBoughtItem: BoughtItem 
+	{
+		public override string title {
+			get {
+				return "Gaia's cell";
+			}
+		}
+
+		public override void Buy (Race who, float price, int quantity)
+		{
+			Buy<GaiaCellItem> (who, price, quantity);
 		}
 	}
 }

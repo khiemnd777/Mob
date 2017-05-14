@@ -15,9 +15,29 @@ namespace Mob
 
 	public class NegativeAffectDissolvingItem: Item
 	{
+		public override string title {
+			get {
+				return "Dissolve all negative affects";
+			}
+		}
+
 		public override void Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<NegativeAffectDissolving> (own, targets);
+		}
+	}
+
+	public class NegativeAffectDissolvingBoughtItem: BoughtItem
+	{
+		public override string title {
+			get {
+				return "Dissolve all negative affects";
+			}
+		}
+
+		public override void Buy (Race who, float price, int quantity)
+		{
+			Buy<NegativeAffectDissolvingItem> (who, price, quantity);
 		}
 	}
 }

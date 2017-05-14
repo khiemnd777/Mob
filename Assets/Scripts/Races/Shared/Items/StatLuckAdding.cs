@@ -14,10 +14,34 @@ namespace Mob
 
 	public class StatLuckAddingItem: Item
 	{
+		public override string title {
+			get {
+				return "+" + extraLuck + " stat luck";
+			}
+		}
+
+		public float extraLuck;
+
 		public override void Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<StatLuckAdding> (own, targets);
+			Affect.CreatePrimitive<StatLuckAdding> (own, targets, l => l.extraLuck = extraLuck);
 		}	
+	}
+
+	public class StatLuckAddingBoughtItem: BoughtItem
+	{
+		public override string title {
+			get {
+				return "+" + extraLuck + " stat luck";
+			}
+		}
+
+		public float extraLuck;
+
+		public override void Buy (Race who, float price, int quantity)
+		{
+			Buy<StatLuckAddingItem> (who, price, quantity, e => e.extraLuck = extraLuck);
+		}
 	}
 }
 

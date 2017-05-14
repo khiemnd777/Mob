@@ -16,9 +16,24 @@ namespace Mob
 	// Item
 	public class AntidoteItem: Item {
 		
+		public override string title {
+			get {
+				return "Antidote";
+			}
+		}
+
 		public override void Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<Antidote> (own, targets);
+		}
+	}
+
+	public class AntidoteBoughtItem: BoughtItem 
+	{
+
+		public override void Buy (Race who, float price, int quantity)
+		{
+			Buy<AntidoteItem> (who, price, quantity);
 		}
 	}
 }

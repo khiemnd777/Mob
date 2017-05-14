@@ -20,5 +20,21 @@ namespace Mob
 			});
 		}
 	}
+
+	public class SwordmanGearTier0Item: Item
+	{
+		public override void Use (Race[] targets)
+		{
+			Affect.CreatePrimitive<SwordmanGearTier0> (own, targets);
+		}
+	}
+
+	public class SwordmanGearTier0BoughtItem: BoughtItem
+	{
+		public override void Buy (Race who, float price, int quantity)
+		{
+			Buy<SwordmanGearTier0Item> (who, price, quantity);
+		}
+	}
 }
 

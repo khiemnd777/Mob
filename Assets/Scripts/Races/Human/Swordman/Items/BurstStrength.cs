@@ -33,10 +33,24 @@ namespace Mob
 
 	// Item
 	public class BurstStrengthItem: Item {
+		
+		public override string title {
+			get {
+				return "Burst strength";
+			}
+		}
 
 		public override void Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<BurstStrength> (own, targets);
+		}
+	}
+
+	public class BurstStrengthBoughtItem: BoughtItem 
+	{
+		public override void Buy (Race who, float price, int quantity)
+		{
+			Buy<BurstStrengthItem> (who, price, quantity);
 		}
 	}
 }

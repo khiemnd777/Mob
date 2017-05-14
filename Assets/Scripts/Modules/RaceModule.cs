@@ -12,9 +12,23 @@ namespace Mob
 			}
 		}
 
-		public T GetModule<T>() where T : RaceModule
+		public T GetModule<T>(System.Action<T> predicate = null) where T : RaceModule
 		{
-			return GetComponent<T> ();	
+			var module = GetComponent<T> ();	
+			if (predicate != null) {
+				predicate.Invoke (module);
+			}
+			return module;
+		}
+
+		public T[] GetModules<T>(System.Action<T> predicate = null){
+			var modules = GetComponents<T>();
+			foreach (var module in modules) {
+				if (predicate != null) {
+					predicate.Invoke (module);
+				}
+			}
+			return modules;
 		}
 	}
 }

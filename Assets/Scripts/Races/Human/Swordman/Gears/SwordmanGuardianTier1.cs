@@ -61,5 +61,21 @@ namespace Mob
 
 		#endregion
 	}
+
+	public class SwordmanGuardianTier1Item: Item
+	{
+		public override void Use (Race[] targets)
+		{
+			Affect.CreatePrimitive<SwordmanGuardianTier1> (own, targets);
+		}
+	}
+
+	public class SwordmanGuardianTier1BoughtItem: BoughtItem
+	{
+		public override void Buy (Race who, float price, int quantity)
+		{
+			Buy<SwordmanGuardianTier1Item> (who, price, quantity);
+		}
+	}
 }
 

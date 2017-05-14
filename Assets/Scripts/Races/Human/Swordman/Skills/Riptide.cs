@@ -75,9 +75,6 @@ namespace Mob
 					}
 				}
 
-				// Subtract own energy
-				SubtractEnergy(_energy);
-
 				Destroy (gameObject);
 			});
 		}
@@ -85,10 +82,31 @@ namespace Mob
 
 	// Item
 	public class RiptideSkill: Skill {
+		
+		public override string title {
+			get {
+				return "Riptide";
+			}
+		}
+
+		public override int level {
+			get {
+				return 12;
+			}
+		}
+
+		public override float energy {
+			get {
+				return 6f;
+			}
+		}
 
 		public override void Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<Riptide> (own, targets);
+			if (EnoughLevel () && EnoughEnergy ()) {
+				Affect.CreatePrimitive<Riptide> (own, targets);
+				SubtractEnergy();
+			}
 		}
 	}
 }

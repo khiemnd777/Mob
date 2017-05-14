@@ -33,10 +33,24 @@ namespace Mob
 
 	// Item
 	public class SpeedyItem: Item {
+		
+		public override string title {
+			get {
+				return "Speedy";
+			}
+		}
 
 		public override void Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<Speedy> (own, targets);
+		}
+	}
+
+	public class SpeedyBoughtItem: BoughtItem 
+	{
+		public override void Buy (Race who, float price, int quantity)
+		{
+			Buy<SpeedyItem> (who, price, quantity);
 		}
 	}
 }

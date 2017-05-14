@@ -7,8 +7,6 @@ namespace Mob
 {
 	public class LevelModule : RaceModule 
 	{
-		public event Action<int, int> OnLevelUp;
-
 		// Level
 		public int level;
 
@@ -31,11 +29,16 @@ namespace Mob
 			if (_dynamicLevel > level) {
 				level = _dynamicLevel;
 				upLevel = up;
-				if (OnLevelUp != null) {
-					OnLevelUp.Invoke (level, upLevel);
-				}
+
+				GetModules<ILevelUpEventHandler> (x => {
+					x.OnLevelUp(level, upLevel);
+				});
 			}
 		}
 	}
-		
+
+	public interface ILevelUpEventHandler
+	{
+		void OnLevelUp(int level, int levelUp);
+	}
 }

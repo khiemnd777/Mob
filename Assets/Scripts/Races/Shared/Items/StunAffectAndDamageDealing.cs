@@ -21,5 +21,45 @@ namespace Mob
 			}
 		}
 	}
+
+	public class StunAffectAndDamageDealingItem: Item
+	{
+		public override string title {
+			get {
+				return "Stun in" + turnNumber + " turn and take " + damage + " damage";
+			}
+		}
+
+		public int turnNumber = 1;
+		public float damage = 30f;
+
+		public override void Use (Race[] targets)
+		{
+			Affect.CreatePrimitive<StunAffectAndDamageDealing> (own, targets, x => {
+				x.turnNumber = turnNumber;
+				x.damage = damage;
+			});
+		}
+	}
+
+	public class StunAffectAndDamageDealingBoughtItem: BoughtItem
+	{
+		public override string title {
+			get {
+				return "Stun in" + turnNumber + " turn and take " + damage + " damage";
+			}
+		}
+
+		public int turnNumber = 1;
+		public float damage = 30f;
+
+		public override void Buy (Race who, float price, int quantity)
+		{
+			Buy<StunAffectAndDamageDealingItem> (who, price, quantity, e => {
+				e.damage = damage;
+				e.turnNumber = turnNumber;
+			});
+		}
+	}
 }
 

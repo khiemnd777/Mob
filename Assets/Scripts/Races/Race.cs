@@ -8,12 +8,16 @@ namespace Mob
 {
 	public abstract class Race : MonoHandler
 	{
-		public static Race[] FindWithPlayerId(string playerId){
-			var go = GameObject.FindGameObjectsWithTag (playerId);
-			if(go.Length == 0)
-				return new Race[0];
+		public static Race[] FindWithPlayerId(params string[] playerId){
+			var list = new List<GameObject> ();
+			foreach (var pid in playerId) {
+				var go = GameObject.FindGameObjectsWithTag (pid);
+				if (go.Length > 0) {
+					list.AddRange (go);
+				}
+			}
 
-			return go
+			return list
 				.Select (x => x.GetComponent<Race> ())
 				.ToArray();
 		}
@@ -32,6 +36,7 @@ namespace Mob
 		#region Turn base
 
 		protected bool _isTurn;
+		protected int turnNumber;
 
 		public bool isTurn {
 			get {
@@ -76,29 +81,68 @@ namespace Mob
 			
 		}
 
-		bool _isAttack;
+		protected bool _enableAttack;
 		public void AllowAttack(bool allow)
 		{
-			_isAttack = allow;
+			_enableAttack = allow;
 		}
 
-		bool _isBuy;
+		protected bool _enableBuy;
 		public void AllowBuy(bool allow)
 		{
-			_isBuy = allow;
+			_enableBuy = allow;
 		}
 
-		bool _isUpgrade;
+		protected bool _enableUpgrade;
 		public void AllowUpgrade(bool allow)
 		{
-			_isUpgrade = allow;
+			_enableUpgrade = allow;
 		}
 
-		public abstract void Attack();
+		public Skill[] GetAvailableSkills(){
+			var skills = new Skill[0];
+			GetModule<SkillModule> (x => {
+				skills = x.skills.ToArray();
+			});
+			return skills;
+		}
 
-		public abstract void BuyItem ();
+		public virtual void Attack(Race[] targets, Skill skill){
+			if (!_enableAttack)
+				return;
+			skill.Use (targets);
+		}
 
-		public abstract void Upgrade ();
+		public virtual void Attack<T>(Race[] targets){
+			if (!_enableAttack)
+				return;
+			GetModule<SkillModule> (x => x.Use<T> (targets));
+		}
+
+		public virtual void BuyItem (){
+			
+		}
+
+		public virtual void Upgrade (){
+			
+		}
+
+		public virtual void StartTurn(){
+			_isTurn = true;
+			_isEndTurn = false;
+			turnNumber++;
+		}
+
+		protected bool _isEndTurn;
+		public bool isEndTurn{
+			get{
+				return _isEndTurn;
+			}
+		}
+		public virtual void EndTurn(){
+			_isTurn = false;
+			_isEndTurn = true;
+		}
 	}
 }
 
