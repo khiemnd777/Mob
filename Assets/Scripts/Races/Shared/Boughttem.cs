@@ -32,7 +32,7 @@ namespace Mob
 
 		public void Buy<T>(Race who, float price, int quantity, Action<T> predicate = null) where T: Item{
 			EnoughGold (who, price, quantity, () => {
-				who.GetModule<InventoryModule>(i => i.Add<T>(quantity, predicate));
+				who.GetModule<BagModule>(i => i.Add<T>(quantity, predicate));
 				SubtractGold(who, price, quantity);
 			});
 		}

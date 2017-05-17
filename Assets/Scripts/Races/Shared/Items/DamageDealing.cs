@@ -24,9 +24,10 @@ namespace Mob
 
 		public float damage;
 
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<DamageDealing> (own, targets, d => d.damage = damage);
+			return true;
 		}
 	}
 

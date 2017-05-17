@@ -51,10 +51,11 @@
      <Compile Include="Assets\Scripts\Extensions\TypeExtensions.cs" />
      <Compile Include="Assets\Scripts\Main.cs" />
      <Compile Include="Assets\Scripts\Modules\AffectModule.cs" />
+     <Compile Include="Assets\Scripts\Modules\BagModule.cs" />
+     <Compile Include="Assets\Scripts\Modules\CountdownModule.cs" />
      <Compile Include="Assets\Scripts\Modules\EnergyModule.cs" />
      <Compile Include="Assets\Scripts\Modules\GoldModule.cs" />
      <Compile Include="Assets\Scripts\Modules\HealthPowerModule.cs" />
-     <Compile Include="Assets\Scripts\Modules\InventoryModule.cs" />
      <Compile Include="Assets\Scripts\Modules\LevelModule.cs" />
      <Compile Include="Assets\Scripts\Modules\RaceModule.cs" />
      <Compile Include="Assets\Scripts\Modules\SkillModule.cs" />

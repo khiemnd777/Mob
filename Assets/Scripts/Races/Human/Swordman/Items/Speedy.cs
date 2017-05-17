@@ -40,9 +40,10 @@ namespace Mob
 			}
 		}
 
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<Speedy> (own, targets);
+			return true;
 		}
 	}
 

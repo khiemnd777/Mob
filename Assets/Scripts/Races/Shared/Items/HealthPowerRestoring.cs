@@ -32,9 +32,10 @@ namespace Mob
 
 		public float extraHp;
 
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<HealthPowerRestoring> (own, targets, hp => hp.extraHp = extraHp);
+			return true;
 		}
 	}
 

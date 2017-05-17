@@ -64,9 +64,10 @@ namespace Mob
 
 	public class SwordmanGuardianTier1Item: Item
 	{
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<SwordmanGuardianTier1> (own, targets);
+			return true;
 		}
 	}
 

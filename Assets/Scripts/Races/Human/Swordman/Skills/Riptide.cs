@@ -101,12 +101,11 @@ namespace Mob
 			}
 		}
 
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
-			if (EnoughLevel () && EnoughEnergy ()) {
-				Affect.CreatePrimitive<Riptide> (own, targets);
-				SubtractEnergy();
-			}
+			Affect.CreatePrimitive<Riptide> (own, targets);
+			SubtractEnergy();
+			return true;
 		}
 	}
 }

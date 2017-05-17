@@ -9,9 +9,9 @@ namespace Mob
 	{
 		public List<Skill> skills = new List<Skill>();
 
-		public void Add<T>(int quantity, float cooldown) where T: Skill{
+		public void Add<T>(int quantity) where T: Skill{
 			if (!skills.Any (x => x.GetType().IsEqual<T> ())) {
-				skills.Add (Skill.CreatePrimitive<T> (_race, quantity, cooldown));
+				skills.Add (Skill.CreatePrimitive<T> (_race, quantity));
 				return;
 			}
 		}
@@ -31,12 +31,15 @@ namespace Mob
 		}
 
 		public void Use(Skill skill, Race[] targets){
-			skill.Use(targets);
-			--skill.quantity;
+			if (skill.EnoughEnergy () && skill.EnoughLevel () && skill.EnoughCooldown ()) {
+				skill.Use (targets);
+				skill.usedTurn = _race.turnNumber;
+				--skill.quantity;
 
-			if (skill.quantity == 0) {
-				skill.quantity = 1;
-				return;
+				if (skill.quantity == 0) {
+					skill.quantity = 1;
+					return;
+				}
 			}
 		}
 	}

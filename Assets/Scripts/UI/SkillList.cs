@@ -12,11 +12,9 @@ namespace Mob
 		public RectTransform scrollPanel;
 		public RectTransform listItem;
 
-		void Start(){
-			Clear ();
-		}
-
 		public void Clear(){
+			if (scrollPanel == null)
+				return;
 			children = scrollPanel.GetComponentsInChildren<Button> ();
 			foreach (var child in children) {
 				Destroy (child.gameObject);
@@ -33,6 +31,7 @@ namespace Mob
 				var text = item.GetComponentInChildren<Text> ();
 				text.text = name;
 				var btn = item.GetComponent<Button> ();
+				btn.enabled = skill.EnoughEnergy () && skill.EnoughLevel () && skill.EnoughCooldown ();
 				btn.onClick.AddListener(() => {
 					BattleController.playerInTurn.GetModule<SkillModule>(x => {
 						x.Use(skill, BattleController.GetTargets());

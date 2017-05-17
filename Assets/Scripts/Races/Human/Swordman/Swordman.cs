@@ -59,7 +59,7 @@ namespace Mob
 			});
 
 			// Inventory is used to store the items
-			GetModule<InventoryModule> (inventory => {
+			GetModule<BagModule> (inventory => {
 				inventory.Add<SpeedyItem>(99);
 				inventory.Add<PotionItem>(99);
 				inventory.Add<GreatPotionItem>(99);
@@ -69,11 +69,11 @@ namespace Mob
 
 			// Skill is used to store the skills
 			GetModule<SkillModule> (skill => {
-				skill.Add<SlashSkill>(1, 1f);
-				skill.Add<RiptideSkill>(1, 3f);
-				skill.Add<RavageSkill>(1, 1f);
-				skill.Add<DistractSkill>(1, 2f);
-				skill.Add<HolyKnightSkill>(1, 4f);
+				skill.Add<SlashSkill>(1);
+				skill.Add<RiptideSkill>(1);
+				skill.Add<RavageSkill>(1);
+				skill.Add<DistractSkill>(1);
+				skill.Add<HolyKnightSkill>(1);
 			});
 		}
 

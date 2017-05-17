@@ -96,14 +96,12 @@ namespace Mob
 			}
 		}
 
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
-			if (EnoughLevel () && EnoughEnergy ()) {
-				Affect.CreatePrimitive<Slash> (own, targets);
-
-				var energy = Affect.HasAffect<Distract>(own) ? 2f : this.energy;
-				SubtractEnergy(energy);
-			}
+			Affect.CreatePrimitive<Slash> (own, targets);
+			var energy = Affect.HasAffect<Distract>(own) ? 2f : this.energy;
+			SubtractEnergy(energy);
+			return true;
 		}
 	}
 }

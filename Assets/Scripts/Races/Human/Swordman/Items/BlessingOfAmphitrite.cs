@@ -29,9 +29,10 @@ namespace Mob
 			}
 		}
 
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<BlessingOfAmphitrite> (own, targets);
+			return true;
 		}
 	}
 

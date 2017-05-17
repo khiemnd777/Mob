@@ -36,11 +36,17 @@ namespace Mob
 		#region Turn base
 
 		protected bool _isTurn;
-		protected int turnNumber;
+		protected int _turnNumber;
 
 		public bool isTurn {
 			get {
 				return _isTurn;
+			}
+		}
+
+		public int turnNumber{
+			get{
+				return _turnNumber;
 			}
 		}
 
@@ -130,7 +136,7 @@ namespace Mob
 		public virtual void StartTurn(){
 			_isTurn = true;
 			_isEndTurn = false;
-			turnNumber++;
+			_turnNumber++;
 		}
 
 		protected bool _isEndTurn;

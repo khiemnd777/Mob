@@ -22,9 +22,10 @@ namespace Mob
 
 		public float extraResistance;
 
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<StatResistanceAdding> (own, targets, x => x.extraResistance = extraResistance);
+			return true;
 		}	
 	}
 

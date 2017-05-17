@@ -22,9 +22,10 @@ namespace Mob
 
 		public float extraLuck;
 
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<StatLuckAdding> (own, targets, l => l.extraLuck = extraLuck);
+			return true;
 		}	
 	}
 

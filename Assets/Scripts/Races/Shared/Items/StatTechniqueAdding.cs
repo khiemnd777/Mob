@@ -22,9 +22,10 @@ namespace Mob
 
 		public float extraTechnique;
 
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<StatTechniqueAdding> (own, targets, x => x.extraTechnique = extraTechnique);
+			return true;
 		}	
 	}
 

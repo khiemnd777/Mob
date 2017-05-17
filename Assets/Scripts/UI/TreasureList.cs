@@ -11,11 +11,9 @@ namespace Mob
 		public RectTransform listItem;
 		public ItemList itemList;
 
-		void Start(){
-			Clear ();
-		}
-
 		public void Clear(){
+			if (scrollPanel == null)
+				return;
 			children = scrollPanel.GetComponentsInChildren<Button> ();
 			foreach (var child in children) {
 				Destroy (child.gameObject);
@@ -34,7 +32,7 @@ namespace Mob
 				var btn = li.GetComponent<Button> ();
 				btn.onClick.AddListener(() => {
 					item.Buy(BattleController.playerInTurn, 0f, 1);
-					BattleController.playerInTurn.GetModule<InventoryModule> (x => itemList.SetItems (x.items.ToArray()));
+					BattleController.playerInTurn.GetModule<BagModule> (x => itemList.SetItems (x.items.ToArray()));
 					Clear();
 				});
 			}

@@ -38,9 +38,10 @@ namespace Mob
 
 	public class SwordmanAura1Item: Item
 	{
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<SwordmanAura1> (own, targets);
+			return true;
 		}
 	}
 

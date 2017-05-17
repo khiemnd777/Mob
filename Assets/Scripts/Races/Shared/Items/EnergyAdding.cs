@@ -22,9 +22,10 @@ namespace Mob
 
 		public float extraEnergy;
 
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<EnergyAdding> (own, targets, e => e.extraEnergy = extraEnergy);
+			return true;
 		}	
 	}
 

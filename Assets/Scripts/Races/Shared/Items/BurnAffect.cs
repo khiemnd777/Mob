@@ -30,12 +30,13 @@ namespace Mob
 		public float subtractHp = 15f;
 		public int turnNumber = 3; 
 
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<BurnAffect> (own, targets, x => {
 				x.subtractHp = subtractHp;
 				x.turnNumber = turnNumber;
 			});
+			return true;
 		}
 	}
 

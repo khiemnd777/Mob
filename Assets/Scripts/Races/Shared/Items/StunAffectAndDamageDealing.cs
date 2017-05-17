@@ -33,12 +33,13 @@ namespace Mob
 		public int turnNumber = 1;
 		public float damage = 30f;
 
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<StunAffectAndDamageDealing> (own, targets, x => {
 				x.turnNumber = turnNumber;
 				x.damage = damage;
 			});
+			return true;
 		}
 	}
 

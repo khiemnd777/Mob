@@ -30,9 +30,10 @@ namespace Mob
 
 		public int turnNumber = 1;
 
-		public override void Use (Race[] targets)
+		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<StunAffect> (own, targets, x => x.turnNumber = turnNumber);
+			return true;
 		}
 	}
 

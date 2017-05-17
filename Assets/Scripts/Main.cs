@@ -23,13 +23,19 @@ namespace Mob
 		public Text energyDiceValue;
 		public Text targetHpValue;
 		public Text targetLevelValue;
+		public Text countdownValue;
 		public Button rollDice;
 		public Button endTurn;
 		public Button attackBtn;
+
+		CountdownModule cdm;
 		
 		void Start () {
+			cdm = GetComponent<CountdownModule> ();
+			cdm.RefreshAndRun ();
+
 			BattleController.Init ();
-			BattleController.playerInTurn.GetModule<InventoryModule> (x => itemList.SetItems (x.items.ToArray()));
+			BattleController.playerInTurn.GetModule<BagModule> (x => itemList.SetItems (x.items.ToArray()));
 			skillList.gameObject.SetActive (false);
 
 			rollDice.onClick.AddListener(() =>{
@@ -47,7 +53,7 @@ namespace Mob
 				energyDiceValue.text = "0";
 
 				VisibleSkillList(false);
-				BattleController.playerInTurn.GetModule<InventoryModule> (x => itemList.SetItems (x.items.ToArray()));
+				BattleController.playerInTurn.GetModule<BagModule> (x => itemList.SetItems (x.items.ToArray()));
 				attackBtn.GetComponentInChildren<Text>().text = "Attack";
 			});
 
@@ -65,6 +71,8 @@ namespace Mob
 		}
 
 		void Update(){
+			countdownValue.text = cdm.isEnd ? "Time up" : cdm.minutes + ":" + cdm.secondsString;
+
 			if (BattleController.treasure != null && BattleController.treasure.Length > 0) {
 				treasureList.SetItems (BattleController.treasure);
 				BattleController.treasure = new BoughtItem[0];
