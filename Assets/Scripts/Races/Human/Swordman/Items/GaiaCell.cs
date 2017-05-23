@@ -5,10 +5,10 @@ namespace Mob
 	public class GaiaCell : Affect, IRestorableHealthPower
 	{
 		void Start(){
-			HasAffect<GaiaCell> (own, () => {
-				Destroy(gameObject);
-			});
-			own.GetModule<StatModule>(s => s.resistance += 10f);
+//			HasAffect<GaiaCell> (own, () => {
+//				Destroy(gameObject);
+//			});
+//			own.GetModule<StatModule>(s => s.resistance += 10f);
 		}
 
 		#region IRestorableHealthPower implementation

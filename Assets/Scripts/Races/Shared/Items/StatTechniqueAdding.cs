@@ -7,7 +7,7 @@ namespace Mob
 		public float extraTechnique;
 
 		void Start(){
-			own.GetModule<StatModule>(s => s.technique+=extraTechnique);
+			own.GetModule<StatModule>(s => s.intelligent+=extraTechnique);
 			Destroy (gameObject);
 		}
 	}

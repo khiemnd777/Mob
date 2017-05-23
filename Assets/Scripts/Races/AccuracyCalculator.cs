@@ -5,8 +5,8 @@ namespace Mob
 {
 	public class AccuracyCalculator
 	{
-		public static float ToPercent(float attackerTechnique, float targetEvasion){
-			var acNum = (attackerTechnique * 0.4f - targetEvasion) + 9f;
+		public static float ToPercent(float attackerAR, float targetAR){
+			var acNum = (attackerAR * 0.4f - targetAR) + 9f;
 			if (acNum < 0f) {
 				return 0f;
 			} else if (Mathf.Clamp (acNum, 0f, 0.9f) == acNum) {
@@ -24,6 +24,49 @@ namespace Mob
 			} else {	
 				return 1f;
 			}
+		}
+
+		public static bool IsHit(float attackerAR, float targetAR) {
+			var accuracy = Mathf.Clamp((attackerAR / targetAR) / 2f, 0.2f, 0.95f);
+			var accuracyProbability = Probability.Initialize(new bool[]{false, true}, new float[] {100f - (accuracy * 100f), accuracy * 100f});
+			var accuracyResult = Probability.GetValueInProbability(accuracyProbability);
+			return accuracyResult;
+		}
+
+		public static bool MakeSureHit(Race own){
+			var result = false;
+			own.GetModule<AffectModule> (am => {
+				result = am.HasSubAffect<IHittable>();
+			});
+			return result;
+		}
+
+		public static bool MakeSureCritical(Race own){
+			var result = false;
+			own.GetModule<AffectModule> (am => {
+				result = am.HasSubAffect<ICritical>();
+			});
+			return result;
+		}
+
+		public static bool IsCriticalHit(float attackerCHC) {
+			var chcProbability = Probability.Initialize (new bool[]{ false, true }, new float[] {
+				100f - (attackerCHC * 100f),
+				attackerCHC * 100f
+			});
+			var chcResult = Probability.GetValueInProbability (chcProbability);
+			return chcResult;
+		}
+
+		public static void HandleCriticalDamage(ref float damage, Race own, Race target) {
+			var _ = float.MinValue;
+			var d = damage;
+			own.GetModule<AffectModule> (am => {
+				am.GetSubAffects<ICriticalHandler>(c => {
+					_ = Mathf.Max(_, c.HandleCriticalDamage(d, target));
+				});
+			});
+			damage = Mathf.Max (_, damage);
 		}
 
 		public static void HandleAccuracy(ref float accuracy, Race own, Race target){

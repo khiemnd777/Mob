@@ -23,6 +23,9 @@ namespace Mob
 				p2.DefaultValue ();
 			});
 
+			Race.FindWithPlayerId (Constants.PLAYER1)[0].targets = Race.FindWithPlayerId (Constants.PLAYER2);
+			Race.FindWithPlayerId (Constants.PLAYER2)[0].targets = Race.FindWithPlayerId (Constants.PLAYER1);
+		
 			players = Race.FindWithPlayerId(Constants.PLAYER1, Constants.PLAYER2);
 
 			// Init treasure system

@@ -16,28 +16,6 @@ namespace Mob
 			return point * upLevel;
 		}
 
-//		public static int[] InitProbability(params float[] percentStats) {
-//			var random = new System.Random ();
-//			// init array with 100 elements;
-//			var arr = new int[100];
-//			for (var x = 0; x < arr.Length; x++) {
-//				var t = 0f;
-//				var v = 0;
-//				for (var y = 0; y < percentStats.Length; y++) {
-//					t += percentStats [y];
-//					if (x == t) {
-//						continue;
-//					} else if (x < t) {
-//						v = y;
-//						break;
-//					}
-//				}
-//				arr [x] = v;
-//			}
-//			arr = arr.OrderBy (x => random.Next ()).ToArray ();
-//			return arr;
-//		}
-
 		public static int[] InitProbability(params float[] percentStats) {
 			return Probability.Initialize (percentStats);
 		}

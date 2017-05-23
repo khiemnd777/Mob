@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public class BurnAffect : Affect
+	public class BurnAffect : Affect, INegativeAffect
 	{
 		public float subtractHp = 15f;
 		public int turnNumber = 3; 
@@ -10,7 +10,7 @@ namespace Mob
 		void Update(){
 			foreach (var target in targets) {
 				ExecuteInTurn(target, () => {
-					target.GetModule<HealthPowerModule>(hp => hp.SubtractHp(subtractHp));
+					PhysicalAttackCalculator.Calculate(subtractHp, own, targets);
 					if(turn == turnNumber){
 						Destroy(gameObject);
 					}

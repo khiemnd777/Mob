@@ -17,7 +17,7 @@ namespace Mob
 		public void OnLevelUp (int level, int levelUp)
 		{
 			// Stat
-			_stat.AllowAddPoint(true);
+			_stat.AutoAddPoint(false);
 			var point = StatCalculator.GeneratePoint(levelUp, _stat.initPoint);
 			_stat.SetPoint(point);
 			// HP
@@ -31,15 +31,24 @@ namespace Mob
 		public override void DefaultValue ()
 		{
 			GetModule<StatModule> ((stat) => {
-				stat.damagePercent = 25f;
-				stat.resistancePercent = 15f;
-				stat.techniquePercent = 40f;
-				stat.luckPercent = 20f;
+				stat.strengthPercent = 25f;
+				stat.dexterityPercent = 15f;
+				stat.intelligentPercent = 30f;
+				stat.vitalityPercent = 20f;
+				stat.luckPercent = 10f;
 
-				stat.damage = 5f;
-				stat.resistance = 4f;
-				stat.technique = 6f;
+				stat.strength = 5f;
+				stat.dexterity = 4f;
+				stat.intelligent = 6f;
+				stat.vitality = 5f;
 				stat.luck = 5f;
+
+				stat.SetPoint(stat.initPoint);
+				stat.AddPoint(StatType.Strength);
+				stat.AddPoint(StatType.Dexterity);
+				stat.AddPoint(StatType.Intelligent);
+				stat.AddPoint(StatType.Vitality);
+				stat.AddPoint(StatType.Luck);
 			});
 			GetModule<LevelModule> ((level) => {
 				level.level = 1;
@@ -70,10 +79,6 @@ namespace Mob
 			// Skill is used to store the skills
 			GetModule<SkillModule> (skill => {
 				skill.Add<SlashSkill>(1);
-				skill.Add<RiptideSkill>(1);
-				skill.Add<RavageSkill>(1);
-				skill.Add<DistractSkill>(1);
-				skill.Add<HolyKnightSkill>(1);
 			});
 		}
 

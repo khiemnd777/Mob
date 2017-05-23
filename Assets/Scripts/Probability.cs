@@ -8,7 +8,8 @@ namespace Mob
 		public static int[] Initialize(float[] percents){
 			var random = new System.Random ();
 			// init array with 100 elements;
-			var arr = new int[100];
+			var capacity = Mathf.FloorToInt(percents.Sum());
+			var arr = new int[capacity];
 			for (var x = 0; x < arr.Length; x++) {
 				var t = 0f;
 				var v = 0;
@@ -38,7 +39,8 @@ namespace Mob
 		public static T[] Initialize<T>(T[] values, float[] percents){
 			var random = new System.Random ();
 			// init array with 100 elements;
-			var arr = new T[100];
+			var capacity = Mathf.FloorToInt(percents.Sum());
+			var arr = new T[capacity];
 			for (var x = 0; x < arr.Length; x++) {
 				var t = 0f;
 				T v = default(T);

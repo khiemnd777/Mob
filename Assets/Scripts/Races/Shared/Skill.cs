@@ -4,7 +4,7 @@ namespace Mob
 {
 	public abstract class Skill : Item
 	{
-		
+			
 	}
 }
 

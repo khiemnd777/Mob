@@ -7,13 +7,15 @@ namespace Mob
 	{
 		public int quantity;
 		public Race own;
-		public int usedTurn;
+		public int usedTurn = 0;
 
 		public virtual float energy { get { return 0; } }
 		public virtual int level { get { return 0; } }
 		public virtual string title { get { return this.name; } }
 		public virtual string brief { get; }
 		public virtual int cooldown { get { return 0; } }
+
+		public abstract bool Use (Race[] targets);
 
 		public bool Use<T>(Race[] targets) where T: Affect {
 			Affect.CreatePrimitive<T> (own, targets);
@@ -51,13 +53,15 @@ namespace Mob
 			return result;
 		}
 
+		public bool Enable(){
+			return EnoughEnergy () && EnoughLevel () && EnoughCooldown ();
+		}
+
 		protected void SubtractEnergy(float energy = 0f){
 			own.GetModule<EnergyModule> ((e) => {
 				e.SubtractEnergy (energy == 0f ? this.energy : energy);
 			});
 		}
-
-		public abstract bool Use (Race[] targets);
 
 		public static T Create<T>(string resource, Race own, int quantity, Action<T> predicate = null) where T : Item {
 			var a = GetMonoResource<T> (resource);

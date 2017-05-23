@@ -5,10 +5,10 @@ namespace Mob
 	public class HeartOfHestia : Affect, ICriticalHandler, IAttackableAffect
 	{
 		void Start(){
-			HasAffect<HeartOfHestia> (own, () => {
-				Destroy(gameObject);
-			});
-			own.GetModule<StatModule>(s => s.damage += 10f);
+//			HasAffect<HeartOfHestia> (own, () => {
+//				Destroy(gameObject);
+//			});
+//			own.GetModule<StatModule>(s => s.damage += 10f);
 		}
 
 		#region IAttackableAffect implementation
@@ -24,7 +24,7 @@ namespace Mob
 
 		#region ICriticalHandler implementation
 
-		public float HandleCriticalDamage (float damage, float accuracy, Race target)
+		public float HandleCriticalDamage (float damage, Race target)
 		{
 			return damage * 2.5f;
 		}

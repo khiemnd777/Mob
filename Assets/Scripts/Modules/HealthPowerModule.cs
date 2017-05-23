@@ -21,8 +21,10 @@ namespace Mob
 		}
 
 		public void SetMaxHp(float time = 1f){
+			var upMaxHp = 1f;
+			_race.GetModule<StatModule> (s => upMaxHp = s.maxHp);
 			while (time > 0f) {
-				maxHp += maxHp * hpPercent / 100f;
+				maxHp += Mathf.Max(maxHp, upMaxHp);
 				time--;
 			}
 			hp = maxHp;

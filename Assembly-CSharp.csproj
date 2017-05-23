@@ -3,9 +3,8 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.20506</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
     <ProjectGuid>{2E9EADA4-0F37-3CBF-716A-E0FE64879EF2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -34,117 +33,164 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.XML" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
+      <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\Managed\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\BattleController.cs" />
-     <Compile Include="Assets\Scripts\Constants.cs" />
-     <Compile Include="Assets\Scripts\Extensions\TypeExtensions.cs" />
-     <Compile Include="Assets\Scripts\Main.cs" />
-     <Compile Include="Assets\Scripts\Modules\AffectModule.cs" />
-     <Compile Include="Assets\Scripts\Modules\BagModule.cs" />
-     <Compile Include="Assets\Scripts\Modules\CountdownModule.cs" />
-     <Compile Include="Assets\Scripts\Modules\EnergyModule.cs" />
-     <Compile Include="Assets\Scripts\Modules\GoldModule.cs" />
-     <Compile Include="Assets\Scripts\Modules\HealthPowerModule.cs" />
-     <Compile Include="Assets\Scripts\Modules\LevelModule.cs" />
-     <Compile Include="Assets\Scripts\Modules\RaceModule.cs" />
-     <Compile Include="Assets\Scripts\Modules\SkillModule.cs" />
-     <Compile Include="Assets\Scripts\Modules\StatModule.cs" />
-     <Compile Include="Assets\Scripts\MonoHandler.cs" />
-     <Compile Include="Assets\Scripts\Probability.cs" />
-     <Compile Include="Assets\Scripts\Races\AccuracyCalculator.cs" />
-     <Compile Include="Assets\Scripts\Races\Affect.cs" />
-     <Compile Include="Assets\Scripts\Races\AttackPowerCalculator.cs" />
-     <Compile Include="Assets\Scripts\Races\ClassBuilder.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Human.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\Gear.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanAura1.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanAura2.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanGearTier0.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanGearTier1.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanGearTier2.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanGearTier3.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanGuardianTier1.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanGuardianTier2.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\Antidote.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\BlessingOfAmphitrite.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\BurstStrength.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\GaiaCell.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\GreatPotion.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\HeartOfHestia.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\Potion.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\Speedy.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Distract.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\HolyKnight.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Ravage.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Riptide.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Slash.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Swordman.cs" />
-     <Compile Include="Assets\Scripts\Races\Human\Swordman\Treasures\Treasure.cs" />
-     <Compile Include="Assets\Scripts\Races\LevelCalculator.cs" />
-     <Compile Include="Assets\Scripts\Races\Orc\Orc.cs" />
-     <Compile Include="Assets\Scripts\Races\Race.cs" />
-     <Compile Include="Assets\Scripts\Races\ResistanceCalculator.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Affects\StuntAffect.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Boughttem.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\IAccurate.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\IAssignableDamage.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\IAttackableAffect.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\ICriticalHandler.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\IDamaged.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\IDodgeableChance.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\IMissingHandler.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\INegativeAffect.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\IResistant.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\IRestorableHealthPower.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Item.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Items\BurnAffect.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Items\DamageDealing.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Items\EnergyAdding.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Items\GoldAdding.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Items\HealthPowerRestoring.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Items\NegativeAffectDissolving.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Items\NegativeAffectDissolvingAndHealthPowerRestoring.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Items\StatDamageAdding.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Items\StatLuckAdding.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Items\StatResistanceAdding.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Items\StatTechniqueAdding.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Items\StunAffect.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Items\StunAffectAndDamageDealing.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Skill.cs" />
-     <Compile Include="Assets\Scripts\Races\StatCalculator.cs" />
-     <Compile Include="Assets\Scripts\UI\Inventory.cs" />
-     <Compile Include="Assets\Scripts\UI\ItemList.cs" />
-     <Compile Include="Assets\Scripts\UI\SkillList.cs" />
-     <Compile Include="Assets\Scripts\UI\TreasureList.cs" />
- <Reference Include="UnityEngine.Analytics">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.PlaymodeTestsRunner">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Networking">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UI">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.HoloLens">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.VR">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
- </Reference>
+    <Compile Include="Assets\GAF\Examples\Scripts\GAFSceneController.cs" />
+    <Compile Include="Assets\GAF\Scripts\Asset\GAFAnimationAsset.cs" />
+    <Compile Include="Assets\GAF\Scripts\Asset\GAFTexturesResource.cs" />
+    <Compile Include="Assets\GAF\Scripts\Core\GAFBakedMovieClip.cs" />
+    <Compile Include="Assets\GAF\Scripts\Core\GAFMovieClip.cs" />
+    <Compile Include="Assets\GAF\Scripts\Core\Interfaces\GAFMovieClipInternal.cs" />
+    <Compile Include="Assets\GAF\Scripts\Objects\GAFBakedObject.cs" />
+    <Compile Include="Assets\GAF\Scripts\Objects\GAFBakedObjectController.cs" />
+    <Compile Include="Assets\GAF\Scripts\Objects\GAFBakedObjectsManager.cs" />
+    <Compile Include="Assets\GAF\Scripts\Objects\GAFObject.cs" />
+    <Compile Include="Assets\GAF\Scripts\Objects\GAFObjectsManager.cs" />
+    <Compile Include="Assets\GAF\Scripts\Objects\Interfaces\GAFBakedObjectsManagerInternal.cs" />
+    <Compile Include="Assets\GAF\Scripts\Objects\Interfaces\GAFObjectsManagerInternal.cs" />
+    <Compile Include="Assets\Scripts\BattleController.cs" />
+    <Compile Include="Assets\Scripts\Constants.cs" />
+    <Compile Include="Assets\Scripts\Extensions\TypeExtensions.cs" />
+    <Compile Include="Assets\Scripts\Main.cs" />
+    <Compile Include="Assets\Scripts\Modules\AffectModule.cs" />
+    <Compile Include="Assets\Scripts\Modules\BagModule.cs" />
+    <Compile Include="Assets\Scripts\Modules\CountdownModule.cs" />
+    <Compile Include="Assets\Scripts\Modules\EnergyModule.cs" />
+    <Compile Include="Assets\Scripts\Modules\GoldModule.cs" />
+    <Compile Include="Assets\Scripts\Modules\HealthPowerModule.cs" />
+    <Compile Include="Assets\Scripts\Modules\LevelModule.cs" />
+    <Compile Include="Assets\Scripts\Modules\RaceModule.cs" />
+    <Compile Include="Assets\Scripts\Modules\SkillModule.cs" />
+    <Compile Include="Assets\Scripts\Modules\StatModule.cs" />
+    <Compile Include="Assets\Scripts\MonoHandler.cs" />
+    <Compile Include="Assets\Scripts\Probability.cs" />
+    <Compile Include="Assets\Scripts\Races\AccuracyCalculator.cs" />
+    <Compile Include="Assets\Scripts\Races\Affect.cs" />
+    <Compile Include="Assets\Scripts\Races\AttackPowerCalculator.cs" />
+    <Compile Include="Assets\Scripts\Races\ClassBuilder.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Human.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\Gear.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanAura1.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanAura2.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanGearTier0.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanGearTier1.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanGearTier2.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanGearTier3.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanGuardianTier1.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Gears\SwordmanGuardianTier2.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\Antidote.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\BlessingOfAmphitrite.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\BurstStrength.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\GaiaCell.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\GreatPotion.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\HeartOfHestia.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\Potion.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\Speedy.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Distract.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\HolyKnight.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Ravage.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Riptide.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\Slash.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Swordman.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Treasures\Treasure.cs" />
+    <Compile Include="Assets\Scripts\Races\LevelCalculator.cs" />
+    <Compile Include="Assets\Scripts\Races\Orc\Orc.cs" />
+    <Compile Include="Assets\Scripts\Races\Race.cs" />
+    <Compile Include="Assets\Scripts\Races\ResistanceCalculator.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Affects\StuntAffect.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Boughttem.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\IAccurate.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\IAssignableDamage.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\IAttackableAffect.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\ICriticalHandler.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\IDamaged.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\IDodgeableChance.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\IMissingHandler.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\INegativeAffect.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\IResistant.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\IRestorableHealthPower.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Item.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\BurnAffect.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\DamageDealing.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\EnergyAdding.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\GoldAdding.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\HealthPowerRestoring.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\NegativeAffectDissolving.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\NegativeAffectDissolvingAndHealthPowerRestoring.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\StatDamageAdding.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\StatLuckAdding.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\StatResistanceAdding.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\StatTechniqueAdding.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\StunAffect.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\StunAffectAndDamageDealing.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\MagicAttackCalculator.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\PhysicalAttackCalculator.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Skill.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\StatConverter.cs" />
+    <Compile Include="Assets\Scripts\Races\StatCalculator.cs" />
+    <Compile Include="Assets\Scripts\UI\Inventory.cs" />
+    <Compile Include="Assets\Scripts\UI\ItemList.cs" />
+    <Compile Include="Assets\Scripts\UI\SkillList.cs" />
+    <Compile Include="Assets\Scripts\UI\TreasureList.cs" />
+    <None Include="Assets\GAF\Resources\Shaders\GAFShaderBase.cginc" />
+    <None Include="Assets\GAF\Resources\Shaders\GAFObjectsGroup.shader" />
+    <None Include="Assets\GAF\Resources\Shaders\GAFBlur.shader" />
+    <None Include="Assets\GAF\Resources\Shaders\GAFFilters.cginc" />
+    <None Include="Assets\GAF\Resources\Shaders\GAFMaskReset.shader" />
+    <None Include="Assets\GAF\Resources\Shaders\GAFFilteredObject.shader" />
+    <None Include="Assets\GAF\Resources\Shaders\GAFGlow.shader" />
+    <None Include="Assets\GAF\Resources\Shaders\GAFMask.shader" />
+    <None Include="Assets\GAF\Docs\Readme.txt" />
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\UnityAnalytics\UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PlaymodeTestsRunner">
+      <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\PlaymodeTestsRunner\UnityEngine.PlaymodeTestsRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\Networking\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HoloLens">
+      <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\UnityHoloLens\RuntimeEditor\UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VR">
+      <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\UnityVR\RuntimeEditor\UnityEngine.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip.Reduced">
+      <HintPath>Assets\GAF\Plugins\Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
+    <Reference Include="GAF">
+      <HintPath>Assets\GAF\Plugins\GAF.dll</HintPath>
+    </Reference>
+    <Reference Include="MiniJson">
+      <HintPath>Assets\GAF\Plugins\MiniJson.dll</HintPath>
+    </Reference>
+    <None Include="Assets\GAF\Docs\What%27s new.txt" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\SwordmanA1.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\SkillAffect.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\SwordmanA2.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\SwordmanB1.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\SwordmanB2.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\SwordmanB3.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\SwordmanC1.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\SwordmanC2.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\SwordmanD1.cs" />
+    <Compile Include="Assets\Scripts\Races\Human\Swordman\Skills\SwordmanE1.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\IHittable.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\ICritical.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -154,5 +200,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  
 </Project>

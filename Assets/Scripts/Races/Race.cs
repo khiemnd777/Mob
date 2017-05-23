@@ -8,6 +8,8 @@ namespace Mob
 {
 	public abstract class Race : MonoHandler
 	{
+		public Race[] targets;
+
 		public static Race[] FindWithPlayerId(params string[] playerId){
 			var list = new List<GameObject> ();
 			foreach (var pid in playerId) {
@@ -137,6 +139,9 @@ namespace Mob
 			_isTurn = true;
 			_isEndTurn = false;
 			_turnNumber++;
+			GetModule<StatModule> (s => {
+				GetModule<HealthPowerModule>(hp => hp.AddHp(s.regenerateHp * hp.hp));
+			});
 		}
 
 		protected bool _isEndTurn;

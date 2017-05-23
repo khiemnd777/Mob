@@ -4,15 +4,17 @@ namespace Mob
 {
 	public class AttackPowerCalculator
 	{
-		public static float TakeDamage(float attackerDamage, float targetResistance){
-			return attackerDamage * attackerDamage / (attackerDamage + targetResistance);
+		public static float TakeDamage(float attackerDamage, float targetResistance, bool isCritHit){
+			var baseDamage = attackerDamage * (isCritHit ? 1.5f : 1f);
+			return baseDamage * baseDamage / (baseDamage + targetResistance * 1.3f);
 		}
 
 		public static void HandleDamage(ref float damage, Race own, Race target){
 			var _ = float.MinValue;
+			var d = damage;
 			own.GetModule<AffectModule>(am => {
 				am.GetSubAffects<IDamaged>(a => {
-					_ = Mathf.Max(_, a.HandleDamage(target));
+					_ = Mathf.Max(_, a.HandleDamage(d, target));
 				});
 			});
 			damage = Mathf.Max (_, damage);

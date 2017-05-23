@@ -3,78 +3,244 @@ using UnityEngine;
 
 namespace Mob
 {
+	public enum StatType {
+		Strength, Dexterity, Intelligent, Vitality, Luck
+	}
+	
 	public class StatModule : RaceModule
 	{
-		public int initPoint;
+		public int initPoint = 5;
 
-		[Header("Stat")]
-		// Damage
-		public float damage;
+		[Header("Strength")]
+		public float strength = 1f;
+		[Header("Sub-strength")]
+		public float physicalAttack;
+		public float physicalAttackSeed = 2f;
+		public float physicalDefend;
+		public float physicalDefendSeed = 1.5f;
 
-		// Resistance
-		public float resistance;
+		[Header("Dexterity")]
+		public float dexterity = 1f;
+		[Header("Sub-dexterity")]
+		public float attackRating;
+		public float attackRatingSeed = 2f;
+		public float criticalRating;
+		public float criticalRatingSeed = 0.01f;
 
-		// Technique
-		public float technique;
+		[Header("Intelligent")]
+		public float intelligent = 1f;
+		[Header("Sub-intelligent")]
+		public float magicAttack;
+		public float magicAttackSeed = 1.75f;
+		public float magicResist;
+		public float magicResistSeed = 1.5f;
 
-		// Luck
-		public float luck;
+		[Header("Vitality")]
+		public float vitality = 1f;
+		[Header("Sub-vitality")]
+		public float maxHp;
+		public float maxHpSeed = 0.1f;
+		public float regenerateHp;
+		public float regenerateHpSeed = 0.002f;
+
+		[Header("Luck")]
+		public float luck = 1f;
+		[Header("Sub-luck")]
+		public float luckDice;
+		public float luckDiceSeed = 1f;
+		public float luckReward;
+		public float luckRewardSeed = 1f;
 
 		[Header("Stat percent")]
-		// Damage percent
-		public float damagePercent;
-
-		// Resistance percent
-		public float resistancePercent;
-
-		// Technique percent
-		public float techniquePercent;
-
-		// Luck percent
+		public float strengthPercent;
+		public float dexterityPercent;
+		public float intelligentPercent;
+		public float vitalityPercent;
 		public float luckPercent;
 
 		// allow adding point to stat values
-		bool _allowAddPoint;
+		bool _autoAddPoint;
 
-		public void AllowAddPoint(bool allow){
-			_allowAddPoint = allow;
+		public void AutoAddPoint(bool allow){
+			_autoAddPoint = allow;
 		}
 
-		public int _point;
+		int logPoint;
+		public int point;
 
 		public void SetPoint(int point){
-			_point += point;
+			this.point += point;
 		}
 
-		int[] arr;
-
-		void Start(){
-			arr = StatCalculator.InitProbability (damagePercent, resistancePercent, techniquePercent, luckPercent);
+		public void ResetPoint(){
+			if (logPoint == 0)
+				return;
+			point += logPoint;
+			logPoint = 0;
 		}
 
-		void Update() {
-			if (_allowAddPoint) {
-				foreach (var statIndex in StatCalculator.GetStatWithProbability (_point, damagePercent, resistancePercent, techniquePercent, luckPercent)) {
+		public void AddPoint(StatType statType, int point){
+			switch (statType) {
+			case StatType.Strength:
+				{
+					strength += point;
+					logPoint += point;
+					physicalAttack = strength * physicalAttackSeed; 
+					physicalDefend = strength * physicalDefendSeed;
+				}
+				break;
+			case StatType.Dexterity:
+				{
+					dexterity += point;
+					logPoint += point;
+					attackRating = dexterity * attackRatingSeed;
+					criticalRating = dexterity * criticalRatingSeed;
+				}
+				break;
+			case StatType.Intelligent:
+				{
+					intelligent += point;
+					logPoint += point;
+					magicAttack = intelligent * magicAttackSeed;
+					magicResist = intelligent * magicResistSeed;
+				}
+				break;
+			case StatType.Vitality:
+				{
+					vitality += point;
+					logPoint += point;
+					if (Mathf.Clamp (vitality, 10f, 20f) == vitality) {
+						maxHpSeed = 5f;
+					}
+					if (Mathf.Clamp (vitality, 21f, 40f) == vitality) {
+						maxHpSeed = 6f;
+					}
+					if (Mathf.Clamp (vitality, 41f, 60f) == vitality) {
+						maxHpSeed = 8f;
+					}
+					if (Mathf.Clamp (vitality, 61f, 80f) == vitality) {
+						maxHpSeed = 11f;
+					}
+					if (vitality > 80f) {
+						maxHpSeed = 15f;
+					}
+					maxHp = vitality * maxHpSeed;
+					regenerateHp = vitality * regenerateHpSeed;
+				}
+				break;
+			case StatType.Luck:
+				{
+					luck += point;
+					logPoint += point;
+					luckDice = luck * luckDiceSeed;
+					luckReward = luck * luckRewardSeed;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+
+		public void AddPoint(StatType statType){
+			if (point == 0)
+				return;
+			
+			switch (statType) {
+			case StatType.Strength:
+				{
+					++strength;
+					++logPoint;
+					physicalAttack = strength * physicalAttackSeed; 
+					physicalDefend = strength * physicalDefendSeed;
+					point = Mathf.Max(0, point - 1);
+				}
+				break;
+			case StatType.Dexterity:
+				{
+					++dexterity;
+					++logPoint;
+					attackRating = dexterity * attackRatingSeed;
+					criticalRating = dexterity * criticalRatingSeed;
+					point = Mathf.Max(0, point - 1);
+				}
+				break;
+			case StatType.Intelligent:
+				{
+					++intelligent;
+					++logPoint;
+					magicAttack = intelligent * magicAttackSeed;
+					magicResist = intelligent * magicResistSeed;
+					point = Mathf.Max(0, point - 1);
+				}
+				break;
+			case StatType.Vitality:
+				{
+					++vitality;
+					++logPoint;
+					if (Mathf.Clamp (vitality, 10f, 20f) == vitality) {
+						maxHpSeed = 5f;
+					}
+					if (Mathf.Clamp (vitality, 21f, 40f) == vitality) {
+						maxHpSeed = 6f;
+					}
+					if (Mathf.Clamp (vitality, 41f, 60f) == vitality) {
+						maxHpSeed = 8f;
+					}
+					if (Mathf.Clamp (vitality, 61f, 80f) == vitality) {
+						maxHpSeed = 11f;
+					}
+					if (vitality > 80f) {
+						maxHpSeed = 15f;
+					}
+					maxHp = vitality * maxHpSeed;
+					regenerateHp = vitality * regenerateHpSeed;
+					point = Mathf.Max(0, point - 1);
+				}
+				break;
+			case StatType.Luck:
+				{
+					++luck;
+					++logPoint;
+					luckDice = luck * luckDiceSeed;
+					luckReward = luck * luckRewardSeed;
+					point = Mathf.Max(0, point - 1);
+				}
+				break;
+			default:
+				break;
+			}
+		}
+
+		void AutoCalculatePoint(){
+			if (_autoAddPoint) {
+				foreach (var statIndex in StatCalculator.GetStatWithProbability (point, strengthPercent, dexterityPercent, intelligentPercent, vitalityPercent, luckPercent)) {
 					switch (statIndex) {
 					case 0:
-						damage += 1;
+						AddPoint (StatType.Strength);
 						break;
 					case 1:
-						resistance += 1;
+						AddPoint (StatType.Dexterity);
 						break;
 					case 2:
-						technique += 1;
+						AddPoint (StatType.Intelligent);
 						break;
 					case 3:
-						luck += 1;
+						AddPoint (StatType.Vitality);
+						break;
+					case 4:
+						AddPoint (StatType.Luck);
 						break;
 					default:
 						break;
 					}
 				}
-				_point = 0;
-				_allowAddPoint = false;
+				this.point = 0;
+				_autoAddPoint = false;
 			}
+		}
+
+		void Update() {
+			AutoCalculatePoint ();
 		}
 	}
 }

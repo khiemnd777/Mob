@@ -78,10 +78,10 @@ namespace Mob
 				BattleController.treasure = new BoughtItem[0];
 			}
 			BattleController.playerInTurn.GetModule<StatModule> (x => {
-				damageValue.text = x.damage.ToString();
-				resistanceValue.text = x.resistance.ToString();
-				techniqueValue.text = x.technique.ToString();
-				luckValue.text = x.luck.ToString();
+				damageValue.text = x.strength.ToString();
+				resistanceValue.text = x.dexterity.ToString();
+				techniqueValue.text = x.intelligent.ToString();
+				luckValue.text = x.vitality.ToString();
 			});
 			BattleController.playerInTurn.GetModule<HealthPowerModule> (x => {
 				hpValue.text = Mathf.RoundToInt(x.hp) + "/" + Mathf.RoundToInt(x.maxHp);

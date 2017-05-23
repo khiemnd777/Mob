@@ -44,3 +44,6 @@
 /Users/kandy/Projects/Mob_Source/Temp/bin/Debug/Mono.Cecil.Mdb.dll
 /Users/kandy/Projects/Mob_Source/Temp/bin/Debug/Assembly-CSharp.dll.mdb
 /Users/kandy/Projects/Mob_Source/Temp/bin/Debug/Assembly-CSharp.dll
+/Users/kandy/Projects/Mob_Source/Temp/bin/Debug/Ionic.Zip.Reduced.dll
+/Users/kandy/Projects/Mob_Source/Temp/bin/Debug/GAF.dll
+/Users/kandy/Projects/Mob_Source/Temp/bin/Debug/MiniJson.dll

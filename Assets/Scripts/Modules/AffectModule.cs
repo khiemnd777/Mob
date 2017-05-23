@@ -58,6 +58,10 @@ namespace Mob
 			return result;
 		}
 
+		public bool HasSubAffect<T>(){
+			return _affects.Any (x => typeof(T).IsAssignableFrom (x.GetType ()));
+		}
+
 		public void RefreshAffect ()
 		{
 			if (_affects == null)

@@ -7,7 +7,7 @@ namespace Mob
 		public float extraDamage;
 
 		void Start(){
-			own.GetModule<StatModule>(s => s.damage+=extraDamage);
+			own.GetModule<StatModule>(s => s.strength+=extraDamage);
 			Destroy (gameObject);
 		}
 	}

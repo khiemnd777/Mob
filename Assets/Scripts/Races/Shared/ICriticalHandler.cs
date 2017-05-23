@@ -4,7 +4,7 @@ namespace Mob
 {
 	public interface ICriticalHandler
 	{
-		float HandleCriticalDamage(float damage, float accuracy, Race target);	
+		float HandleCriticalDamage(float damage, Race target);	
 	}
 }
 
