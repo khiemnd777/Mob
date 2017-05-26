@@ -1,9 +1,9 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{698C2A1E-B31C-7F9B-DCF2-F44D3819A8C7}") = "Mob_Source", "Assembly-CSharp.csproj", "{2E9EADA4-0F37-3CBF-716A-E0FE64879EF2}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mob_Source", "Assembly-CSharp.csproj", "{2E9EADA4-0F37-3CBF-716A-E0FE64879EF2}"
 EndProject
-Project("{698C2A1E-B31C-7F9B-DCF2-F44D3819A8C7}") = "Mob_Source", "Assembly-CSharp-Editor.csproj", "{B2ECC476-2304-E045-32A7-B20167CDDFD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mob_Source", "Assembly-CSharp-Editor.csproj", "{B2ECC476-2304-E045-32A7-B20167CDDFD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

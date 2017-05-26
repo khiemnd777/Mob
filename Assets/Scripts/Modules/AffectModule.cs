@@ -34,7 +34,7 @@ namespace Mob
 			return _affects.Any (x => x.GetType ().IsEqual<T> ());
 		}
 
-		public T[] GetAffects<T>(Action<T> predicate) where T: Affect{
+		public T[] GetAffects<T>(Action<T> predicate = null) where T: Affect{
 			T[] result = _affects
 				.Where(x => x.GetType().IsEqual<T>())
 				.Cast<T>()
@@ -45,7 +45,7 @@ namespace Mob
 			return result;
 		}
 
-		public T[] GetSubAffects<T>(Action<T> predicate){
+		public T[] GetSubAffects<T>(Action<T> predicate = null){
 			if (_affects == null)
 				return null;
 			var result = _affects

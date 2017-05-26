@@ -31,7 +31,7 @@ namespace Mob
 				var text = item.GetComponentInChildren<Text> ();
 				text.text = name;
 				var btn = item.GetComponent<Button> ();
-				btn.enabled = skill.EnoughEnergy () && skill.EnoughLevel () && skill.EnoughCooldown ();
+				btn.interactable = skill.EnoughEnergy () && skill.EnoughLevel () && skill.EnoughCooldown ();
 				btn.onClick.AddListener(() => {
 					BattleController.playerInTurn.GetModule<SkillModule>(x => {
 						x.Use(skill, BattleController.GetTargets());

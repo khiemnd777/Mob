@@ -6,16 +6,28 @@ namespace Mob
 	{
 		StatModule _stat;
 		HealthPowerModule _hp;
+		SkillModule _skill;
 
 		void Start(){
 			_stat = GetModule<StatModule>();
 			_hp = GetModule<HealthPowerModule> ();
+			_skill = GetModule<SkillModule> ();
 		}
 
 		#region ILevelUpEventHandler implementation
 
 		public void OnLevelUp (int level, int levelUp)
 		{
+			// increase evolved skill point
+			if (level % 4 == 0) {
+				++_skill.evolvedSkillPoint;
+				for (var i = 1; i <= levelUp; i++) {
+					if ((level - i) % 4 == 0) {
+						++_skill.evolvedSkillPoint;
+					}
+				}
+			}
+
 			// Stat
 			_stat.AutoAddPoint(false);
 			var point = StatCalculator.GeneratePoint(levelUp, _stat.initPoint);
@@ -77,9 +89,20 @@ namespace Mob
 			});
 
 			// Skill is used to store the skills
-			GetModule<SkillModule> (skill => {
-				skill.Add<SlashSkill>(1);
+			GetModule<SkillModule> (skill => {				
+				skill.Add<SwordmanA1Skill>(1);
+				skill.AddAvailableSkill<SwordmanB1BoughtSkill>();
+				skill.AddAvailableSkill<SwordmanB2BoughtSkill>();
+				skill.AddAvailableSkill<SwordmanB3BoughtSkill>();
+				skill.AddAvailableSkill<SwordmanC1BoughtSkill>();
+				skill.AddAvailableSkill<SwordmanC2BoughtSkill>();
+				skill.AddAvailableSkill<SwordmanD1BoughtSkill>();
+				skill.AddAvailableSkill<SwordmanE1BoughtSkill>();
 			});
+		}
+
+		public override void OpenSkillTree(){
+			
 		}
 
 		public override void BuyItem ()

@@ -33,15 +33,13 @@ namespace Mob
 		}
 
 		public void Use(Item item, Race[] targets){
-			if (item.EnoughEnergy () && item.EnoughLevel () && item.EnoughCooldown ()) {
-				item.Use (targets);
-				item.usedTurn = _race.turnNumber;
-				--item.quantity;
+			item.Use (targets);
+			item.usedTurn = _race.turnNumber;
+			--item.quantity;
 
-				if (item.quantity == 0) {
-					items.Remove (item);
-					Destroy (item.gameObject);
-				}
+			if (item.quantity == 0) {
+				items.Remove (item);
+				Destroy (item.gameObject);
 			}
 		}
 	}

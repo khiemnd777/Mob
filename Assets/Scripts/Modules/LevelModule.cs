@@ -33,6 +33,7 @@ namespace Mob
 				GetModules<ILevelUpEventHandler> (x => {
 					x.OnLevelUp(level, upLevel);
 				});
+				BattleController.EmitLevelUpEvent(_race, level, upLevel);
 			}
 		}
 	}

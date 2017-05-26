@@ -62,5 +62,18 @@ namespace Mob
 			return true;
 		}
 	}
+
+	public class SwordmanC1BoughtSkill : BoughtItem
+	{
+		public override void Pick (Race who, int quantity)
+		{
+			var skillModule = who.GetModule<SkillModule> ();
+			if (skillModule.evolvedSkillPoint <= 0)
+				return;
+			who.GetModule<SkillModule> (x => x.Add<SwordmanC1Skill> (quantity));
+			--skillModule.evolvedSkillPoint;
+			enabled = false;
+		}
+	}
 }
 

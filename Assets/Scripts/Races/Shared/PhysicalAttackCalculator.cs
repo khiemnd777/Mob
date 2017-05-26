@@ -26,7 +26,6 @@ namespace Mob
 		}
 
 		public static void Calculate(float bonusDamage, Race attacker, Race[] targets) {
-			var stat = attacker.GetModule<StatModule> ();
 			foreach (var target in targets) {
 				Calculate (bonusDamage, attacker, target);
 			}

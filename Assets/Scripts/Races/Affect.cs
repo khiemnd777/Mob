@@ -6,6 +6,8 @@ namespace Mob
 {
 	public abstract class Affect : MonoHandler
 	{
+		public virtual string title { get { return this.name; } }
+
 		protected int turn = 1;
 		protected bool isExecuted;
 

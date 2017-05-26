@@ -1,25 +1,21 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Modules/HealthPowerModule.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameStarting.cs">
     <Files>
-      <File FileName="Assets/Scripts/Races/Shared/PhysicalAttackCalculator.cs" Line="17" Column="33" />
-      <File FileName="Assets/Scripts/Races/Shared/MagicAttackCalculator.cs" Line="15" Column="50" />
-      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/Slash.cs" Line="36" Column="29" />
-      <File FileName="Assets/Scripts/Modules/StatModule.cs" Line="120" Column="7" />
-      <File FileName="Assets/Scripts/Races/AccuracyCalculator.cs" Line="37" Column="4" />
-      <File FileName="Assets/Scripts/Races/Shared/StatConverter.cs" Line="10" Column="4" />
-      <File FileName="Assets/Scripts/Races/StatCalculator.cs" Line="20" Column="28" />
-      <File FileName="Assets/Scripts/Races/AttackPowerCalculator.cs" Line="12" Column="76" />
-      <File FileName="Assets/Scripts/Races/ResistanceCalculator.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Races/Human/Swordman/Swordman.cs" Line="24" Column="10" />
-      <File FileName="Assets/Scripts/Races/Race.cs" Line="140" Column="4" />
-      <File FileName="Assets/Scripts/Modules/HealthPowerModule.cs" Line="24" Column="21" />
-      <File FileName="Assets/Scripts/Races/Human/Swordman/Treasures/Treasure.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/UI/TreasureList.cs" Line="26" Column="23" />
+      <File FileName="Assets/Scripts/UI/NegativeAffectList.cs" Line="10" Column="16" />
+      <File FileName="Assets/Scripts/Races/Affect.cs" Line="120" Column="16" />
+      <File FileName="Assets/Scripts/Main.cs" Line="130" Column="3" />
+      <File FileName="Assets/Scripts/Races/Shared/INegativeAffect.cs" Line="4" Column="27" />
+      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/SwordmanE1.cs" Line="25" Column="19" />
+      <File FileName="Assets/Scripts/Modules/AffectModule.cs" Line="37" Column="54" />
+      <File FileName="Assets/Scripts/GameStarting.cs" Line="14" Column="3" />
+      <File FileName="Assets/Scripts/MonoHandler.cs" Line="45" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/kandy/Projects/Mob_Source/Assets/Scripts/UI/ItemList.cs" line="38" column="1" />
+      <Breakpoint file="/Users/kandy/Projects/Mob_Source/Assets/Scripts/UI/SkillList.cs" line="34" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

@@ -31,20 +31,15 @@ namespace Mob
 		bool _stop;
 		bool _isEnd;
 
-		void Start(){
-			_t = timer;
-		}
-
 		IEnumerator Countingdown(){
-			while (_t >= 0f && !_stop) {
+			while (_t > -1f && !_stop) {
 				_m = Mathf.Floor (_t / 60f);
 				_s = Mathf.RoundToInt (_t % 60f);
-				_t = Mathf.Max(0f, --_t);
-				if (_isEnd)
-					break;
+				//_t = Mathf.Max(0f, --_t);
+				--_t;
 				yield return new WaitForSeconds (1f);
-				_isEnd = _t == 0f;
 			}
+			_isEnd = _t <= -1f;
 			yield return null;
 		}
 
@@ -61,6 +56,7 @@ namespace Mob
 		}
 
 		public void Stop(){
+			StopAllCoroutines ();
 			_stop = true;
 		}
 	}

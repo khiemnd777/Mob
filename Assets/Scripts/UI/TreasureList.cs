@@ -33,6 +33,7 @@ namespace Mob
 				btn.onClick.AddListener(() => {
 					item.Buy(BattleController.playerInTurn, 0f, 1);
 					BattleController.playerInTurn.GetModule<BagModule> (x => itemList.SetItems (x.items.ToArray()));
+					gameObject.SetActive (false);
 					Clear();
 				});
 			}

@@ -31,6 +31,7 @@ namespace Mob
 				var text = li.GetComponentInChildren<Text> ();
 				text.text = name;
 				var btn = li.GetComponent<Button> ();
+				btn.interactable = item.EnoughEnergy () && item.EnoughLevel () && item.EnoughCooldown ();
 				btn.onClick.AddListener(() => {
 					BattleController.playerInTurn.GetModule<BagModule>(x => {
 						x.Use(item, BattleController.GetTargets());

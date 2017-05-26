@@ -11,7 +11,13 @@ namespace Mob
 
 		public virtual string brief { get; }
 		
-		public abstract void Buy(Race who, float price, int quantity);
+		public virtual void Buy(Race who, float price, int quantity){
+			
+		}
+
+		public virtual void Pick(Race who, int quantity){
+			
+		}
 
 		public void SubtractGold(Race who, float price, int quantity){
 			who.GetModule<GoldModule> ((g) => {

@@ -35,6 +35,18 @@ namespace Mob
 			playerInTurn = GetNextPlayer();
 		}
 
+		public static System.Action<Race, int, int> emitLevelUpEvent;
+		public static void EmitLevelUpEvent(Race who, int level, int upLevel){
+			if (emitLevelUpEvent != null)
+				emitLevelUpEvent.Invoke (who, level, upLevel);
+		}
+
+		public static System.Action<Race> emitPickAvailableSkillEvent;
+		public static void EmitPickAvailableSkillEvent(Race who){
+			if (emitPickAvailableSkillEvent != null)
+				emitPickAvailableSkillEvent.Invoke (who);
+		}
+
 		public static void EndTurn(){
 			if (playerInTurn == null)
 				return;

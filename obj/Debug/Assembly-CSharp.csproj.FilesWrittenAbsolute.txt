@@ -47,3 +47,6 @@
 /Users/kandy/Projects/Mob_Source/Temp/bin/Debug/Ionic.Zip.Reduced.dll
 /Users/kandy/Projects/Mob_Source/Temp/bin/Debug/GAF.dll
 /Users/kandy/Projects/Mob_Source/Temp/bin/Debug/MiniJson.dll
+/Users/kandy/Projects/Mob_Source/Temp/bin/Debug/Facebook.Unity.Settings.dll
+/Users/kandy/Projects/Mob_Source/Temp/bin/Debug/UnityEngine.TestRunner.dll
+/Users/kandy/Projects/Mob_Source/Temp/bin/Debug/nunit.framework.dll

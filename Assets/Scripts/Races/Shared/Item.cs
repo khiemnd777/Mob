@@ -8,6 +8,7 @@ namespace Mob
 		public int quantity;
 		public Race own;
 		public int usedTurn = 0;
+		public int usedNumber = 0;
 
 		public virtual float energy { get { return 0; } }
 		public virtual int level { get { return 0; } }
@@ -46,7 +47,7 @@ namespace Mob
 		}
 
 		public bool EnoughCooldown(Action predicate = null){
-			var result = usedTurn == 0 || Mathf.Abs(own.turnNumber - usedTurn - cooldown) == 0;
+			var result = cooldown == 0 || usedTurn == 0 || usedTurn + cooldown == own.turnNumber;
 			if (result && predicate != null) {
 				predicate.Invoke ();
 			}
@@ -86,8 +87,8 @@ namespace Mob
 			if (predicate != null) {
 				predicate.Invoke (a);
 			}
+
 			return a;
 		}
 	}
 }
-

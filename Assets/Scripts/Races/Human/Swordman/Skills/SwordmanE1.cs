@@ -34,6 +34,12 @@ namespace Mob
 
 	public class SwordmanE1Skill : Skill
 	{
+		public override string title {
+			get {
+				return "Holy Knight";
+			}
+		}
+
 		public override float energy {
 			get {
 				return 12f;
@@ -57,6 +63,19 @@ namespace Mob
 			Affect.CreatePrimitive<SwordmanE1> (own, targets);
 			SubtractEnergy ();
 			return true;
+		}
+	}
+
+	public class SwordmanE1BoughtSkill : BoughtItem
+	{
+		public override void Pick (Race who, int quantity)
+		{
+			var skillModule = who.GetModule<SkillModule> ();
+			if (skillModule.evolvedSkillPoint <= 0)
+				return;
+			who.GetModule<SkillModule> (x => x.Add<SwordmanE1Skill> (quantity));
+			--skillModule.evolvedSkillPoint;
+			enabled = false;
 		}
 	}
 }

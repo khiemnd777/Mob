@@ -135,6 +135,10 @@ namespace Mob
 			
 		}
 
+		public virtual void OpenSkillTree(){
+			
+		}
+
 		public virtual void StartTurn(){
 			_isTurn = true;
 			_isEndTurn = false;

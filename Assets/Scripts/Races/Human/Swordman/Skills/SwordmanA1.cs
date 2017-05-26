@@ -33,6 +33,23 @@ namespace Mob
 			SubtractEnergy();
 			return true;
 		}
+
+		void Update(){
+			if(usedNumber == 10){
+				own.GetModule<SkillModule> (s => {
+					s.Add<SwordmanA2Skill> (1);
+					s.Remove(this);
+				});
+			}
+		}
+	}
+
+	public class SwordmanA1BoughtSkill : BoughtItem
+	{
+		public override void Pick (Race who, int quantity)
+		{
+			who.GetModule<SkillModule> (x => x.Add<SwordmanA1Skill> (quantity));
+		}
 	}
 }
 
