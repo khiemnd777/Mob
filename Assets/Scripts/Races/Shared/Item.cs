@@ -58,7 +58,7 @@ namespace Mob
 			return EnoughEnergy () && EnoughLevel () && EnoughCooldown ();
 		}
 
-		protected void SubtractEnergy(float energy = 0f){
+		public void SubtractEnergy(float energy = 0f){
 			own.GetModule<EnergyModule> ((e) => {
 				e.SubtractEnergy (energy == 0f ? this.energy : energy);
 			});

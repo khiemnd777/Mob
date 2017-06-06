@@ -39,7 +39,7 @@ namespace Mob
 		public float vitality = 1f;
 		[Header("Sub-vitality")]
 		public float maxHp;
-		public float maxHpSeed = 0.1f;
+		public float maxHpSeed = 3f;
 		public float regenerateHp;
 		public float regenerateHpSeed = 0.002f;
 
@@ -141,6 +141,8 @@ namespace Mob
 			}
 		}
 
+		bool increaseMaxHP;
+
 		public void AddPoint(StatType statType){
 			if (point == 0)
 				return;
@@ -179,22 +181,31 @@ namespace Mob
 					++logPoint;
 					if (Mathf.Clamp (vitality, 10f, 20f) == vitality) {
 						maxHpSeed = 5f;
+						increaseMaxHP = vitality <= 10f;
 					}
 					if (Mathf.Clamp (vitality, 21f, 40f) == vitality) {
 						maxHpSeed = 6f;
+						increaseMaxHP = vitality <= 21f;
 					}
 					if (Mathf.Clamp (vitality, 41f, 60f) == vitality) {
 						maxHpSeed = 8f;
+						increaseMaxHP = vitality <= 41f;
 					}
 					if (Mathf.Clamp (vitality, 61f, 80f) == vitality) {
 						maxHpSeed = 11f;
+						increaseMaxHP = vitality <= 61f;
 					}
 					if (vitality > 80f) {
 						maxHpSeed = 15f;
+						increaseMaxHP = vitality <= 81f;
 					}
 					maxHp = vitality * maxHpSeed;
 					regenerateHp = vitality * regenerateHpSeed;
 					point = Mathf.Max(0, point - 1);
+					if (increaseMaxHP) {
+						GetModule<HealthPowerModule> (x => x.SetMaxHp (setFullHp: false));
+						increaseMaxHP = false;
+					}
 				}
 				break;
 			case StatType.Luck:

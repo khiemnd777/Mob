@@ -4,17 +4,22 @@ namespace Mob
 {
 	public class Antidote : Affect
 	{
+		public override float gainPoint {
+			get {
+				return 4f;
+			}
+		}
+
 		void Start(){
 			own.GetModule<AffectModule>((a) => {
 				a.RemoveAffect(m => typeof(INegativeAffect).IsAssignableFrom(m.GetType()));
 			});
-			AddGainPoint (4f);
-			Destroy(gameObject);
+			Destroy(gameObject, Constants.WAIT_FOR_DESTROY);
 		}
 	}
 
 	// Item
-	public class AntidoteItem: Item {
+	public class AntidoteItem: Item, ISelfUsable {
 		
 		public override string title {
 			get {

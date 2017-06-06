@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 namespace Mob
 {
@@ -6,7 +8,11 @@ namespace Mob
 	{
 		public float extraHp;
 
+		Text attackerHpLabel;
+
 		void Start(){
+			attackerHpLabel = GetMonoComponent<Text> (Constants.ATTACKER_HP_LABEL);
+
 			own.GetModule<HealthPowerModule>(hp => {
 				var _ = float.MinValue;
 				own.GetModule<AffectModule>(am => {
@@ -16,9 +22,13 @@ namespace Mob
 				});
 				extraHp = Mathf.Max (_, extraHp);
 				hp.AddHp(extraHp);
+
+				JumpEffect (attackerHpLabel.transform, Vector3.one);
+
+				ShowSubLabel (Constants.INCREASE_LABEL, attackerHpLabel.transform, extraHp);
 			});
 
-			Destroy (gameObject);
+			Destroy (gameObject, Constants.WAIT_FOR_DESTROY);
 		}
 	}
 

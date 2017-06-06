@@ -34,7 +34,7 @@ namespace Mob
 		public Button skillTreeBtn;
 		public Button addStrength;
 		public Button addDexterity;
-		public Button addIntelligent;
+		public Button addIntelligent; 
 		public Button addVitality;
 		public Button addLuck;
 
@@ -45,6 +45,11 @@ namespace Mob
 			cdm.RefreshAndRun ();
 
 			BattleController.Init ();
+			foreach (var player in BattleController.players) {
+				player.GetModule<HealthPowerModule> (x => {
+					x.hpLabel = hpValue;
+				});
+			}
 			BattleController.playerInTurn.GetModule<BagModule> (x => itemList.SetItems (x.items.ToArray()));
 			skillList.gameObject.SetActive (false);
 			treasureList.gameObject.SetActive (false);
@@ -59,19 +64,16 @@ namespace Mob
 				BattleController.playerInTurn.GetModule<EnergyModule>(x => x.AddEnergy(energyDice));
 				BattleController.playerInTurn.GetModule<SkillModule> (x => skillList.SetSkills (x.skills.ToArray()));
 				rollDice.interactable = false;
+
+				JumpEffect (goldValue.transform, Vector3.one);
+				ShowSubLabel (Constants.INCREASE_LABEL, goldValue.transform, goldDice * 10f);
+
+				JumpEffect (energyValue.transform, Vector3.one);
+				ShowSubLabel (Constants.INCREASE_LABEL, energyValue.transform, energyDice);
 			});
 
 			endTurn.onClick.AddListener (() => {
-				BattleController.EndTurn ();
-				goldDiceValue.text = "0";
-				energyDiceValue.text = "0";
-				VisibleSkillList(false);
-				BattleController.playerInTurn.GetModule<BagModule> (x => itemList.SetItems (x.items.ToArray()));
-				attackBtn.GetComponentInChildren<Text>().text = "Attack";
-				treasureList.Clear ();
-				treasureList.gameObject.SetActive (false);
-				cdm.RefreshAndRun ();
-				rollDice.interactable = true;
+				EndTurn();
 			});
 
 			attackBtn.onClick.AddListener (() => {
@@ -132,16 +134,7 @@ namespace Mob
 			countdownValue.text = cdm.minutes + ":" + cdm.secondsString;
 
 			if (cdm.isEnd) {
-				BattleController.EndTurn ();
-				goldDiceValue.text = "0";
-				energyDiceValue.text = "0";
-				VisibleSkillList(false);
-				BattleController.playerInTurn.GetModule<BagModule> (x => itemList.SetItems (x.items.ToArray()));
-				attackBtn.GetComponentInChildren<Text>().text = "Attack";
-				treasureList.Clear ();
-				treasureList.gameObject.SetActive (false);
-				cdm.RefreshAndRun ();
-				rollDice.interactable = true;
+				EndTurn ();
 			}
 
 			if (BattleController.treasure != null && BattleController.treasure.Length > 0) {
@@ -161,14 +154,14 @@ namespace Mob
 				hpValue.text = Mathf.RoundToInt(x.hp) + "/" + Mathf.RoundToInt(x.maxHp);
 			});
 			BattleController.playerInTurn.GetModule<GoldModule> (x => {
-				goldValue.text = x.gold.ToString();
+				goldValue.text = x.goldLabel.ToString();
 			});
 			BattleController.playerInTurn.GetModule<EnergyModule> (x => {
-				energyValue.text = x.energy.ToString();
+				energyValue.text = x.energyLabel.ToString();
 			});
 			BattleController.playerInTurn.GetModule<LevelModule> (x => {
 				levelValue.text = x.level.ToString();
-				gainPointValue.text = Mathf.RoundToInt(BattleController.playerInTurn.gainPoint) + "/" + Mathf.RoundToInt(LevelCalculator.GetPointAt(x.level + 1));
+				gainPointValue.text = Mathf.CeilToInt(BattleController.playerInTurn.gainPointLabel) + "/" + Mathf.RoundToInt(LevelCalculator.GetPointAt(x.level + 1));
 			});
 
 			BattleController.GetTargets()[0].GetModule<HealthPowerModule> (x => {
@@ -194,6 +187,19 @@ namespace Mob
 
 		void AddPoint(StatType statType){
 			BattleController.playerInTurn.GetModule<StatModule> (x => x.AddPoint (statType));
+		}
+
+		void EndTurn(){
+			BattleController.EndTurn ();
+			goldDiceValue.text = "0";
+			energyDiceValue.text = "0";
+			VisibleSkillList(false);
+			BattleController.playerInTurn.GetModule<BagModule> (x => itemList.SetItems (x.items.ToArray()));
+			attackBtn.GetComponentInChildren<Text>().text = "Attack";
+			treasureList.Clear ();
+			treasureList.gameObject.SetActive (false);
+			cdm.RefreshAndRun ();
+			rollDice.interactable = true;
 		}
 	}	
 }

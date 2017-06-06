@@ -75,18 +75,13 @@ namespace Mob
 			if (!skills.Any (x => x.GetType().IsEqual<T> ())) 
 				return;
 			var item = skills.FirstOrDefault (x => x.GetType().IsEqual<T> ());
-			
-			item.Use(targets);
-			--item.quantity;
 
-			if (item.quantity == 0) {
-				item.quantity = 1;
-				return;
-			}
+			Use (item, targets);
 		}
 
 		public void Use(Skill skill, Race[] targets){
 			skill.Use (targets);
+			skill.SubtractEnergy ();
 			++skill.usedNumber;
 			skill.usedTurn = _race.turnNumber;
 			--skill.quantity;

@@ -52,8 +52,10 @@ namespace Mob
 				.Where (x => typeof(T).IsAssignableFrom (x.GetType ()))
 				.Cast<T> ()
 				.ToArray();
-			foreach (var r in result) {
-				predicate.Invoke (r);
+			if (result.Length > 0 && predicate != null) {
+				foreach (var r in result) {
+					predicate.Invoke (r);
+				}
 			}
 			return result;
 		}

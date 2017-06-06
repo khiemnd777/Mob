@@ -6,16 +6,22 @@ namespace Mob
 	{
 		public bool use;
 
+		public override float gainPoint {
+			get {
+				return 6f;
+			}
+		}
+
 		void Start(){
 			if(HasAffect<Speedy>(own)){
-				Destroy (gameObject);
+				RemoveAffect (own, this);
 				return;
 			}
-			AddGainPoint (6f);
 		}
 
 		void Update(){
 			if (use) {
+				use = false;
 				Destroy (gameObject);
 			}
 		}
@@ -32,8 +38,8 @@ namespace Mob
 	}
 
 	// Item
-	public class SpeedyItem: Item {
-		
+	public class SpeedyItem: Item, ISelfUsable
+	{	
 		public override string title {
 			get {
 				return "Speedy";

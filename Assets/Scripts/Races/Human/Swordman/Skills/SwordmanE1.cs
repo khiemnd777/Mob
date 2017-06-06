@@ -4,8 +4,10 @@ namespace Mob
 {
 	public class SwordmanE1 : SkillAffect, IDamaged, IHittable, ICritical
 	{
-		void Start(){
-			AddGainPoint(30f);	
+		public override float gainPoint {
+			get {
+				return 30f;
+			}
 		}
 
 		void Update(){
@@ -61,7 +63,6 @@ namespace Mob
 		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<SwordmanE1> (own, targets);
-			SubtractEnergy ();
 			return true;
 		}
 	}

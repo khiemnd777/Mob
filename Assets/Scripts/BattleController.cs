@@ -47,6 +47,18 @@ namespace Mob
 				emitPickAvailableSkillEvent.Invoke (who);
 		}
 
+		public static System.Action emitIncreaseHp;
+		public static void EmitIncreaseHp(){
+			if (emitIncreaseHp != null) 
+				emitIncreaseHp.Invoke();
+		}
+
+		public static System.Action emitDecreaseHp;
+		public static void EmitDecreaseHp(){
+			if (emitDecreaseHp != null) 
+				emitDecreaseHp.Invoke();
+		}
+
 		public static void EndTurn(){
 			if (playerInTurn == null)
 				return;

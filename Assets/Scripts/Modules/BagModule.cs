@@ -23,6 +23,7 @@ namespace Mob
 			var item = items.FirstOrDefault (x => x.GetType().IsEqual<T> ());
 			if (item.EnoughEnergy () && item.EnoughLevel () && item.EnoughCooldown ()) {
 				item.Use (targets);
+
 				--item.quantity;
 
 				if (item.quantity == 0) {
@@ -33,7 +34,13 @@ namespace Mob
 		}
 
 		public void Use(Item item, Race[] targets){
-			item.Use (targets);
+			var t = targets;
+			if (typeof(ISelfUsable).IsAssignableFrom (item.GetType ())) {
+				t = new Race[]{ item.own };
+			} else if (typeof(ITargetUsable).IsAssignableFrom (item.GetType ())) {
+				t = _race.targets;
+			}
+			item.Use (t);
 			item.usedTurn = _race.turnNumber;
 			--item.quantity;
 

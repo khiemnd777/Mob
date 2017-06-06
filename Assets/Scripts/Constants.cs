@@ -9,6 +9,16 @@ namespace Mob
 		public const int MIN_LEVEL = 2;
 		public const int INIT_LEVEL = 1;
 		public const float INIT_GAIN_POINT = 0f;
+		public const float LERP_TIME = .5f;
+		public const float WAIT_FOR_DESTROY = 10f;
+		public const string TARGET_HP_LABEL = "Canvas/EnemyPanel/BodyPanel/TargetHPValue";
+		public const string ATTACKER_HP_LABEL = "Canvas/CharacterInfoPanel/HPValue";
+		public const string ATTACKER_GOLD_LABEL = "Canvas/CharacterInfoPanel/GoldValue";
+		public const string ATTACKER_ENERGY_LABEL = "Canvas/CharacterInfoPanel/EnergyValue";
+		public const string ATTACKER_GAIN_POINT_LABEL = "Canvas/CharacterInfoPanel/GainPointValue";
+		public const string DECREASE_LABEL = "Prefabs/DecreaseLabel";
+		public const string INCREASE_LABEL = "Prefabs/IncreaseLabel";
+		public const string EFFECT_SLASH_LINE = "Effects/SlashLine";
 		public const string PLAYER1 = "Player1";
 		public const string PLAYER2 = "Player2";
 		public const string PLAYER3 = "Player3";

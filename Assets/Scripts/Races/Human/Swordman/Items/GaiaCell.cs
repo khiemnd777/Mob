@@ -21,7 +21,7 @@ namespace Mob
 		#endregion
 	}
 
-	public class GaiaCellItem: Item
+	public class GaiaCellItem: Item, ISelfUsable
 	{
 		public override string title {
 			get {

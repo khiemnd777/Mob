@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Linq;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Mob
 {
 	public abstract class Affect : MonoHandler
 	{
 		public virtual string title { get { return this.name; } }
+		public virtual float gainPoint { get { return 0f; } }
 
 		protected int turn = 1;
 		protected bool isExecuted;
@@ -14,7 +17,16 @@ namespace Mob
 		public Race own;
 		public Race[] targets;
 
-		protected void AddGainPoint(float gainPoint){
+		public virtual void Init(){
+			
+		}
+
+		public virtual void Execute(Race target){
+			
+		}
+
+		protected void AddGainPoint(float gainPoint = 0f){
+			gainPoint = gainPoint > 0f ? gainPoint : this.gainPoint;
 			own.AddGainPoint (gainPoint);
 		}
 
@@ -75,6 +87,18 @@ namespace Mob
 			return result;
 		}
 
+		public static void RemoveAffect<T>(Race who) where T: Affect {
+			var affectModule = who.GetModule<AffectModule> ();
+			affectModule.GetAffects<T> (x => Destroy(x.gameObject));
+			affectModule.RefreshAffect ();
+		}
+
+		public static void RemoveAffect(Race who, Affect affect){
+			var affectModule = who.GetModule<AffectModule> ();
+			Destroy(affect.gameObject);
+			affectModule.RefreshAffect ();
+		}
+
 		public static T[] GetAffects<T>(Race who, Action<T> predicate = null) where T: Affect{
 			T[] result = new T[0];
 			who.GetModule<AffectModule> ((a) => {
@@ -102,6 +126,7 @@ namespace Mob
 
 		public static void Create<T>(T affect, Race own, Race[] targets, Action<T> predicate = null) where T : Affect {
 			var a = Instantiate<T>(affect);
+			a.Init ();
 			a.own = own;
 			a.targets = targets;
 			if (predicate != null) {
@@ -117,6 +142,7 @@ namespace Mob
 		public static void CreatePrimitive<T>(Race own, Race[] targets, Action<T> predicate = null) where T: Affect {
 			var go = new GameObject (typeof(T).Name, typeof(T));
 			var a = go.GetComponent<T> ();
+			a.Init ();
 			a.own = own;
 			a.targets = targets;
 			if (predicate != null) {
@@ -126,7 +152,54 @@ namespace Mob
 				target.GetModule<AffectModule> ((am) => {
 					am.AddAffect(a);
 				});
+				if (typeof(IPhysicalAttackingEventHandler).IsAssignableFrom (a.GetType ())) {
+					var physicalAttacking = ((IPhysicalAttackingEventHandler)a);
+					var stat = own.GetModule<StatModule> ();
+					var targetStat = target.GetModule<StatModule> ();
+					var isHit = AccuracyCalculator.IsHit (stat.attackRating, targetStat.attackRating);
+					isHit = !isHit ? AccuracyCalculator.MakeSureHit(own) : isHit;
+//					if (isHit) {
+//						var isCritHit = AccuracyCalculator.IsCriticalHit (stat.criticalRating);
+//						isCritHit = !isCritHit ? AccuracyCalculator.MakeSureCritical (own) : isCritHit;
+//						// optional Damage
+//						var outputDamage = AttackPowerCalculator.TakeDamage(physicalAttacking.bonusDamage, targetStat.physicalDefend, isCritHit);
+//						AccuracyCalculator.HandleCriticalDamage (ref outputDamage, own, target);
+//						AttackPowerCalculator.HandleDamage(ref outputDamage, own, target);
+//						a.StartCoroutine (physicalAttacking.OnPhysicalHit (new PhysicalAttackingEventArgs{
+//							affect = a,
+//							target = target,
+//							outputDamage = outputDamage,
+//							isCritHit = isCritHit,
+//						}));
+//					} else {
+//						var isCritHit = AccuracyCalculator.IsCriticalHit (stat.criticalRating);
+//						var damage = AttackPowerCalculator.TakeDamage(physicalAttacking.bonusDamage, targetStat.physicalDefend, isCritHit);
+//						a.StartCoroutine (physicalAttacking.OnPhysicalMiss (new PhysicalAttackingEventArgs{
+//							affect = a,
+//							target = target,
+//							outputDamage = damage,
+//							isCritHit = isCritHit,
+//						}));
+//					}
+					var isCritHit = AccuracyCalculator.IsCriticalHit (stat.criticalRating);
+					isCritHit = !isCritHit ? AccuracyCalculator.MakeSureCritical (own) : isCritHit;
+					// optional Damage
+					var outputDamage = AttackPowerCalculator.TakeDamage(physicalAttacking.bonusDamage, targetStat.physicalDefend, isCritHit);
+					AccuracyCalculator.HandleCriticalDamage (ref outputDamage, own, target);
+					AttackPowerCalculator.HandleDamage(ref outputDamage, own, target);
+					a.StartCoroutine (physicalAttacking.OnPhysicalHit (new PhysicalAttackingEventArgs{
+						affect = a,
+						target = target,
+						outputDamage = outputDamage,
+						isCritHit = isCritHit,
+					}));
+				} else if(typeof(IMagicalAttacking).IsAssignableFrom(a.GetType())){
+
+				} else {
+					a.Execute (target);
+				}
 			}
+			a.AddGainPoint ();
 		}
 	}
 }

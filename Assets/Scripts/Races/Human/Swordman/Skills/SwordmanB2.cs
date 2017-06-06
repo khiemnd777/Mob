@@ -1,24 +1,55 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 namespace Mob
 {
-	public class SwordmanB2 : SkillAffect
+	public class SwordmanB2 : SkillAffect, IPhysicalAttackingEventHandler
 	{
-		void Start(){
-			var stat = own.GetModule<StatModule>();
-			PhysicalAttackCalculator.Calculate (40f + .5f * stat.physicalAttack, own, targets);	
-
-			foreach(var target in targets){
-				Affect.CreatePrimitive<StunAffect> (own, targets, x => {
-					x.turnNumber = 1;
-				});
+		public override float gainPoint {
+			get {
+				return 8f;
 			}
-
-			AddGainPoint(8f);
-
-			Destroy (gameObject);
 		}
+
+		Text targetHpLabel;
+
+		void Start(){
+			targetHpLabel = GetMonoComponent<Text> (Constants.TARGET_HP_LABEL);
+		}
+
+		#region IPhysicalAttackingEventHandler implementation
+
+		public System.Collections.IEnumerator OnPhysicalHit (PhysicalAttackingEventArgs args)
+		{
+			yield return OnSetTimeout (() => {
+				args.target.GetModule<HealthPowerModule> (x => x.SubtractHp (args.outputDamage));
+			});
+
+			JumpEffect (targetHpLabel.transform, Vector3.one);
+
+			ShowSubLabel (Constants.DECREASE_LABEL, targetHpLabel.transform, args.outputDamage);
+
+			Affect.CreatePrimitive<StunAffect> (own, new Race[]{args.target}, x => {
+				x.turnNumber = 1;
+			});
+
+			Destroy(args.affect.gameObject, 3f);
+		}
+
+		public System.Collections.IEnumerator OnPhysicalMiss (PhysicalAttackingEventArgs args)
+		{
+			throw new NotImplementedException ();
+		}
+
+		public float bonusDamage {
+			get {
+				var stat = own.GetModule<StatModule>();
+				return 40f + .5f * stat.physicalAttack;
+			}
+		}
+
+		#endregion
 	}
 
 	public class SwordmanB2Skill: Skill
@@ -44,7 +75,6 @@ namespace Mob
 		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<SwordmanB2> (own, targets);
-			SubtractEnergy();
 			return true;
 		}
 	}

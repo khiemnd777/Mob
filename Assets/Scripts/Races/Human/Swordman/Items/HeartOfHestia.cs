@@ -32,7 +32,7 @@ namespace Mob
 		#endregion
 	}
 
-	public class HeartOfHestiaItem: Item
+	public class HeartOfHestiaItem: Item, ISelfUsable
 	{
 		public override string title {
 			get {

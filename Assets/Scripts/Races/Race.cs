@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Mob
 {
@@ -74,9 +75,18 @@ namespace Mob
 
 		// Gain point
 		public float gainPoint;
+		public float gainPointLabel;
 
 		public void AddGainPoint(float p){
 			gainPoint += p;
+			While ((inc, step) => {
+				gainPointLabel += inc;
+			}, p, 1f);
+			var gainPointValue = GetMonoComponent<Text> (Constants.ATTACKER_GAIN_POINT_LABEL);
+			if (p > 0) {
+				JumpEffect (gainPointValue.transform, Vector3.one);
+				ShowSubLabel (Constants.INCREASE_LABEL, gainPointValue.transform, p);
+			}
 		}
 
 		public void SubtractGainPoint(float p){
@@ -144,7 +154,9 @@ namespace Mob
 			_isEndTurn = false;
 			_turnNumber++;
 			GetModule<StatModule> (s => {
-				GetModule<HealthPowerModule>(hp => hp.AddHp(s.regenerateHp * hp.hp));
+				GetModule<HealthPowerModule>(hp => {
+					Affect.CreatePrimitive<HealthPowerRestoring> (this, new Race[]{this}, hpr => hpr.extraHp = s.regenerateHp * hp.hp);
+				});
 			});
 		}
 

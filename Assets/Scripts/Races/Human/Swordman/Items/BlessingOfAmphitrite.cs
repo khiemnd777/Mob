@@ -21,7 +21,7 @@ namespace Mob
 		#endregion
 	}
 
-	public class BlessingOfAmphitriteItem: Item
+	public class BlessingOfAmphitriteItem: Item, ISelfUsable
 	{
 		public override string title {
 			get {

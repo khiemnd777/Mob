@@ -1,7 +1,13 @@
 ﻿using System;
+using System.Collections;
 
 namespace Mob
 {
+	public interface IMagicalAttacking {
+		IEnumerator OnPhysicalHit();
+		IEnumerator OnPhysicalMiss();	
+	}
+
 	public class MagicAttackCalculator
 	{
 		public static void Calculate(float bonusDamage, Race attacker, Race[] targets){

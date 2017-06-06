@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Mob
 {
@@ -14,14 +15,26 @@ namespace Mob
 			}
 		}
 
+		public float energyLabel;
+
 		public void AddEnergy (float e)
 		{
 			_energy = Mathf.Min (_energy + e, maxEnergy);
+			While ((inc, step) => {
+				energyLabel = Mathf.Min(energyLabel + inc, maxEnergy);
+			}, e, 1f);
 		}
 
 		public void SubtractEnergy (float e)
 		{
 			_energy = Mathf.Max (_energy - e, 0f);
+			While ((inc, step) => {
+				energyLabel = Mathf.Max(energyLabel - inc, 0f);
+			}, e, 1f);
+
+			var energyValue = GetMonoComponent<Text> (Constants.ATTACKER_ENERGY_LABEL);
+			JumpEffect (energyValue.transform, Vector3.one);
+			ShowSubLabel (Constants.DECREASE_LABEL, energyValue.transform, e);
 		}
 	}
 }

@@ -1,18 +1,23 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 namespace Mob
 {
-	public class SwordmanD1 : SkillAffect, ICriticalHandler
+	public class SwordmanD1 : SkillAffect, ICriticalHandler, IPhysicalAttackingEventHandler
 	{
 		public float storedEnergy;
-		
-		void Start() {
-			var stat = own.GetModule<StatModule>();
-			MagicAttackCalculator.Calculate (20f + 10f * storedEnergy + .4f * stat.magicAttack, own, targets);
-			AddGainPoint(18f);
+	
+		public override float gainPoint {
+			get {
+				return 18f;
+			}
+		}
 
-			Destroy (gameObject);
+		Text targetHpLabel;
+
+		void Start(){
+			targetHpLabel = GetMonoComponent<Text> (Constants.TARGET_HP_LABEL);
 		}
 
 		#region ICriticalHandler implementation
@@ -21,6 +26,35 @@ namespace Mob
 		{
 			own.GetModule<EnergyModule> (x => x.AddEnergy(storedEnergy / 2));
 			return damage;
+		}
+
+		#endregion
+
+		#region IPhysicalAttackingEventHandler implementation
+
+		public System.Collections.IEnumerator OnPhysicalHit (PhysicalAttackingEventArgs args)
+		{
+			yield return OnSetTimeout (() => {
+				args.target.GetModule<HealthPowerModule> (x => x.SubtractHp (args.outputDamage));
+			});
+
+			JumpEffect (targetHpLabel.transform, Vector3.one);
+
+			ShowSubLabel (Constants.DECREASE_LABEL, targetHpLabel.transform, args.outputDamage);
+
+			Destroy(args.affect.gameObject, 3f);
+		}
+
+		public System.Collections.IEnumerator OnPhysicalMiss (PhysicalAttackingEventArgs args)
+		{
+			throw new NotImplementedException ();
+		}
+
+		public float bonusDamage {
+			get {
+				var stat = own.GetModule<StatModule>();
+				return 20f + 10f * storedEnergy + .4f * stat.magicAttack;
+			}
 		}
 
 		#endregion
@@ -49,7 +83,6 @@ namespace Mob
 		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<SwordmanB2> (own, targets);
-			SubtractEnergy();
 			return true;
 		}
 	}

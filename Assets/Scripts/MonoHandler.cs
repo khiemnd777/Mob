@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,8 +42,12 @@ namespace Mob
 			return goList.ToArray();
 		}
 
-		public T GetMonoComponent<T>(string name) where T : UnityEngine.Component{
-			return GameObject.Find(name).GetComponent<T>();
+		public T GetMonoComponent<T>(string name, Action<T> predicate = null) where T : UnityEngine.Component{
+			var component = GameObject.Find(name).GetComponent<T>();
+			if (component != null && predicate != null) {
+				predicate.Invoke (component);
+			}
+			return component;
 		}
 
 		public static T GetMonoResource<T>(string path) where T : UnityEngine.Object{
@@ -69,32 +74,35 @@ namespace Mob
 
 		public static T InstantiateFromMonoResource<T>(string path, params Type[] componentTypes) where T: UnityEngine.Object{
 			var resource = GetMonoResource<T>(path);
-			var o = Instantiate(resource) as GameObject;
+			var o = Instantiate(resource);
+			var go = o as GameObject;
 			foreach (var componentType in componentTypes)
 			{
-				o.AddComponent(componentType);
+				go.AddComponent(componentType);
 			}
-			return o as T;
+			return o;
 		}   
 
 		public static T InstantiateFromMonoResource<T>(string path, Vector3 position, Quaternion rotation, params Type[] componentTypes) where T : UnityEngine.Object{
 			var resource = GetMonoResource<T>(path);
-			var o = Instantiate(resource, position, rotation) as GameObject;
+			var o = Instantiate(resource, position, rotation);
+			var go = o as GameObject;
 			foreach (var componentType in componentTypes)
 			{
-				o.AddComponent(componentType);
+				go.AddComponent(componentType);
 			}
-			return o as T;
+			return o;
 		}
 
 		public static T InstantiateFromMonoResource<T>(string path, Vector3 position, Quaternion rotation, Transform parent, params Type[] componentTypes) where T : UnityEngine.Object {
 			var resource = GetMonoResource<T>(path);
-			var o = Instantiate(resource, position, rotation, parent) as GameObject;
+			var o = Instantiate(resource, position, rotation, parent);
+			var go = o as GameObject;
 			foreach (var componentType in componentTypes)
 			{
-				o.AddComponent(componentType);
+				go.AddComponent(componentType);
 			}
-			return o as T;
+			return o;
 		}
 
 		public T RequireMono<T>(params Type[] componentTypes) where T : MonoHandler {
@@ -208,7 +216,7 @@ namespace Mob
 			{
 				percent += Time.fixedDeltaTime * deltaTime;
 				act.Invoke(percent);
-				yield return new WaitForFixedUpdate();
+				yield return null;
 			}
 			if (post != null)
 			{
@@ -268,6 +276,71 @@ namespace Mob
 			act.Invoke ();
 			yield return null;
 		}
+
+		protected void StartHierarchy(params Func<bool>[] hierarchies){
+			StartCoroutine (OnStartHierarchy(hierarchies));
+		}
+
+		protected IEnumerator OnStartHierarchy(params Func<bool>[] hierarchies){
+			foreach (var hierarchy in hierarchies) {
+				yield return new WaitUntil (hierarchy);
+			}
+			yield return null;
+		}
+
+		protected void SetTimeout(Action act, float t = .0f){
+			StartCoroutine(OnSetTimeout (act, t));
+		}
+
+		protected IEnumerator OnSetTimeout(Action act, float t = .0f){
+			if (act == null)
+				yield return null;
+			act.Invoke ();
+			yield return new WaitForSeconds (t);
+		}
+
+		protected void JumpEffect(Transform target, Vector3 init, float deltaHeight = 1.5f, float deltaWeight = .25f){
+			if (target == null)
+				return;
+			var scale = target.localScale * deltaHeight;
+			StartCoroutine(OnLoadingPercent(percent => {
+				if(percent <= deltaWeight)
+					target.localScale = Vector3.Lerp(target.localScale, scale, percent);
+				else
+					target.localScale = Vector3.Lerp(target.localScale, Vector3.one, percent);
+			}));
+		}
+
+		protected void While(Action<float, float> act, float step, float t = 0.5f){
+			StartCoroutine (OnWhile (act, step, t));
+		}
+
+		protected IEnumerator OnWhile(Action<float, float> act, float step, float t = 0.5f){
+			if (act == null)
+				yield return null;
+			var inc = 0f;
+			var incStep = t;
+			while (inc < step) {
+				act.Invoke (incStep, inc);
+				inc += incStep;
+				yield return new WaitWhile (() => inc >= step);
+				//yield return new WaitForFixedUpdate();
+			}
+		}
+
+		protected void ShowSubLabel(string label, Transform target, float value, float deltaMoveUp = 25f, float deltaTime = 0.025f){
+			var decreaseLabel = InstantiateFromMonoResource<Text> (label, target.position, target.rotation, target.parent);
+			var l = decreaseLabel.transform.localPosition;
+			l.y += deltaMoveUp;
+			var targetColor = decreaseLabel.color;
+			decreaseLabel.text += Mathf.RoundToInt(value);
+			targetColor.a = 0f;
+			StartCoroutine(OnLoadingPercent(percent => {
+				decreaseLabel.color = Color.Lerp(decreaseLabel.color, targetColor, percent);
+				decreaseLabel.transform.localPosition = Vector3.Lerp(decreaseLabel.transform.localPosition, l, percent);
+			}, () => {
+				Destroy(decreaseLabel.gameObject);
+			}, deltaTime));
+		}
 	}
 }
-

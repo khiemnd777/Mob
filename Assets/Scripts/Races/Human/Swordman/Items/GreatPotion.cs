@@ -4,15 +4,21 @@ namespace Mob
 {
 	public class GreatPotion : Affect
 	{
+		public override float gainPoint {
+			get {
+				return 8f;
+			}
+		}
+
 		void Start(){
 			Affect.CreatePrimitive<HealthPowerRestoring> (own, targets, predicate: hp => hp.extraHp = 150f);
-			AddGainPoint (8f);
-			Destroy(gameObject);
+			Destroy(gameObject, Constants.WAIT_FOR_DESTROY);
 		}
 	}
 
 	// Item
-	public class GreatPotionItem: Item {
+	public class GreatPotionItem: Item, ISelfUsable
+	{
 		
 		public override string title {
 			get {
