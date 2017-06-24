@@ -14,10 +14,9 @@ namespace Mob
 
 	public class StatResistanceAddingItem: Item
 	{
-		public override string title {
-			get {
-				return "+" + extraResistance + " stat resistance";
-			}
+		public override void Init ()
+		{
+			title = "+" + extraResistance + " stat resistance";
 		}
 
 		public float extraResistance;
@@ -31,10 +30,9 @@ namespace Mob
 
 	public class StatResistanceAddingBoughtItem: BoughtItem
 	{
-		public override string title {
-			get {
-				return "+" + extraResistance + " stat resistance";
-			}
+		public override void Init ()
+		{
+			title = "+" + extraResistance + " stat resistance";
 		}
 
 		public float extraResistance;

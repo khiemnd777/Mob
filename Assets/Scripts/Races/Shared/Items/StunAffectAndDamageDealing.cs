@@ -24,10 +24,9 @@ namespace Mob
 
 	public class StunAffectAndDamageDealingItem: Item
 	{
-		public override string title {
-			get {
-				return "Stun in" + turnNumber + " turn and take " + damage + " damage";
-			}
+		public override void Init ()
+		{
+			title = "Stun in" + turnNumber + " turn and take " + damage + " damage";
 		}
 
 		public int turnNumber = 1;
@@ -45,10 +44,9 @@ namespace Mob
 
 	public class StunAffectAndDamageDealingBoughtItem: BoughtItem
 	{
-		public override string title {
-			get {
-				return "Stun in" + turnNumber + " turn and take " + damage + " damage";
-			}
+		public override void Init ()
+		{
+			title = "Stun in" + turnNumber + " turn and take " + damage + " damage";
 		}
 
 		public int turnNumber = 1;

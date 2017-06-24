@@ -46,9 +46,7 @@ namespace Mob
 
 			BattleController.Init ();
 			foreach (var player in BattleController.players) {
-				player.GetModule<HealthPowerModule> (x => {
-					x.hpLabel = hpValue;
-				});
+				player.GetModule<HealthPowerModule> ();
 			}
 			BattleController.playerInTurn.GetModule<BagModule> (x => itemList.SetItems (x.items.ToArray()));
 			skillList.gameObject.SetActive (false);

@@ -43,7 +43,10 @@ namespace Mob
 		}
 
 		public T GetMonoComponent<T>(string name, Action<T> predicate = null) where T : UnityEngine.Component{
-			var component = GameObject.Find(name).GetComponent<T>();
+			var go = GameObject.Find(name);
+			if (go == null)
+				return null;
+			var component = go.GetComponent<T> ();
 			if (component != null && predicate != null) {
 				predicate.Invoke (component);
 			}
@@ -341,6 +344,13 @@ namespace Mob
 			}, () => {
 				Destroy(decreaseLabel.gameObject);
 			}, deltaTime));
+		}
+
+		protected void JumpEffectAndShowSubLabel(Transform target, string label, float value, float deltaMoveUp = 25f, float deltaTime = 0.025f){
+			if (target == null)
+				return;
+			JumpEffect (target, Vector3.one);
+			ShowSubLabel (label, target, value, deltaMoveUp, deltaTime);	
 		}
 	}
 }

@@ -6,10 +6,9 @@ namespace Mob
 	{
 		public bool use;
 
-		public override float gainPoint {
-			get {
-				return 6f;
-			}
+		public override void Init ()
+		{
+			gainPoint = 6f;
 		}
 
 		void Start(){
@@ -40,10 +39,9 @@ namespace Mob
 	// Item
 	public class SpeedyItem: Item, ISelfUsable
 	{	
-		public override string title {
-			get {
-				return "Speedy";
-			}
+		public override void Init ()
+		{
+			title = "Speedy";
 		}
 
 		public override bool Use (Race[] targets)
@@ -55,6 +53,11 @@ namespace Mob
 
 	public class SpeedyBoughtItem: BoughtItem 
 	{
+		public override void Init ()
+		{
+			title = "Speedy";
+		}
+
 		public override void Buy (Race who, float price, int quantity)
 		{
 			Buy<SpeedyItem> (who, price, quantity);

@@ -4,10 +4,9 @@ namespace Mob
 {
 	public class Antidote : Affect
 	{
-		public override float gainPoint {
-			get {
-				return 4f;
-			}
+		public override void Init ()
+		{
+			gainPoint = 4f;
 		}
 
 		void Start(){
@@ -21,10 +20,9 @@ namespace Mob
 	// Item
 	public class AntidoteItem: Item, ISelfUsable {
 		
-		public override string title {
-			get {
-				return "Antidote";
-			}
+		public override void Init ()
+		{
+			title = "Antidote";
 		}
 
 		public override bool Use (Race[] targets)

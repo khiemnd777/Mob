@@ -16,10 +16,9 @@ namespace Mob
 
 	public class SwordmanC2Skill: Skill  
 	{
-		public override int level {
-			get {
-				return 8;
-			}
+		public override void Init ()
+		{
+			level = 8;
 		}
 
 		public override bool Use (Race[] targets)
@@ -27,7 +26,7 @@ namespace Mob
 			if (Affect.HasAffect<SwordmanC2> (own)) {
 				return false;
 			}
-			Affect.CreatePrimitive<SwordmanC2> (own, targets);
+			Affect.CreatePrimitiveAndUse<SwordmanC2> (own, targets);
 			return true;
 		}
 	}

@@ -14,10 +14,9 @@ namespace Mob
 
 	public class StatLuckAddingItem: Item
 	{
-		public override string title {
-			get {
-				return "+" + extraLuck + " stat luck";
-			}
+		public override void Init ()
+		{
+			title = "+" + extraLuck + " stat luck";
 		}
 
 		public float extraLuck;
@@ -31,10 +30,9 @@ namespace Mob
 
 	public class StatLuckAddingBoughtItem: BoughtItem
 	{
-		public override string title {
-			get {
-				return "+" + extraLuck + " stat luck";
-			}
+		public override void Init ()
+		{
+			title = "+" + extraLuck + " stat luck";
 		}
 
 		public float extraLuck;

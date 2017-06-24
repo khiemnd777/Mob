@@ -33,8 +33,9 @@ namespace Mob
 			}, e, 1f);
 
 			var energyValue = GetMonoComponent<Text> (Constants.ATTACKER_ENERGY_LABEL);
-			JumpEffect (energyValue.transform, Vector3.one);
-			ShowSubLabel (Constants.DECREASE_LABEL, energyValue.transform, e);
+			if (energyValue != null) {
+				JumpEffectAndShowSubLabel (energyValue.transform, Constants.DECREASE_LABEL, e);
+			}
 		}
 	}
 }

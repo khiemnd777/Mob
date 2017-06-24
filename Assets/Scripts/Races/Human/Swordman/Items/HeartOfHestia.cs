@@ -34,10 +34,9 @@ namespace Mob
 
 	public class HeartOfHestiaItem: Item, ISelfUsable
 	{
-		public override string title {
-			get {
-				return "Heart of Hestia";
-			}
+		public override void Init ()
+		{
+			title = "Heart of Hestia";
 		}
 
 		public override bool Use (Race[] targets)
@@ -49,10 +48,9 @@ namespace Mob
 
 	public class HeartOfHestiaBoughtItem: BoughtItem 
 	{
-		public override string title {
-			get {
-				return "Heart of Hestia";
-			}
+		public override void Init ()
+		{
+			title = "Heart of Hestia";
 		}
 
 		public override void Buy (Race who, float price, int quantity)

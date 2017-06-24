@@ -8,10 +8,9 @@ namespace Mob
 	{
 		public float storedEnergy;
 	
-		public override float gainPoint {
-			get {
-				return 18f;
-			}
+		public override void Init ()
+		{
+			gainPoint = 18f;
 		}
 
 		Text targetHpLabel;
@@ -53,7 +52,7 @@ namespace Mob
 		public float bonusDamage {
 			get {
 				var stat = own.GetModule<StatModule>();
-				return 20f + 10f * storedEnergy + .4f * stat.magicAttack;
+				return 20f + 10f * storedEnergy + 1.4f * stat.magicAttack;
 			}
 		}
 
@@ -62,27 +61,16 @@ namespace Mob
 
 	public class SwordmanD1Skill : Skill
 	{
-		public override float energy {
-			get {
-				return Mathf.Max(6f, own.GetModule<EnergyModule> ().energy);
-			}
-		}
-
-		public override int level {
-			get {
-				return 12;
-			}
-		}
-
-		public override int cooldown {
-			get {
-				return 3;
-			}
+		public override void Init ()
+		{
+			energy = Mathf.Max(6f, own.GetModule<EnergyModule> ().energy);
+			level = 12;
+			cooldown = 3;
 		}
 
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<SwordmanB2> (own, targets);
+			Affect.CreatePrimitiveAndUse<SwordmanB2> (own, targets);
 			return true;
 		}
 	}

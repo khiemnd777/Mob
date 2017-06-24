@@ -4,10 +4,9 @@ namespace Mob
 {
 	public class Potion : Affect
 	{
-		public override float gainPoint {
-			get {
-				return 5f;
-			}
+		public override void Init ()
+		{
+			gainPoint = 5f;
 		}
 
 		void Start(){
@@ -18,10 +17,10 @@ namespace Mob
 
 	// Item
 	public class PotionItem: Item, ISelfUsable {
-		public override string title {
-			get {
-				return "Potion";
-			}
+		
+		public override void Init ()
+		{
+			title = "Potion";
 		}
 
 		public override bool Use (Race[] targets)
@@ -33,6 +32,11 @@ namespace Mob
 
 	public class PotionBoughtItem: BoughtItem 
 	{
+		public override void Init ()
+		{
+			title = "Potion";
+		}
+
 		public override void Buy (Race who, float price, int quantity)
 		{
 			Buy<PotionItem> (who, price, quantity);

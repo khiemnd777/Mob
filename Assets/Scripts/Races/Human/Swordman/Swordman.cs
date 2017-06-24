@@ -33,7 +33,7 @@ namespace Mob
 			var point = StatCalculator.GeneratePoint(levelUp, _stat.initPoint);
 			_stat.SetPoint(point);
 			// HP
-			_hp.SetMaxHp(levelUp);
+			_hp.SetMaxHp(levelUp, false);
 			// Treasures
 			BattleController.treasure = Treasure.GetFor(this);
 		}
@@ -61,22 +61,28 @@ namespace Mob
 				stat.AddPoint(StatType.Intelligent);
 				stat.AddPoint(StatType.Vitality);
 				stat.AddPoint(StatType.Luck);
+
+				stat.Init();
 			});
 			GetModule<LevelModule> ((level) => {
 				level.level = 1;
 				level.maxLevel = 16;
 				level.seed = 20;
+				level.Init();
 			});
 			GetModule<HealthPowerModule> ((hp) => {
 				hp.hp = 300f;
 				hp.maxHp = 300f;
 				hp.hpPercent = 10f;
+				hp.Init();
 			});
 			GetModule<GoldModule> ((gold) => {
 				gold.maxGold = 999f;
+				gold.Init();
 			});
 			GetModule<EnergyModule> ((energy) => {
 				energy.maxEnergy = 12f;
+				energy.Init();
 			});
 
 			// Inventory is used to store the items

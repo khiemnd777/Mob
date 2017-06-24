@@ -23,10 +23,9 @@ namespace Mob
 
 	public class GaiaCellItem: Item, ISelfUsable
 	{
-		public override string title {
-			get {
-				return "Gaia's cell";
-			}
+		public override void Init ()
+		{
+			title = "Gaia's cell";
 		}
 
 		public override bool Use (Race[] targets)
@@ -38,10 +37,9 @@ namespace Mob
 
 	public class GaiaCellBoughtItem: BoughtItem 
 	{
-		public override string title {
-			get {
-				return "Gaia's cell";
-			}
+		public override void Init ()
+		{
+			title = "Gaia's cell";
 		}
 
 		public override void Buy (Race who, float price, int quantity)

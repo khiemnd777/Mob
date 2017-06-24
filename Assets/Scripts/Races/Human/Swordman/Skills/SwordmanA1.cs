@@ -2,72 +2,72 @@
 using UnityEngine.UI;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Mob
 {
 	public class SwordmanA1 : SkillAffect, IPhysicalAttackingEventHandler
 	{
-		public override float gainPoint {
-			get {
-				return 5f;
-			}
-		}
-
 		public float bonusDamage {
 			get {
 				var stat = own.GetModule<StatModule>();
-				return 1.1f * stat.physicalAttack;
+				return 2.1f * stat.physicalAttack;
 			}
 		}
 
-		Text targetHpLabel;
-
 		public override void Init(){
+			gainPoint = 5f;
+			plugins.Add (Effect.CreatePrimitive<SwordmanA1Effect>(this, own, targets));
+		}
+	}
+
+	public class SwordmanA1Effect: Effect {
+		
+		Text targetHpLabel;
+		public override void InitPlugin ()
+		{
 			targetHpLabel = GetMonoComponent<Text> (Constants.TARGET_HP_LABEL);
 		}
 
-		public IEnumerator OnPhysicalHit (PhysicalAttackingEventArgs args)
+		public override IEnumerator Define (Dictionary<string, object> effectValues)
 		{
-			yield return OnSetTimeout (() => {
-				var slashLine = InstantiateFromMonoResource<SlashLine>(Constants.EFFECT_SLASH_LINE);
-				slashLine.target = targetHpLabel.transform;
-			}, 0.05f);
+			var damage = (float)effectValues["damage"];
+			if (targetHpLabel == null) {
+				yield return OnSetTimeout (() => {
+					attacker.GetModule<HealthPowerModule> (x => x.SubtractHpEffect (damage));
+				});
+				Destroy (((Affect)host).gameObject, Constants.WAIT_FOR_DESTROY);
+			} else {
+				yield return OnSetTimeout (() => {
+					var slashLine = InstantiateFromMonoResource<SlashLine>(Constants.EFFECT_SLASH_LINE);
+					slashLine.target = targetHpLabel.transform;
+				}, 0.05f);
 
-			yield return OnSetTimeout (() => {
-				args.target.GetModule<HealthPowerModule> (x => x.SubtractHp (args.outputDamage));
-			});
+				yield return OnSetTimeout (() => {
+					attacker.GetModule<HealthPowerModule> (x => x.SubtractHpEffect (damage));
+				});
 
-			JumpEffect (targetHpLabel.transform, Vector3.one);
+				JumpEffect (targetHpLabel.transform, Vector3.one);
 
-			ShowSubLabel (Constants.DECREASE_LABEL, targetHpLabel.transform, args.outputDamage);
+				ShowSubLabel (Constants.DECREASE_LABEL, targetHpLabel.transform, damage);
 
-			Destroy(args.affect.gameObject, Constants.WAIT_FOR_DESTROY);
+				Destroy (((Affect)host).gameObject, Constants.WAIT_FOR_DESTROY);
+			}
 		}
-
-		public IEnumerator OnPhysicalMiss (PhysicalAttackingEventArgs args)
-		{
-			Destroy(args.affect.gameObject);
-			yield return null;
-		}
+		
 	}
 
 	public class SwordmanA1Skill : Skill
 	{
-		public override int level {
-			get {
-				return 1;
-			}
-		}
-
-		public override float energy {
-			get {
-				return 4f;
-			}
+		public override void Init ()
+		{
+			level = 1;
+			energy = 4f;
 		}
 
 		public override bool Use (Race[] targets)
 		{
-			SkillAffect.CreatePrimitive<SwordmanA1> (own, targets);
+			Affect.CreatePrimitiveAndUse<SwordmanA1> (own, targets);
 			return true;
 		}
 

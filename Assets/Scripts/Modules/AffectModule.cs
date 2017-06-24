@@ -60,6 +60,20 @@ namespace Mob
 			return result;
 		}
 
+		public Affect[] GetSubAffects(Type type, Action<Affect> predicate = null){
+			if (_affects == null)
+				return null;
+			var result = _affects
+				.Where (x => type.IsAssignableFrom (x.GetType ()))
+				.ToArray();
+			if (result.Length > 0 && predicate != null) {
+				foreach (var r in result) {
+					predicate.Invoke (r);
+				}
+			}
+			return result;
+		}
+
 		public bool HasSubAffect<T>(){
 			return _affects.Any (x => typeof(T).IsAssignableFrom (x.GetType ()));
 		}

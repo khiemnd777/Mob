@@ -14,10 +14,9 @@ namespace Mob
 
 	public class StatDamageAddingItem: Item
 	{
-		public override string title {
-			get {
-				return "+" + extraDamage + " stat damage";
-			}
+		public override void Init ()
+		{
+			title = "+" + extraDamage + " stat damage";
 		}
 
 		public float extraDamage;
@@ -31,10 +30,9 @@ namespace Mob
 
 	public class StatDamageAddingBoughtItem: BoughtItem
 	{
-		public override string title {
-			get {
-				return "+" + extraDamage + " stat damage";
-			}
+		public override void Init ()
+		{
+			title = "+" + extraDamage + " stat damage";
 		}
 
 		public float extraDamage;

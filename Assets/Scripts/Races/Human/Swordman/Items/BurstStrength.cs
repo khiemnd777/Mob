@@ -5,11 +5,9 @@ namespace Mob
 	public class BurstStrength : Affect, IAccurate
 	{
 		public bool use;
-
-		public override float gainPoint {
-			get {
-				return 6f;
-			}
+		public override void Init ()
+		{
+			gainPoint = 6f;
 		}
 
 		void Start(){
@@ -40,10 +38,9 @@ namespace Mob
 	// Item
 	public class BurstStrengthItem: Item, ISelfUsable
 	{	
-		public override string title {
-			get {
-				return "Burst strength";
-			}
+		public override void Init ()
+		{
+			title = "Burst strength";
 		}
 
 		public override bool Use (Race[] targets)

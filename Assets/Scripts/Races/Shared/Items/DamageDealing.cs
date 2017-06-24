@@ -16,10 +16,9 @@ namespace Mob
 
 	public class DamageDealingItem: Item
 	{
-		public override string title {
-			get {
-				return "Deal " + damage + " damage";
-			}
+		public override void Init ()
+		{
+			title = "Deal " + damage + " damage";
 		}
 
 		public float damage;
@@ -33,15 +32,14 @@ namespace Mob
 
 	public class DamageDealingBoughtItem: BoughtItem
 	{
-		public override string title {
-			get {
-				return "Deal " + damage + " damage";
-			}
+		public override void Init ()
+		{
+			title = "Deal " + damage + " damage";
 		}
 
 		public float damage;
 
-		public override void Buy (Race who, float price, int quantity)
+		public override void Buy (Race who, float price = 0, int quantity = 0)
 		{
 			Buy<DamageDealingItem> (who, price, quantity, x => x.damage = damage);
 		}

@@ -6,56 +6,62 @@ namespace Mob
 	public class HealthPowerModule : RaceModule
 	{
 		public float hp;
+		public float hpEffect;
 		public float maxHp;
+		public float maxHpEffect;
 		public float hpPercent;
 
-		public Text hpLabel;
-		public Text subHpLabel;
+		public override void Init ()
+		{
+			hpEffect = hp;
+			maxHpEffect = maxHp;
+		}
 
 		public void AddHp(float p){
-//			var lhp = Mathf.Min(hp + p, maxHp);
+			hp = Mathf.Min(hp + p, maxHp);
+		}
+
+		public void AddHpEffect(float p){
 			While ((inc, step) => {
-				hp = Mathf.Min(hp + inc, maxHp);
+				hpEffect = Mathf.Clamp(hpEffect + inc, hp, maxHp);
 			}, p);
-//			StartCoroutine(OnLoadingPercent ((percent) => {
-//				hp = Mathf.Lerp (hp, lhp, percent);
-//			}));
 		}
 
 		public void SubtractHp(float p){
+			hp = Mathf.Max(hp - p, 0f);
+		}
+
+		public void SubtractHpEffect(float p){
 			While ((inc, step) => {
-				hp = Mathf.Max(hp - inc, 0f);
+				hpEffect = Mathf.Clamp(hpEffect - inc, 0f, hp);
 			}, p);
-//			var lhp = Mathf.Max(hp - p, 0f);
-//			StartCoroutine(OnLoadingPercent ((percent) => {
-//				hp = Mathf.Lerp (hp, lhp, percent);
-//			}));
 		}
 
 		public void SetFullHp(){
 			AddHp (maxHp);
-//			StartCoroutine(OnLoadingPercent ((percent) => {
-//				hp = Mathf.Lerp(hp, maxHp, percent);
-//			}));
+		}
+
+		public void SetFullHpEffect(){
+			AddHpEffect (maxHp);
 		}
 
 		public void SetMaxHp(float time = 1f, bool setFullHp = true){
 			var upMaxHp = 1f;
 			_race.GetModule<StatModule> (s => upMaxHp = s.maxHp);
 			while (time > 0f) {
-				While ((inc, step) => {
-					//maxHp = Mathf.Min (maxHp + inc, upMaxHp);
-					maxHp += Mathf.Clamp(inc, 0f, upMaxHp);
-				}, upMaxHp);
-//				maxHp += Mathf.Max(maxHp, upMaxHp);
+				maxHp += Mathf.Max(maxHp, upMaxHp);
 				time--;
 			}
-//			StartCoroutine(OnLoadingPercent ((percent) => {
-//				hp = Mathf.Lerp(hp, maxHp, percent);
-//			}));
 			if(setFullHp)
 				SetFullHp();
-//			hp = maxHp;
+		}
+
+		public void SetMaxHpEffect(bool setFullHp = true){
+			While ((inc, step) => {
+				maxHpEffect = Mathf.Min(maxHpEffect + inc, maxHp);
+			}, maxHp - maxHpEffect);
+			if(setFullHp)
+				SetFullHpEffect();
 		}
 	}
 }

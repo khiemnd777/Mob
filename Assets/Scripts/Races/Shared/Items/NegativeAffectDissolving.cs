@@ -15,10 +15,9 @@ namespace Mob
 
 	public class NegativeAffectDissolvingItem: Item
 	{
-		public override string title {
-			get {
-				return "Dissolve all negative affects";
-			}
+		public override void Init ()
+		{
+			title = "Dissolve all negative affects";
 		}
 
 		public override bool Use (Race[] targets)
@@ -30,13 +29,12 @@ namespace Mob
 
 	public class NegativeAffectDissolvingBoughtItem: BoughtItem
 	{
-		public override string title {
-			get {
-				return "Dissolve all negative affects";
-			}
+		public override void Init ()
+		{
+			title = "Dissolve all negative affects";
 		}
 
-		public override void Buy (Race who, float price, int quantity)
+		public override void Buy (Race who, float price = 0, int quantity = 0)
 		{
 			Buy<NegativeAffectDissolvingItem> (who, price, quantity);
 		}

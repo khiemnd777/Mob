@@ -23,10 +23,9 @@ namespace Mob
 
 	public class BlessingOfAmphitriteItem: Item, ISelfUsable
 	{
-		public override string title {
-			get {
-				return "Blessing of Amphitrite";
-			}
+		public override void Init ()
+		{
+			title = "Blessing of Amphitrite";
 		}
 
 		public override bool Use (Race[] targets)
@@ -38,10 +37,9 @@ namespace Mob
 
 	public class BlessingOfAmphitriteBoughtItem: BoughtItem 
 	{
-		public override string title {
-			get {
-				return "Blessing of Amphitrite";
-			}
+		public override void Init ()
+		{
+			title = "Blessing of Amphitrite";
 		}
 
 		public override void Buy (Race who, float price, int quantity)

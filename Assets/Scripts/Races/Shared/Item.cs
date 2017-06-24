@@ -9,19 +9,55 @@ namespace Mob
 		public Race own;
 		public int usedTurn = 0;
 		public int usedNumber = 0;
+		public int upgradeCount;
 
-		public virtual float energy { get { return 0; } }
-		public virtual int level { get { return 0; } }
-		public virtual string title { get { return this.name; } }
-		public virtual string brief { get; }
-		public virtual int cooldown { get { return 0; } }
+		public float energy = 0f;
+		public int level = 0;
+		public string title;
+		public string brief;
+		public int cooldown = 0;
+		public float upgradePrice = 0f;
+
+		public virtual void Init(){
+			
+		}
 
 		public abstract bool Use (Race[] targets);
+
+		public virtual bool Disuse(){
+			return false;	
+		}
 
 		public bool Use<T>(Race[] targets) where T: Affect {
 			Affect.CreatePrimitive<T> (own, targets);
 			SubtractEnergy ();
 			return true;
+		}
+
+		public virtual void Upgrade(float price = 0f){
+			
+		}
+
+		public void SubtractGold(Race who, float price = 0f, int quantity = 0){
+			var p = price <= 0f ? this.upgradePrice : price;
+			var q = quantity <= 0 ? this.quantity : quantity;
+			who.GetModule<GoldModule> ((g) => {
+				g.SubtractGold(p * q);
+			});
+		}
+
+		public bool EnoughGold(Race who, float price = 0f, int quantity = 1, Action predicate = null){
+			var enough = false;
+			var p = price <= 0f ? this.upgradePrice : price;
+			var q = quantity <= 0 ? this.quantity : quantity;
+
+			who.GetModule<GoldModule> ((g) => {
+				enough = g.gold >= p * q;
+			});
+			if (enough && predicate != null) {
+				predicate.Invoke ();
+			}
+			return enough;
 		}
 
 		public bool EnoughLevel(Action predicate = null){
@@ -76,6 +112,8 @@ namespace Mob
 			if (predicate != null) {
 				predicate.Invoke (a);
 			}
+			a.Init ();
+
 			return a;
 		}
 
@@ -87,6 +125,7 @@ namespace Mob
 			if (predicate != null) {
 				predicate.Invoke (a);
 			}
+			a.Init ();
 
 			return a;
 		}

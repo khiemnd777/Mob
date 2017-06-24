@@ -34,10 +34,9 @@ namespace Mob
 
 	public class HealthPowerRestoringItem: Item
 	{
-		public override string title {
-			get {
-				return "+" + extraHp + " HP";
-			}
+		public override void Init ()
+		{
+			title = "+" + extraHp + " HP";
 		}
 
 		public float extraHp;
@@ -51,15 +50,14 @@ namespace Mob
 
 	public class HealthPowerRestoringBoughtItem: BoughtItem
 	{
-		public override string title {
-			get {
-				return "+" + extraHp + " HP";
-			}
+		public override void Init ()
+		{
+			title = "+" + extraHp + " HP";
 		}
 
 		public float extraHp;
 
-		public override void Buy (Race who, float price, int quantity)
+		public override void Buy (Race who, float price = 0, int quantity = 0)
 		{
 			Buy<HealthPowerRestoringItem> (who, price, quantity, e => e.extraHp = extraHp);
 		}

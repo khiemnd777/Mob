@@ -15,8 +15,7 @@ namespace Mob
 		void Start(){
 			_cachedTransform = transform;
 			_cachedTransform.parent = target.parent;
-			_cachedTransform.position = Spawn (); //Random.insideUnitCircle * maxDistance + (Vector2)target.position;
-			//_cachedTransform.position = Vector2.ClampMagnitude (_cachedTransform.position - target.position, maxDistance);
+			_cachedTransform.position = Spawn ();
 			destination = target.position + (target.position - _cachedTransform.position);
 			Destroy (gameObject, 2f);
 		}

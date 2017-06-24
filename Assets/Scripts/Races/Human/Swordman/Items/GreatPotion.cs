@@ -4,10 +4,9 @@ namespace Mob
 {
 	public class GreatPotion : Affect
 	{
-		public override float gainPoint {
-			get {
-				return 8f;
-			}
+		public override void Init ()
+		{
+			gainPoint = 8f;
 		}
 
 		void Start(){
@@ -19,13 +18,6 @@ namespace Mob
 	// Item
 	public class GreatPotionItem: Item, ISelfUsable
 	{
-		
-		public override string title {
-			get {
-				return "Great potion";
-			}
-		}
-
 		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitive<GreatPotion> (own, targets);
@@ -35,6 +27,11 @@ namespace Mob
 
 	public class GreatPotionBoughtItem: BoughtItem 
 	{
+		public override void Init ()
+		{
+			title = "Great potion";
+		}
+
 		public override void Buy (Race who, float price, int quantity)
 		{
 			Buy<GreatPotionItem> (who, price, quantity);

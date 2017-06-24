@@ -6,10 +6,10 @@ namespace Mob
 {
 	public class SwordmanB1 : SkillAffect, IPhysicalAttackingEventHandler
 	{
-		public override float gainPoint {
-			get {
-				return 8f;
-			}
+
+		public override void Init ()
+		{
+			gainPoint = 8f;
 		}
 
 		Text targetHpLabel;
@@ -46,7 +46,7 @@ namespace Mob
 		public float bonusDamage {
 			get {
 				var stat = own.GetModule<StatModule>();
-				return 40f + .3f * stat.physicalAttack + .2f * stat.magicAttack;
+				return 40f + 1.3f * stat.physicalAttack + .2f * stat.magicAttack;
 			}
 		}
 
@@ -55,27 +55,16 @@ namespace Mob
 
 	public class SwordmanB1Skill: Skill
 	{
-		public override int level {
-			get {
-				return 4;
-			}
-		}
-
-		public override float energy {
-			get {
-				return 6f;
-			}
-		}
-
-		public override int cooldown {
-			get {
-				return 2;
-			}
+		public override void Init ()
+		{
+			level = 4;
+			energy = 6f;
+			cooldown = 2;
 		}
 
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<SwordmanB1> (own, targets);
+			Affect.CreatePrimitiveAndUse<SwordmanB1> (own, targets);
 			return true;
 		}
 	}

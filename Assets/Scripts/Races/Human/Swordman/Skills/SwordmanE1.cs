@@ -4,10 +4,10 @@ namespace Mob
 {
 	public class SwordmanE1 : SkillAffect, IDamaged, IHittable, ICritical
 	{
-		public override float gainPoint {
-			get {
-				return 30f;
-			}
+
+		public override void Init ()
+		{
+			gainPoint = 30f;
 		}
 
 		void Update(){
@@ -25,7 +25,7 @@ namespace Mob
 			var result = 0f;
 			target.GetModule<AffectModule> (x => {
 				if(x.HasSubAffect<INegativeAffect>()){
-					result = damage + damage * .5f;
+					result = damage + damage * 1.5f;
 				}
 			});
 			return result;
@@ -36,33 +36,17 @@ namespace Mob
 
 	public class SwordmanE1Skill : Skill
 	{
-		public override string title {
-			get {
-				return "Holy Knight";
-			}
-		}
-
-		public override float energy {
-			get {
-				return 12f;
-			}
-		}
-
-		public override int level {
-			get {
-				return 16;
-			}
-		}
-
-		public override int cooldown {
-			get {
-				return 6;
-			}
+		public override void Init ()
+		{
+			title = "Holy Knight";
+			energy = 12f;
+			level = 16;
+			cooldown = 6;
 		}
 
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<SwordmanE1> (own, targets);
+			Affect.CreatePrimitiveAndUse<SwordmanE1> (own, targets);
 			return true;
 		}
 	}

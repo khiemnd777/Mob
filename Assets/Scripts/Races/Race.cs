@@ -84,8 +84,10 @@ namespace Mob
 			}, p, 1f);
 			var gainPointValue = GetMonoComponent<Text> (Constants.ATTACKER_GAIN_POINT_LABEL);
 			if (p > 0) {
-				JumpEffect (gainPointValue.transform, Vector3.one);
-				ShowSubLabel (Constants.INCREASE_LABEL, gainPointValue.transform, p);
+				if (gainPointValue != null) {
+					JumpEffect (gainPointValue.transform, Vector3.one);
+					ShowSubLabel (Constants.INCREASE_LABEL, gainPointValue.transform, p);
+				}
 			}
 		}
 

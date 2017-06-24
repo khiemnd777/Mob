@@ -1,15 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UI/Effects/SlashLine.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Races/Affect.cs">
     <Files>
-      <File FileName="Assets/Scripts/Constants.cs" Line="21" Column="61" />
-      <File FileName="Assets/Scripts/UI/Effects/SlashLine.cs" Line="18" Column="41" />
-      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/SwordmanA1.cs" Line="21" Column="4" />
-      <File FileName="Assets/Scripts/MonoHandler.cs" Line="84" Column="1" />
-      <File FileName="Assets/Scripts/UI/SkillList.cs" Line="34" Column="1" />
-      <File FileName="Assets/Scripts/Races/Shared/SkillAffect.cs" Line="7" Column="31" />
-      <File FileName="Assets/Scripts/Races/Affect.cs" Line="129" Column="14" />
-      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/SwordmanA2.cs" Line="47" Column="64" />
+      <File FileName="Assets/Scripts/Races/Effect.cs" Line="10" Column="18" />
+      <File FileName="Assets/Scripts/Races/Affect.cs" Line="261" Column="5" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/Artifacts/Artifact3.cs" Line="33" Column="12" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/Artifacts/Artifact2.cs" Line="5" Column="29" />
+      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/SwordmanA1.cs" Line="58" Column="3" />
+      <File FileName="Assets/Scripts/Races/Shared/IPhysicalAttackingEventHandler.cs" Line="14" Column="29" />
+      <File FileName="Assets/Scripts/Races/Shared/SkillAffect.cs" Line="7" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

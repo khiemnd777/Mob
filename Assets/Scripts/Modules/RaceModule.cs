@@ -12,6 +12,10 @@ namespace Mob
 			}
 		}
 
+		public virtual void Init(){
+			
+		}
+
 		public T GetModule<T>(System.Action<T> predicate = null) where T : RaceModule
 		{
 			var module = GetComponent<T> ();	

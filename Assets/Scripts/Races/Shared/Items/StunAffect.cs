@@ -22,10 +22,9 @@ namespace Mob
 
 	public class StunAffectItem: Item
 	{
-		public override string title {
-			get {
-				return "Stun in" + turnNumber + " turn";
-			}
+		public override void Init ()
+		{
+			title = "Stun in" + turnNumber + " turn";
 		}
 
 		public int turnNumber = 1;
@@ -39,10 +38,9 @@ namespace Mob
 
 	public class StunAffectBoughtItem: BoughtItem
 	{
-		public override string title {
-			get {
-				return "Stun in" + turnNumber + " turn";
-			}
+		public override void Init ()
+		{
+			title = "Stun in" + turnNumber + " turn";
 		}
 
 		public int turnNumber = 1;

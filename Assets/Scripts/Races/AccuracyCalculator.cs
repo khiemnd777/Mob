@@ -49,10 +49,18 @@ namespace Mob
 			return result;
 		}
 
-		public static bool IsCriticalHit(float attackerCHC) {
+		public static bool IsCriticalHit(Race who, float attackerCHC) {
+			var addition = 0f;
+			var percentCHC = attackerCHC * 100f;
+			Affect.GetSubAffects<IAdditionalCriticalHitChange> (who, x => {
+				addition += x.additionalCriticalHitChange;
+			});
+			addition *= 100f;
+			percentCHC = Mathf.Min(percentCHC + addition, 100f);
+
 			var chcProbability = Probability.Initialize (new bool[]{ false, true }, new float[] {
-				100f - (attackerCHC * 100f),
-				attackerCHC * 100f
+				100f - percentCHC,
+				percentCHC
 			});
 			var chcResult = Probability.GetValueInProbability (chcProbability);
 			return chcResult;

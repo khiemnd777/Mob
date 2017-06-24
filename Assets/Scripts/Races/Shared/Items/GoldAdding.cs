@@ -14,10 +14,9 @@ namespace Mob
 
 	public class GoldAddingItem: Item
 	{
-		public override string title {
-			get {
-				return "+" + extraGold + " gold";
-			}
+		public override void Init ()
+		{
+			title = "+" + extraGold + " gold";
 		}
 
 		public float extraGold;
@@ -31,15 +30,14 @@ namespace Mob
 
 	public class GoldAddingBoughtItem: BoughtItem
 	{
-		public override string title {
-			get {
-				return "+" + extraGold + " gold";
-			}
+		public override void Init ()
+		{
+			title = "+" + extraGold + " gold";
 		}
 
 		public float extraGold;
 
-		public override void Buy (Race who, float price, int quantity)
+		public override void Buy (Race who, float price = 0, int quantity = 0)
 		{
 			Buy<GoldAddingItem> (who, price, quantity, e => e.extraGold = extraGold);
 		}

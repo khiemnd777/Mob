@@ -17,10 +17,9 @@ namespace Mob
 
 	public class NegativeAffectDissolvingAndHealthPowerRestoringItem: Item
 	{
-		public override string title {
-			get {
-				return "Dissolve negative affects and restore " + extraHp + " HP";
-			}
+		public override void Init ()
+		{
+			title = "Dissolve negative affects and restore " + extraHp + " HP";
 		}
 
 		public float extraHp = 50f;
@@ -34,10 +33,9 @@ namespace Mob
 
 	public class NegativeAffectDissolvingAndHealthPowerRestoringBoughtItem: BoughtItem
 	{
-		public override string title {
-			get {
-				return "Dissolve negative affects and restore " + extraHp + " HP";
-			}
+		public override void Init ()
+		{
+			title = "Dissolve negative affects and restore " + extraHp + " HP";
 		}
 
 		public float extraHp = 50f;

@@ -14,10 +14,9 @@ namespace Mob
 
 	public class StatTechniqueAddingItem: Item
 	{
-		public override string title {
-			get {
-				return "+" + extraTechnique + " stat technique";
-			}
+		public override void Init ()
+		{
+			title = "+" + extraTechnique + " stat technique";
 		}
 
 		public float extraTechnique;
@@ -31,10 +30,9 @@ namespace Mob
 
 	public class StatTechniqueAddingBoughtItem: BoughtItem
 	{
-		public override string title {
-			get {
-				return "+" + extraTechnique + " stat technique";
-			}
+		public override void Init ()
+		{
+			title = "+" + extraTechnique + " stat technique";
 		}
 
 		public float extraTechnique;
