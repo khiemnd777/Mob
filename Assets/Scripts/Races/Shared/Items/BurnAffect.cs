@@ -9,22 +9,14 @@ namespace Mob
 
 		#region IMagicalAttackingEventHandler implementation
 
-		public System.Collections.IEnumerator OnMagicalHit (MagicalAttackingEventArgs args)
-		{
-			throw new System.NotImplementedException ();
-		}
-
-
-		public System.Collections.IEnumerator OnMagicalMiss (MagicalAttackingEventArgs args)
-		{
-			throw new System.NotImplementedException ();
-		}
-
-
 		public float bonusDamage {
 			get {
 				return subtractHp;
 			}
+		}
+
+		public void HandleAttack(Race target){
+			
 		}
 
 		#endregion

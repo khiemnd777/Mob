@@ -23,6 +23,8 @@ namespace Mob
 				extraHp = Mathf.Max (_, extraHp);
 				hp.AddHp(extraHp);
 
+				hp.AddHpEffect();
+
 				JumpEffect (attackerHpLabel.transform, Vector3.one);
 
 				ShowSubLabel (Constants.INCREASE_LABEL, attackerHpLabel.transform, extraHp);

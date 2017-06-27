@@ -11,7 +11,8 @@ namespace Mob
 	{
 		public int level = 1;
 		public int upgradeCount = 0;
-		public virtual string title { get { return this.name; } }
+		string _title;
+		public virtual string title { get { return _title ?? this.name; }  set { _title = value; }}
 		public float gainPoint = 0f;
 		public Dictionary<string, object> effectValues = new Dictionary<string, object>();
 
@@ -20,8 +21,6 @@ namespace Mob
 
 		public Race own;
 		public Race[] targets;
-
-		protected List<PluginHandler> plugins = new List<PluginHandler> ();
 
 		public virtual void Init(){
 			
@@ -190,27 +189,24 @@ namespace Mob
 						var outputDamage = AttackPowerCalculator.TakeDamage (physicalAttacking.bonusDamage, targetStat.physicalDefend, isCritHit);
 						AccuracyCalculator.HandleCriticalDamage (ref outputDamage, own, target);
 						AttackPowerCalculator.HandleDamage (ref outputDamage, own, target);
-						own.GetModule<HealthPowerModule> (x => x.SubtractHp (outputDamage));
+
+						target.GetModule<HealthPowerModule> (x => x.SubtractHp (outputDamage));
 
 						a.effectValues.Add ("damage", outputDamage);
 						a.effectValues.Add ("isCritHit", isCritHit);
+						a.effectValues.Add ("target", target);
 
-						EmitAffects (own, new EmitAffectArgs {
-							affect = a,
-							target = target
-						});
-						a.SetTimeout (() => {
-							AttackPowerCalculator.OccurAffectChange(own, target);
-						});
-						a.SetTimeout (() => {
-							AttackPowerCalculator.ExtraAttackableAffect (own, target);	
-						});
+						AttackPowerCalculator.OccurAffectChange(own, target);
+						AttackPowerCalculator.ExtraAttackableAffect (own, target);
+						physicalAttacking.HandleAttack (target);
 					} else {
 						var isCritHit = AccuracyCalculator.IsCriticalHit (own, stat.criticalRating);
 						var damage = AttackPowerCalculator.TakeDamage(physicalAttacking.bonusDamage, targetStat.physicalDefend, isCritHit);
 
 						a.effectValues.Add ("damage", damage);
 						a.effectValues.Add ("isCritHit", isCritHit);
+						a.effectValues.Add ("target", target);
+						physicalAttacking.HandleAttack (target);
 					}
 				} else if(typeof(IMagicalAttackingEventHandler).IsAssignableFrom(a.GetType())){
 					var magicalAttacking = ((IMagicalAttackingEventHandler)a);
@@ -226,38 +222,39 @@ namespace Mob
 						var outputDamage = AttackPowerCalculator.TakeDamage (magicalAttacking.bonusDamage, targetStat.magicResist, isCritHit);
 						AccuracyCalculator.HandleCriticalDamage (ref outputDamage, own, target);
 						AttackPowerCalculator.HandleDamage (ref outputDamage, own, target);
-						own.GetModule<HealthPowerModule> (x => x.SubtractHp (outputDamage));
+
+						target.GetModule<HealthPowerModule> (x => x.SubtractHp (outputDamage));
 
 						a.effectValues.Add ("damage", outputDamage);
 						a.effectValues.Add ("isCritHit", isCritHit);
+						a.effectValues.Add ("target", target);
 
-						EmitAffects (own, new EmitAffectArgs {
-							affect = a,
-							target = target
-						});
-
-						a.SetTimeout (() => {
-							AttackPowerCalculator.OccurAffectChange(own, target);
-						});
-						a.SetTimeout (() => {
-							AttackPowerCalculator.ExtraAttackableAffect (own, target);	
-						});
+						AttackPowerCalculator.OccurAffectChange(own, target);
+						AttackPowerCalculator.ExtraAttackableAffect (own, target);	
+						magicalAttacking.HandleAttack (target);
 					} else {
 						var isCritHit = AccuracyCalculator.IsCriticalHit (own, stat.criticalRating);
 						var damage = AttackPowerCalculator.TakeDamage(magicalAttacking.bonusDamage, targetStat.physicalDefend, isCritHit);
 
 						a.effectValues.Add ("damage", damage);
 						a.effectValues.Add ("isCritHit", isCritHit);
+						a.effectValues.Add ("target", target);
+						magicalAttacking.HandleAttack (target);
+
 					}
 				} else {
 					a.Execute (target);
 				}
+
+				EmitAffects (own, new EmitAffectArgs {
+					affect = a,
+					target = target
+				});
 			}
 			a.Execute ();
 			a.AddGainPoint ();
-			foreach (var p in a.plugins) {
-				p.HandlePlugin ();
-			}
+			a.HandlePlugins ();
+			a.FlushAll ();
 		}
 
 		public static T CreatePrimitive<T>(Race own, Race[] targets, Action<T> predicate = null) where T: Affect{

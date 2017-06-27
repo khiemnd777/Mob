@@ -3,17 +3,9 @@ using System.Collections;
 
 namespace Mob
 {
-	public sealed class MagicalAttackingEventArgs{
-		public Affect affect { get; set; }
-		public Race target{ get; set; }
-		public float outputDamage { get; set; }
-		public bool isCritHit{get;set;}
-	}
-
 	public interface IMagicalAttackingEventHandler {
 		float bonusDamage { get; }
-		IEnumerator OnMagicalHit(MagicalAttackingEventArgs args);
-		IEnumerator OnMagicalMiss(MagicalAttackingEventArgs args);
+		void HandleAttack(Race target);
 	}
 
 	public class MagicAttackCalculator

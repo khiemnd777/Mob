@@ -15,9 +15,14 @@ namespace Mob
 			}
 		}
 
+		public void HandleAttack(Race target){
+			
+		}
+
 		public override void Init(){
+			timeToDestroy = 0f;
 			gainPoint = 5f;
-			plugins.Add (Effect.CreatePrimitive<SwordmanA1Effect>(this, own, targets));
+			AddPlugin (Effect.CreatePrimitive<SwordmanA1Effect>(this, own, targets));
 		}
 	}
 
@@ -26,35 +31,31 @@ namespace Mob
 		Text targetHpLabel;
 		public override void InitPlugin ()
 		{
+			use = true;
 			targetHpLabel = GetMonoComponent<Text> (Constants.TARGET_HP_LABEL);
 		}
 
 		public override IEnumerator Define (Dictionary<string, object> effectValues)
 		{
-			var damage = (float)effectValues["damage"];
-			if (targetHpLabel == null) {
-				yield return OnSetTimeout (() => {
-					attacker.GetModule<HealthPowerModule> (x => x.SubtractHpEffect (damage));
-				});
-				Destroy (((Affect)host).gameObject, Constants.WAIT_FOR_DESTROY);
-			} else {
-				yield return OnSetTimeout (() => {
-					var slashLine = InstantiateFromMonoResource<SlashLine>(Constants.EFFECT_SLASH_LINE);
-					slashLine.target = targetHpLabel.transform;
-				}, 0.05f);
+			if ((bool)effectValues ["isHit"]) {
+				var damage = (float)effectValues ["damage"];
+				var target = (Race)effectValues ["target"];
+				if (targetHpLabel == null) {
+					target.GetModule<HealthPowerModule> (x => x.SubtractHpEffect ());
+				} else {
+					yield return OnSetTimeout (() => {
+						var slashLine = InstantiateFromMonoResource<SlashLine> (Constants.EFFECT_SLASH_LINE);
+						slashLine.target = targetHpLabel.transform;
+					}, 0.05f);
 
-				yield return OnSetTimeout (() => {
-					attacker.GetModule<HealthPowerModule> (x => x.SubtractHpEffect (damage));
-				});
+					target.GetModule<HealthPowerModule> (x => x.SubtractHpEffect ());
 
-				JumpEffect (targetHpLabel.transform, Vector3.one);
+					JumpEffect (targetHpLabel.transform, Vector3.one);
 
-				ShowSubLabel (Constants.DECREASE_LABEL, targetHpLabel.transform, damage);
-
-				Destroy (((Affect)host).gameObject, Constants.WAIT_FOR_DESTROY);
+					ShowSubLabel (Constants.DECREASE_LABEL, targetHpLabel.transform, damage);
+				}
 			}
 		}
-		
 	}
 
 	public class SwordmanA1Skill : Skill

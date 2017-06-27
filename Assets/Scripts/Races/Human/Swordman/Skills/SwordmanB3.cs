@@ -1,10 +1,16 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Mob
 {
 	public class SwordmanB3 : SkillAffect, IMissingHandler
 	{
+		public override void Init ()
+		{
+			timeToDestroy = 0f;
+		}
 		#region IMissingHandler implementation
 		public void HandleMissing (float damage, Race target)
 		{

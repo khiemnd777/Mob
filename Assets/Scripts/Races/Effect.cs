@@ -9,6 +9,7 @@ namespace Mob
 	public abstract class Effect : PluginHandler
 	{
 		public bool use;
+		public float timeToDestroy = -1f;
 		public Race attacker;
 		public Race[] targets;
 		public object host;
@@ -55,6 +56,7 @@ namespace Mob
 					}
 				}
 				attacker.StartCoroutine(effect.Define (ev));
+				Destroy (effect.gameObject, effect.timeToDestroy <= -1f ? Constants.TIME_EFFECT_END_DEFAULT : effect.timeToDestroy);
 			}
 			else
 				Destroy (effect.gameObject);

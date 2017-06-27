@@ -5,12 +5,11 @@ namespace Mob
 	public class SwordmanC2 : SkillAffect
 	{
 		void Start(){
+			timeToDestroy = 0f;
 			own.GetModule<StatModule>(x => {
 				x.physicalDefend += x.physicalDefend * .2f;
 				x.magicResist += x.magicResist * .2f;
 			});
-
-			Destroy (gameObject);
 		}
 	}
 

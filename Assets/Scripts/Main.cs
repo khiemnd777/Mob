@@ -149,7 +149,7 @@ namespace Mob
 				luckValue.text = x.luck.ToString();
 			});
 			BattleController.playerInTurn.GetModule<HealthPowerModule> (x => {
-				hpValue.text = Mathf.RoundToInt(x.hp) + "/" + Mathf.RoundToInt(x.maxHp);
+				hpValue.text = Mathf.RoundToInt(x.hpEffect) + "/" + Mathf.RoundToInt(x.maxHpEffect);
 			});
 			BattleController.playerInTurn.GetModule<GoldModule> (x => {
 				goldValue.text = x.goldLabel.ToString();
@@ -163,7 +163,7 @@ namespace Mob
 			});
 
 			BattleController.GetTargets()[0].GetModule<HealthPowerModule> (x => {
-				targetHpValue.text = Mathf.RoundToInt(x.hp) + "/" + Mathf.RoundToInt(x.maxHp);
+				targetHpValue.text = Mathf.RoundToInt(x.hpEffect) + "/" + Mathf.RoundToInt(x.maxHpEffect);
 			});
 
 			BattleController.GetTargets()[0].GetModule<LevelModule> (x => {

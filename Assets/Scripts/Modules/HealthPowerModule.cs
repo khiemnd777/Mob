@@ -21,20 +21,23 @@ namespace Mob
 			hp = Mathf.Min(hp + p, maxHp);
 		}
 
-		public void AddHpEffect(float p){
-			While ((inc, step) => {
-				hpEffect = Mathf.Clamp(hpEffect + inc, hp, maxHp);
-			}, p);
+		public void AddHpEffect(){
+			MathfLerp (hpEffect, hp, p => hpEffect = p);
+//			While ((inc, step) => {
+//				hpEffect = Mathf.Clamp(hpEffect + inc, hp, maxHp);
+//			}, p);
 		}
 
 		public void SubtractHp(float p){
 			hp = Mathf.Max(hp - p, 0f);
 		}
 
-		public void SubtractHpEffect(float p){
-			While ((inc, step) => {
-				hpEffect = Mathf.Clamp(hpEffect - inc, 0f, hp);
-			}, p);
+		public void SubtractHpEffect(){
+//			var p = hpEffect - hp;
+			MathfLerp (hpEffect, hp, (p) => hpEffect = p);
+//			While ((inc, step) => {
+//				hpEffect = Mathf.Max(hpEffect - inc, 0f);
+//			}, p);
 		}
 
 		public void SetFullHp(){
@@ -42,7 +45,7 @@ namespace Mob
 		}
 
 		public void SetFullHpEffect(){
-			AddHpEffect (maxHp);
+			AddHpEffect ();
 		}
 
 		public void SetMaxHp(float time = 1f, bool setFullHp = true){

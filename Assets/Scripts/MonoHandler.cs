@@ -9,6 +9,33 @@ namespace Mob
 {
 	public class MonoHandler : MonoBehaviour
 	{
+		public float timeToDestroy = -1f;
+
+		List<PluginHandler> plugins = new List<PluginHandler> ();
+
+		public void AddPlugin(PluginHandler plugin){
+			if (plugin == null)
+				return;
+			plugins.Add (plugin);	
+		}
+
+		public List<PluginHandler> GetPlugins(){
+			plugins.RemoveAll (x => x == null);
+			return plugins;
+		}
+
+		public void HandlePlugins(){
+			foreach (var p in GetPlugins()) {
+				p.HandlePlugin ();
+			}
+		}
+
+		public void FlushAll(){
+			if (timeToDestroy > -1f) {
+				Destroy (gameObject, timeToDestroy);
+			}
+		}
+
 		public bool IsInLayerMask(int layer, LayerMask layermask)
 		{
 			return layermask == (layermask | (1 << layer));
@@ -316,6 +343,20 @@ namespace Mob
 
 		protected void While(Action<float, float> act, float step, float t = 0.5f){
 			StartCoroutine (OnWhile (act, step, t));
+		}
+
+		protected void MathfLerp(float from , float to, Action<float> result = null, float t = 0.1f){
+			StartCoroutine (OnMathfLerp (from, to, result, t));
+		}
+
+		protected IEnumerator OnMathfLerp(float from, float to, Action<float> result = null, float t = 0.1f){
+			while (!Mathf.Approximately (from, to)) {
+				from = Mathf.Lerp (from, to, t);
+				if (result != null) {
+					result.Invoke (from);
+				}
+				yield return new WaitForFixedUpdate();
+			}
 		}
 
 		protected IEnumerator OnWhile(Action<float, float> act, float step, float t = 0.5f){

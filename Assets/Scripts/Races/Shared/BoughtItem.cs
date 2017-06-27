@@ -9,7 +9,8 @@ namespace Mob
 
 		public float price = 0f;
 
-		public string title;
+		string _title;
+		public string title { get { return _title??this.name; } set { _title = value; } }
 
 		public string brief;
 

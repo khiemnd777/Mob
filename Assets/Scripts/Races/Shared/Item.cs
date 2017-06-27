@@ -13,7 +13,8 @@ namespace Mob
 
 		public float energy = 0f;
 		public int level = 0;
-		public string title;
+		string _title;
+		public string title { get { return _title ?? this.name; } set { _title = value; }}
 		public string brief;
 		public int cooldown = 0;
 		public float upgradePrice = 0f;

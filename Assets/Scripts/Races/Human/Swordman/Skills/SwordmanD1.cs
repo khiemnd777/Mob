@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Mob
 {
@@ -10,13 +12,8 @@ namespace Mob
 	
 		public override void Init ()
 		{
+			timeToDestroy = 0f;
 			gainPoint = 18f;
-		}
-
-		Text targetHpLabel;
-
-		void Start(){
-			targetHpLabel = GetMonoComponent<Text> (Constants.TARGET_HP_LABEL);
 		}
 
 		#region ICriticalHandler implementation
@@ -31,24 +28,6 @@ namespace Mob
 
 		#region IPhysicalAttackingEventHandler implementation
 
-		public System.Collections.IEnumerator OnPhysicalHit (PhysicalAttackingEventArgs args)
-		{
-			yield return OnSetTimeout (() => {
-				args.target.GetModule<HealthPowerModule> (x => x.SubtractHp (args.outputDamage));
-			});
-
-			JumpEffect (targetHpLabel.transform, Vector3.one);
-
-			ShowSubLabel (Constants.DECREASE_LABEL, targetHpLabel.transform, args.outputDamage);
-
-			Destroy(args.affect.gameObject, 3f);
-		}
-
-		public System.Collections.IEnumerator OnPhysicalMiss (PhysicalAttackingEventArgs args)
-		{
-			throw new NotImplementedException ();
-		}
-
 		public float bonusDamage {
 			get {
 				var stat = own.GetModule<StatModule>();
@@ -56,7 +35,44 @@ namespace Mob
 			}
 		}
 
+		public void HandleAttack(Race target){
+			
+		}
+
 		#endregion
+	}
+
+	public class SwordmanD1Effect: Effect {
+
+		Text targetHpLabel;
+		public override void InitPlugin ()
+		{
+			use = true;
+			targetHpLabel = GetMonoComponent<Text> (Constants.TARGET_HP_LABEL);
+		}
+
+		public override IEnumerator Define (Dictionary<string, object> effectValues)
+		{
+			if ((bool)effectValues ["isHit"]) {
+				var damage = (float)effectValues["damage"];
+				var target = (Race)effectValues ["target"];
+				if (targetHpLabel == null) {
+					target.GetModule<HealthPowerModule> (x => x.SubtractHpEffect ());
+					Destroy (((Affect)host).gameObject, Constants.WAIT_FOR_DESTROY);
+				} else {
+					yield return OnSetTimeout (() => {
+						var slashLine = InstantiateFromMonoResource<SlashLine>(Constants.EFFECT_SLASH_LINE);
+						slashLine.target = targetHpLabel.transform;
+					}, 0.05f);
+
+					target.GetModule<HealthPowerModule> (x => x.SubtractHpEffect ());
+
+					JumpEffect (targetHpLabel.transform, Vector3.one);
+
+					ShowSubLabel (Constants.DECREASE_LABEL, targetHpLabel.transform, damage);
+				}
+			}
+		}
 	}
 
 	public class SwordmanD1Skill : Skill

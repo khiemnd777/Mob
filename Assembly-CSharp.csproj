@@ -63,11 +63,13 @@
     <Compile Include="Assets\Scripts\Modules\SkillModule.cs" />
     <Compile Include="Assets\Scripts\Modules\StatModule.cs" />
     <Compile Include="Assets\Scripts\MonoHandler.cs" />
+    <Compile Include="Assets\Scripts\PluginHandler.cs" />
     <Compile Include="Assets\Scripts\Probability.cs" />
     <Compile Include="Assets\Scripts\Races\AccuracyCalculator.cs" />
     <Compile Include="Assets\Scripts\Races\Affect.cs" />
     <Compile Include="Assets\Scripts\Races\AttackPowerCalculator.cs" />
     <Compile Include="Assets\Scripts\Races\ClassBuilder.cs" />
+    <Compile Include="Assets\Scripts\Races\Effect.cs" />
     <Compile Include="Assets\Scripts\Races\Human\Human.cs" />
     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\Antidote.cs" />
     <Compile Include="Assets\Scripts\Races\Human\Swordman\Items\BlessingOfAmphitrite.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="Assets\Scripts\Races\Shared\Gears\Armor.cs" />
     <Compile Include="Assets\Scripts\Races\Shared\Gears\Artifacts\Artifact1.cs" />
     <Compile Include="Assets\Scripts\Races\Shared\Gears\Artifacts\Artifact2.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Gears\Artifacts\Artifact3.cs" />
     <Compile Include="Assets\Scripts\Races\Shared\Gears\Cloth.cs" />
     <Compile Include="Assets\Scripts\Races\Shared\Gears\Helm.cs" />
     <Compile Include="Assets\Scripts\Races\Shared\Gears\Ring.cs" />
@@ -171,9 +174,17 @@
     <Reference Include="UnityEngine.VR">
       <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\UnityVR\RuntimeEditor\UnityEngine.VR.dll</HintPath>
     </Reference>
-    <Compile Include="Assets\Scripts\Races\Shared\Gears\Artifacts\Artifact3.cs" />
-    <Compile Include="Assets\Scripts\Races\Effect.cs" />
-    <Compile Include="Assets\Scripts\PluginHandler.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\AddDefendChance.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\AddHpChance.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\AddCriticalChance.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\AddMagicResistChance.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\AddDamageChange.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\AddMagicChance.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\AddStrengthPoint.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\AddDexterityPoint.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\AddIntelligentPoint.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\AddVitalityPoint.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Items\AddLuckPoint.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -183,7 +194,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Assets\Scripts\Races\Shared\" />
-  </ItemGroup>
 </Project>
