@@ -21,8 +21,6 @@ namespace Mob
 
 		#endregion
 
- 
-
 		void Update(){
 			foreach (var target in targets) {
 				ExecuteInTurn(target, () => {
@@ -37,17 +35,12 @@ namespace Mob
 
 	public class BurnAffectItem: Item
 	{
-		public override void Init ()
-		{
-			title = "Burn affect";
-		}
-
 		public float subtractHp = 15f;
 		public int turnNumber = 3; 
 
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<BurnAffect> (own, targets, x => {
+			Affect.CreatePrimitiveAndUse<BurnAffect> (own, targets, x => {
 				x.subtractHp = subtractHp;
 				x.turnNumber = turnNumber;
 			});
@@ -70,6 +63,16 @@ namespace Mob
 			Buy<BurnAffectItem> (who, price, quantity, x => {
 				x.subtractHp = subtractHp;
 				x.turnNumber = turnNumber;
+				x.title = title;
+			});
+		}
+
+		public override void BuyAndUseImmediately (Race who, Race[] targets, float price = 0)
+		{
+			BuyAndUseImmediately<BurnAffectItem> (who, targets, price, x => {
+				x.subtractHp = subtractHp;
+				x.turnNumber = turnNumber;
+				x.title = title;
 			});
 		}
 	}

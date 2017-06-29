@@ -38,7 +38,7 @@ namespace Mob
 		}
 	}
 
-	public class RingItem: Item, ISelfUsable {
+	public class RingItem: GearItem, ISelfUsable {
 		
 		public override void Init ()
 		{
@@ -66,6 +66,7 @@ namespace Mob
 						upgradePrice = 120f;
 					}
 				});
+				GetRandomItem ();
 			}
 		}
 	}

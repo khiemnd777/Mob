@@ -62,6 +62,11 @@ namespace Mob
 		{
 			Buy<AddMagicResistChanceItem> (who, price, quantity, x => x.chance = chance);
 		}
+
+		public override void BuyAndUseImmediately (Race who, Race[] targets, float price = 0)
+		{
+			BuyAndUseImmediately<AddMagicResistChanceItem> (who, targets, price, x => x.chance = chance);
+		}
 	}
 }
 

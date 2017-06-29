@@ -27,7 +27,7 @@ namespace Mob
 		}
 	}
 
-	public class SwordItem: Item, ISelfUsable {
+	public class SwordItem: GearItem, ISelfUsable {
 
 		public override void Init ()
 		{
@@ -53,6 +53,7 @@ namespace Mob
 					SubtractGold (own, upgradePrice);
 					upgradePrice *= 1.2f;
 				});
+				GetRandomItem ();
 			}
 		}
 	}

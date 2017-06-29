@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Mob
 {
@@ -8,11 +9,13 @@ namespace Mob
 	{
 		public float extraHp;
 
-		Text attackerHpLabel;
+		public override void Init ()
+		{
+			timeToDestroy = 5f;
+		}
 
-		void Start(){
-			attackerHpLabel = GetMonoComponent<Text> (Constants.ATTACKER_HP_LABEL);
-
+		public override void Execute ()
+		{
 			own.GetModule<HealthPowerModule>(hp => {
 				var _ = float.MinValue;
 				own.GetModule<AffectModule>(am => {
@@ -22,30 +25,41 @@ namespace Mob
 				});
 				extraHp = Mathf.Max (_, extraHp);
 				hp.AddHp(extraHp);
-
-				hp.AddHpEffect();
-
-				JumpEffect (attackerHpLabel.transform, Vector3.one);
-
-				ShowSubLabel (Constants.INCREASE_LABEL, attackerHpLabel.transform, extraHp);
+				effectValues.Add("extraHp", extraHp);
 			});
+		}
+	}
 
-			Destroy (gameObject, Constants.WAIT_FOR_DESTROY);
+	public class HealthPowerRestoringEffect: Effect
+	{
+		Text attackerHpLabel;
+
+		public override void InitPlugin ()
+		{
+			attackerHpLabel = GetMonoComponent<Text> (Constants.ATTACKER_HP_LABEL);
+		}
+
+		public override IEnumerator Define (Dictionary<string, object> effectValues)
+		{
+			var extraHp = (float)effectValues ["extraHp"];
+
+			attacker.GetModule<HealthPowerModule> (hp => hp.AddHpEffect ());
+
+			JumpEffect (attackerHpLabel.transform, Vector3.one);
+
+			ShowSubLabel (Constants.INCREASE_LABEL, attackerHpLabel.transform, extraHp);
+
+			yield return null;
 		}
 	}
 
 	public class HealthPowerRestoringItem: Item
 	{
-		public override void Init ()
-		{
-			title = "+" + extraHp + " HP";
-		}
-
 		public float extraHp;
 
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<HealthPowerRestoring> (own, targets, hp => hp.extraHp = extraHp);
+			Affect.CreatePrimitiveAndUse<HealthPowerRestoring> (own, targets, hp => hp.extraHp = extraHp);
 			return true;
 		}
 	}
@@ -61,7 +75,18 @@ namespace Mob
 
 		public override void Buy (Race who, float price = 0, int quantity = 0)
 		{
-			Buy<HealthPowerRestoringItem> (who, price, quantity, e => e.extraHp = extraHp);
+			Buy<HealthPowerRestoringItem> (who, price, quantity, e => {
+				e.title = title;
+				e.extraHp = extraHp;
+			});
+		}
+
+		public override void BuyAndUseImmediately (Race who, Race[] targets, float price = 0)
+		{
+			BuyAndUseImmediately<HealthPowerRestoringItem> (who, targets, price, e => {
+				e.title = title;
+				e.extraHp = extraHp;
+			});
 		}
 	}
 }

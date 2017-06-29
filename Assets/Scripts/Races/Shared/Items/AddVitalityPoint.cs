@@ -60,6 +60,14 @@ namespace Mob
 				x.point = point;
 			});
 		}
+
+		public override void BuyAndUseImmediately (Race who, Race[] targets, float price = 0)
+		{
+			BuyAndUseImmediately<AddVitalityPointItem> (who, targets, price, x => {
+				x.title = title;
+				x.point = point;
+			});
+		}
 	}
 }
 

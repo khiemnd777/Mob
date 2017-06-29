@@ -14,11 +14,6 @@ namespace Mob
 
 	public class StatDamageAddingItem: Item
 	{
-		public override void Init ()
-		{
-			title = "+" + extraDamage + " stat damage";
-		}
-
 		public float extraDamage;
 
 		public override bool Use (Race[] targets)

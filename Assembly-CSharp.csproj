@@ -185,6 +185,8 @@
     <Compile Include="Assets\Scripts\Races\Shared\Items\AddIntelligentPoint.cs" />
     <Compile Include="Assets\Scripts\Races\Shared\Items\AddVitalityPoint.cs" />
     <Compile Include="Assets\Scripts\Races\Shared\Items\AddLuckPoint.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Gears\GearUpgradedItems.cs" />
+    <Compile Include="Assets\Scripts\Races\Shared\Gears\GearItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

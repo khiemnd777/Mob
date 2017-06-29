@@ -6,26 +6,24 @@ namespace Mob
 	{
 		public float damage;
 
-		void Start(){
-			foreach(var target in targets){
-				target.GetModule<HealthPowerModule> (hp => hp.SubtractHp (damage));
-			}
-			Destroy (gameObject);
+		public override void Init ()
+		{
+			timeToDestroy = 0f;
+		}
+
+		public override void Execute (Race target)
+		{
+			target.GetModule<HealthPowerModule> (hp => hp.SubtractHp (damage));
 		}
 	}
 
 	public class DamageDealingItem: Item
 	{
-		public override void Init ()
-		{
-			title = "Deal " + damage + " damage";
-		}
-
 		public float damage;
 
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<DamageDealing> (own, targets, d => d.damage = damage);
+			Affect.CreatePrimitiveAndUse<DamageDealing> (own, targets, d => d.damage = damage);
 			return true;
 		}
 	}
@@ -41,7 +39,18 @@ namespace Mob
 
 		public override void Buy (Race who, float price = 0, int quantity = 0)
 		{
-			Buy<DamageDealingItem> (who, price, quantity, x => x.damage = damage);
+			Buy<DamageDealingItem> (who, price, quantity, x => {
+				x.damage = damage;
+				x.title = title;
+			});
+		}
+
+		public override void BuyAndUseImmediately (Race who, Race[] targets, float price = 0)
+		{
+			BuyAndUseImmediately<DamageDealingItem> (who, targets, price, x => {
+				x.damage = damage;
+				x.title = title;
+			});
 		}
 	}
 }

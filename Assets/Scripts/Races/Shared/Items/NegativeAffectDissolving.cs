@@ -4,25 +4,24 @@ namespace Mob
 {
 	public class NegativeAffectDissolving : Affect
 	{
-		void Start(){
+		public override void Init ()
+		{
+			timeToDestroy = 0f;
+		}
+
+		public override void Execute ()
+		{
 			own.GetModule<AffectModule>((a) => {
 				a.RemoveAffect(m => typeof(INegativeAffect).IsAssignableFrom(m.GetType()));
 			});
-
-			Destroy (gameObject);
 		}
 	}
 
 	public class NegativeAffectDissolvingItem: Item
 	{
-		public override void Init ()
-		{
-			title = "Dissolve all negative affects";
-		}
-
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<NegativeAffectDissolving> (own, targets);
+			Affect.CreatePrimitiveAndUse<NegativeAffectDissolving> (own, targets);
 			return true;
 		}
 	}
@@ -36,7 +35,12 @@ namespace Mob
 
 		public override void Buy (Race who, float price = 0, int quantity = 0)
 		{
-			Buy<NegativeAffectDissolvingItem> (who, price, quantity);
+			Buy<NegativeAffectDissolvingItem> (who, price, quantity, x => x.title = title);
+		}
+
+		public override void BuyAndUseImmediately (Race who, Race[] targets, float price = 0)
+		{
+			BuyAndUseImmediately<NegativeAffectDissolvingItem> (who, targets, price, x => x.title = title);
 		}
 	}
 }

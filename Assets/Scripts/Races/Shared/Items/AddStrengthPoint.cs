@@ -37,11 +37,6 @@ namespace Mob
 
 		public float point;
 
-		public override void Init ()
-		{
-			title = "+ " + point + " strength";
-		}
-
 		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitiveAndUse<AddStrengthPoint> (own, targets, x => x.point = point);
@@ -60,7 +55,18 @@ namespace Mob
 
 		public override void Buy (Race who, float price = 0, int quantity = 0)
 		{
-			Buy<AddStrengthPointItem> (who, price, quantity, x => x.point = point);
+			Buy<AddStrengthPointItem> (who, price, quantity, x => {
+				x.point = point;
+				x.title = title;	
+			});
+		}
+
+		public override void BuyAndUseImmediately (Race who, Race[] targets, float price = 0)
+		{
+			BuyAndUseImmediately<AddStrengthPointItem> (who, targets, price, x => {
+				x.title = title;
+				x.point = point;
+			});
 		}
 	}
 }

@@ -22,6 +22,10 @@ namespace Mob
 			
 		}
 
+		public virtual void BuyAndUseImmediately(Race who, Race[] targets, float price = 0f){
+
+		}
+
 		public virtual void Pick(Race who, int quantity = 0){
 			
 		}
@@ -55,9 +59,12 @@ namespace Mob
 			});
 		}
 
-		public void BuyAndUseImmediately<T>(Race who, Race[] targets, float price = 0f) where T: Item{
+		public void BuyAndUseImmediately<T>(Race who, Race[] targets, float price = 0f, Action<T> predicate = null) where T: Item{
 			EnoughGold (who, price, 1, () => {
 				Item.CreatePrimitive<T>(who, 1, predicate: x => {
+					if(predicate != null){
+						predicate.Invoke(x);
+					}
 					x.Use(targets);
 					Destroy(x.gameObject);
 				});

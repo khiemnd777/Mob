@@ -65,6 +65,11 @@ namespace Mob
 		{
 			Buy<AddHpChanceItem> (who, price, quantity, x => x.chance = chance);
 		}
+
+		public override void BuyAndUseImmediately (Race who, Race[] targets, float price = 0)
+		{
+			BuyAndUseImmediately<AddHpChanceItem> (who, targets, price, x => x.chance = chance);
+		}
 	}
 }
 
