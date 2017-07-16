@@ -36,6 +36,15 @@ namespace Mob
 			return race;
 		}
 
+		public static T CreatePrimitive<T>(Action<T> predicate = null) where T: Race{
+			var go = new GameObject (typeof(T).Name, typeof(T));
+			var race = go.GetComponent<T> ();
+			if (predicate != null) {
+				predicate.Invoke (race);
+			}
+			return race;
+		}
+
 		#region Turn base
 
 		protected bool _isTurn;
@@ -59,17 +68,6 @@ namespace Mob
 		}
 		 
 		#endregion
-
-		public T GetModule<T>(Action<T> predicate = null) where T: RaceModule
-		{
-			var module = GetComponent<T> ();
-			if (module == null)
-				return null;
-			if (predicate != null) {
-				predicate.Invoke (module);
-			}
-			return module;
-		}
 
 		#region Gain point functions
 

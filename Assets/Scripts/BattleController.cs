@@ -11,13 +11,13 @@ namespace Mob
 
 		public static void Init(){
 			// Init players in a battle
-			Race.Create<Swordman> ("Races/Human/Swordman", (p1) => {
+			Race.CreatePrimitive<Swordman> ((p1) => {
 				p1.tag = Constants.PLAYER1;
 				p1.name = Constants.PLAYER1;
 				p1.DefaultValue ();
 			});
 
-			Race.Create<Swordman> ("Races/Human/Swordman", (p2) => {
+			Race.CreatePrimitive<Swordman> ((p2) => {
 				p2.tag = Constants.PLAYER2;
 				p2.name = Constants.PLAYER2;
 				p2.DefaultValue ();
@@ -30,6 +30,9 @@ namespace Mob
 
 			// Init treasure system
 			Treasure.Init ();
+
+			// Init available bought items
+			AvailableBoughtItem.Init();
 
 			// Init first player in turn
 			playerInTurn = GetNextPlayer();

@@ -21,16 +21,7 @@ namespace Mob
 			if (!items.Any (x => x.GetType().IsEqual<T> ())) 
 				return;
 			var item = items.FirstOrDefault (x => x.GetType().IsEqual<T> ());
-			if (item.EnoughEnergy () && item.EnoughLevel () && item.EnoughCooldown ()) {
-				item.Use (targets);
-
-				--item.quantity;
-
-				if (item.quantity == 0) {
-					items.Remove (item);
-					Destroy (item.gameObject);
-				}
-			}
+			Use (item, targets);
 		}
 
 		public void Use(Item item, Race[] targets){

@@ -15,6 +15,7 @@ namespace Mob
 		void Start(){
 			_cachedTransform = transform;
 			_cachedTransform.parent = target.parent;
+			// to calculate position of slash-line spawning
 			_cachedTransform.position = Spawn ();
 			destination = target.position + (target.position - _cachedTransform.position);
 			Destroy (gameObject, 2f);
@@ -22,8 +23,9 @@ namespace Mob
 
 		Vector2 Spawn(){
 			while (true) {
+				// to find out appropriated position
 				var p = Random.insideUnitCircle * maxDistance + (Vector2)target.position;
-				if (Vector2.Distance (p, (Vector2)target.position) < Random.Range (maxDistance * 0.875f, maxDistance)) {
+				if (Vector2.Distance (p, (Vector2)target.position) - Random.Range (maxDistance * 0.875f, maxDistance) < 0f) {
 					continue;
 				}
 				return p;

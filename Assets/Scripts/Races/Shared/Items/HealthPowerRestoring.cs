@@ -12,6 +12,7 @@ namespace Mob
 		public override void Init ()
 		{
 			timeToDestroy = 5f;
+			AddPlugin (Effect.CreatePrimitive<HealthPowerRestoringEffect> (this, own, targets));
 		}
 
 		public override void Execute ()

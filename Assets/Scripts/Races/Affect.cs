@@ -38,8 +38,8 @@ namespace Mob
 			
 		}
 
-		public virtual void Upgrade (){
-			
+		public virtual bool Upgrade (){
+			return false;	
 		}
 
 		public virtual void EmitAffect(EmitAffectArgs args){

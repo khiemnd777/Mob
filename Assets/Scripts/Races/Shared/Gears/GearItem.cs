@@ -9,20 +9,21 @@ namespace Mob
 			return false;
 		}
 		
-		public void GetRandomItem(){
+		public BoughtItem GetRandomItem(){
 			switch (upgradeCount) {
 			case 5:
 				var item = GearUpgradedItems.GetIn (GearUpgradedItems.Case1 ());
 				item.BuyAndUseImmediately (own, new[] { own });
-				break;
+				return item;
 			case 10:
 			case 11:
 				item = GearUpgradedItems.GetIn (GearUpgradedItems.Case2 ());
 				item.BuyAndUseImmediately (own, new[] { own });
-				break;
+				return item;
 			default:
 				break;
 			}
+			return null;
 		}
 	}
 }

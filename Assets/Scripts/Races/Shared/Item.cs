@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Mob
 {
 	public abstract class Item : MonoHandler
 	{
+		public Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
+
 		public int quantity;
 		public Race own;
 		public int usedTurn = 0;
@@ -35,8 +39,20 @@ namespace Mob
 			return true;
 		}
 
-		public virtual void Upgrade(float price = 0f){
-			
+		public virtual bool Upgrade(float price = 0f){
+			return false;
+		}
+
+		public virtual Sprite GetIcon(string key, Func<bool> predicate){
+			return predicate != null && predicate.Invoke () ? icons [key] : null;
+		}
+
+		public virtual Sprite GetIcon(string key){
+			return icons [key];
+		}
+
+		public virtual Sprite GetIcon(){
+			return icons.Count > 0 ? icons.FirstOrDefault().Value : null;
 		}
 
 		public void SubtractGold(Race who, float price = 0f, int quantity = 0){

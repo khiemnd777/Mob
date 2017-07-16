@@ -13,6 +13,25 @@ namespace Mob
 
 		List<PluginHandler> plugins = new List<PluginHandler> ();
 
+		public T GetModule<T>(Action<T> predicate = null) where T: RaceModule
+		{
+			var module = GetComponent<T> ();
+			if (module == null)
+				return null;
+			if (predicate != null) {
+				predicate.Invoke (module);
+			}
+			return module;
+		}
+
+		public T AddModule<T>(Action<T> predicate = null) where T: RaceModule{
+			var module = gameObject.AddComponent<T> ();
+			if (predicate != null) {
+				predicate.Invoke (module);
+			}
+			return module;
+		}
+
 		public void AddPlugin(PluginHandler plugin){
 			if (plugin == null)
 				return;

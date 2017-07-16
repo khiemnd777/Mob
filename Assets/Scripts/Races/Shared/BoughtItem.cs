@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 namespace Mob
 {
 	public abstract class BoughtItem : MonoHandler
 	{
+		public static int type;
+
+		public Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
+
 		public int quantity = 1;
 
 		public float price = 0f;
@@ -66,7 +71,7 @@ namespace Mob
 						predicate.Invoke(x);
 					}
 					x.Use(targets);
-					Destroy(x.gameObject);
+					x.FlushAll();
 				});
 				SubtractGold(who, price, 1);
 			});
