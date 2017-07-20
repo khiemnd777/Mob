@@ -4,8 +4,11 @@ using System.Linq;
 
 namespace Mob
 {
-	public class Ring : Affect
+	public class Ring : GearAffect
 	{
+		float[] upPoints = new float[]{ 1f, 3f, 6f };
+		float[] upGainPoints = new float[]{ 6f, 8f, 12f };
+
 		public override void Init ()
 		{
 			gainPoint = 6f;
@@ -15,6 +18,27 @@ namespace Mob
 
 		public override void Execute ()
 		{
+			AddAllStats ();
+		}
+
+		public override bool Upgrade ()
+		{
+			SubtractAllStats ();
+			++upgradeCount;
+			Execute ();
+			AddAlternativeGainPoint ();
+			return true;
+		}
+
+		public override void Disuse ()
+		{
+			SubtractAllStats ();
+			DestroyImmediate (gameObject);
+		}
+
+		void AddAllStats(){
+			point = upPoints [upgradeCount];
+
 			own.GetModule<StatModule> (x => {
 				x.strength += point;
 				x.dexterity += point;
@@ -24,21 +48,20 @@ namespace Mob
 			});
 		}
 
-		public override bool Upgrade ()
-		{
-			++upgradeCount;
-			if (upgradeCount == 1) {
-				gainPoint = 8f;
-				point = 3f;
-			}
-			if (upgradeCount == 2) {
-				gainPoint = 12f;
-				point = 6f;
-			}
-			Execute ();
-			AddGainPoint ();
+		void SubtractAllStats(){
+			var subtractPoint = upPoints[upgradeCount];
+			own.GetModule<StatModule> (x => {
+				x.strength -= subtractPoint;
+				x.dexterity -= subtractPoint;
+				x.intelligent -= subtractPoint;
+				x.vitality -= subtractPoint;
+				x.luck -= subtractPoint;
+			});
+		}
 
-			return true;
+		void AddAlternativeGainPoint(){
+			gainPoint = upGainPoints [upgradeCount];
+			AddGainPoint ();
 		}
 	}
 
@@ -54,9 +77,9 @@ namespace Mob
 		}
 
 		public override Sprite GetIcon(){
-			if (upgradeCount >= 0 && upgradeCount < 2) {
+			if (upgradeCount >= 0 && upgradeCount < 1) {
 				return GetIcon ("lvl1");	
-			} else if (upgradeCount == 2) {
+			} else if (upgradeCount == 1) {
 				return GetIcon ("lvl2");	
 			} else {
 				return GetIcon ("lvl3");	
@@ -75,6 +98,8 @@ namespace Mob
 
 		public override bool Upgrade (float price = 0)
 		{
+			if (upgradeCount == 2)
+				return false;
 			if (EnoughGold (own, upgradePrice)) {
 				++upgradeCount;
 				Affect.HasAffect<Ring> (own, (a) => {
@@ -94,6 +119,13 @@ namespace Mob
 			}
 			return false;
 		}
+
+		public override bool Disuse ()
+		{
+			Affect.GetAffects<Ring> (own, x => x.Disuse());
+			DestroyImmediate (gameObject);
+			return true;
+		}
 	}
 
 	public class RingBoughtItem: GearBoughtItem {
@@ -110,8 +142,9 @@ namespace Mob
 			BuyAndUseImmediately<RingItem> (who, new Race[]{ who }, price, a => {
 				AlternateInStoreState();
 				who.GetModule<GearModule> (x =>{
-					if(x.ring != null)
-						DestroyImmediate (x.ring.gameObject);
+					if(x.ring != null){
+						x.ring.Disuse();
+					}
 				});
 				a.title = title;
 				a.brief = brief;

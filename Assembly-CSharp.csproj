@@ -52,6 +52,8 @@
      <Compile Include="Assets\Scripts\Controllers\Gears\GearListBuyItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\GearListUpgradeItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\TouchOnGear.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Stats\StatController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Stats\StatListItem.cs" />
      <Compile Include="Assets\Scripts\Enums.cs" />
      <Compile Include="Assets\Scripts\Extensions\ActionExtensions.cs" />
      <Compile Include="Assets\Scripts\Extensions\RectTransformExtension.cs" />
@@ -114,6 +116,7 @@
      <Compile Include="Assets\Scripts\Races\Shared\Gears\Artifacts\Artifact2.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\Gears\Artifacts\Artifact3.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\Gears\Cloth.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Gears\GearAffect.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\Gears\GearBoughtItem.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\Gears\GearItem.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\Gears\GearUpgradedItems.cs" />
@@ -180,6 +183,7 @@
      <Compile Include="Assets\Scripts\UI\Shared\ScrollableList\ScrollableListItem.cs" />
      <Compile Include="Assets\Scripts\UI\SkillList.cs" />
      <Compile Include="Assets\Scripts\UI\TreasureList.cs" />
+     <Compile Include="Assets\Scripts\Utilities\CalculatorUtility.cs" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>/Users/kandy/Projects/Mob_Source/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>

@@ -75,6 +75,7 @@ namespace Mob
 				});
 				SubtractGold(who, price, 1);
 			});
+			FlushAll ();
 		}
 
 		public static T CreatePrimitive<T>(Action<T> predicate = null) where T: BoughtItem {

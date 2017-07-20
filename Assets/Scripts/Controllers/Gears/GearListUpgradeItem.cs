@@ -19,7 +19,7 @@ namespace Mob
 		void Start(){
 			upgradeBtn.onClick.AddListener (() => {
 				item.Upgrade();
-				gearController.FilterItemsByType(gearType);
+				//gearController.FilterItemsByType(gearType);
 			});
 		}
 

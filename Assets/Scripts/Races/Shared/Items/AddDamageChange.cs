@@ -65,7 +65,11 @@ namespace Mob
 
 		public override void BuyAndUseImmediately (Race who, Race[] targets, float price = 0)
 		{
-			BuyAndUseImmediately<AddDamageChanceItem> (who, targets, price, x => x.chance = chance);
+			timeToDestroy = 5f;
+			BuyAndUseImmediately<AddDamageChanceItem> (who, targets, price, x => {
+				x.chance = chance;
+				x.timeToDestroy = 2f;
+			});
 		}
 	}
 }

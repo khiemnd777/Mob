@@ -56,6 +56,7 @@ namespace Mob
 		public override void Init ()
 		{
 			title = "+ " + chance * 100f + "% defend";
+			timeToDestroy = 1f;
 		}
 
 		public override void Buy (Race who, float price = 0, int quantity = 0)
@@ -65,7 +66,11 @@ namespace Mob
 
 		public override void BuyAndUseImmediately (Race who, Race[] targets, float price = 0)
 		{
-			BuyAndUseImmediately<AddDefendChanceItem> (who, targets, price, x => x.chance = chance);
+			timeToDestroy = 5f;
+			BuyAndUseImmediately<AddDefendChanceItem> (who, targets, price, x => {
+				x.chance = chance;
+				x.timeToDestroy = 2f;
+			});
 		}
 	}
 }

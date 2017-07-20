@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Mob
 {
-	public class Sword : Affect
+	public class Sword : GearAffect
 	{
 		public float damage = 20f;
 
@@ -15,7 +15,7 @@ namespace Mob
 
 		public override void Execute ()
 		{
-			own.GetModule<StatModule> (x => x.physicalAttack += damage);
+			own.GetModule<StatModule> (x => x.physicalAttack = CalculatorUtility.AddExtraValueByPercent(x.physicalAttack, damage, .2f, upgradeCount));
 		}
 
 		public override bool Upgrade ()
@@ -28,10 +28,16 @@ namespace Mob
 
 			return true;
 		}
+
+		public override void Disuse ()
+		{
+			own.GetModule<StatModule> (x => x.physicalAttack -= damage);
+			DestroyImmediate (gameObject);
+		}
 	}
 
-	public class SwordItem: GearItem, ISelfUsable {
-
+	public class SwordItem: GearItem, ISelfUsable 
+	{
 		public override void Init ()
 		{
 			upgradePrice = 50f;
@@ -42,9 +48,9 @@ namespace Mob
 		}
 
 		public override Sprite GetIcon(){
-			if (upgradeCount >= 0 && upgradeCount < 5) {
+			if (upgradeCount >= 0 && upgradeCount < 4) {
 				return GetIcon ("lvl1");	
-			} else if (upgradeCount >= 5 && upgradeCount < 10) {
+			} else if (upgradeCount >= 4 && upgradeCount < 9) {
 				return GetIcon ("lvl5");	
 			} else {
 				return GetIcon ("lvl10");	
@@ -63,6 +69,8 @@ namespace Mob
 
 		public override bool Upgrade (float price = 0)
 		{
+			if (upgradeCount == 9)
+				return false;
 			if (EnoughGold (own, upgradePrice)) {
 				++upgradeCount;
 				Affect.HasAffect<Sword> (own, (a) => {
@@ -80,6 +88,13 @@ namespace Mob
 			}
 			return false;
 		}
+
+		public override bool Disuse ()
+		{
+			Affect.GetAffects<Sword> (own, x => x.Disuse ());
+			DestroyImmediate (gameObject);
+			return true;
+		}
 	}
 
 	public class SwordBoughtItem: GearBoughtItem {
@@ -96,8 +111,9 @@ namespace Mob
 			BuyAndUseImmediately<SwordItem> (who, new Race[]{ who }, price, a => {
 				AlternateInStoreState();
 				who.GetModule<GearModule> (x => {
-					if(x.weapon != null)
-						DestroyImmediate (x.weapon.gameObject);
+					if(x.weapon != null){
+						x.weapon.Disuse();
+					}
 				});
 				a.title = title;
 				a.brief = brief;

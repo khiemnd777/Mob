@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Mob
 {
-	public class Staff : Affect
+	public class Staff : GearAffect
 	{
 		public float magicAttack = 20f;
 
@@ -15,7 +15,7 @@ namespace Mob
 
 		public override void Execute ()
 		{
-			own.GetModule<StatModule> (x => x.magicAttack += magicAttack);
+			own.GetModule<StatModule> (x => x.magicAttack = CalculatorUtility.AddExtraValueByPercent(x.magicAttack, magicAttack, .2f, upgradeCount));
 		}
 
 		public override bool Upgrade ()
@@ -27,6 +27,12 @@ namespace Mob
 			AddGainPoint ();
 
 			return true;
+		}
+
+		public override void Disuse ()
+		{
+			own.GetModule<StatModule> (x => x.magicAttack -= magicAttack);	
+			DestroyImmediate (gameObject);
 		}
 	}
 
@@ -42,9 +48,9 @@ namespace Mob
 		}
 
 		public override Sprite GetIcon(){
-			if (upgradeCount >= 0 && upgradeCount < 5) {
+			if (upgradeCount >= 0 && upgradeCount < 4) {
 				return GetIcon ("lvl1");	
-			} else if (upgradeCount >= 5 && upgradeCount < 10) {
+			} else if (upgradeCount >= 4 && upgradeCount < 9) {
 				return GetIcon ("lvl5");	
 			} else {
 				return GetIcon ("lvl10");	
@@ -63,6 +69,8 @@ namespace Mob
 
 		public override bool Upgrade (float price = 0)
 		{
+			if (upgradeCount == 9)
+				return false;
 			if (EnoughGold (own, upgradePrice)) {
 				++upgradeCount;
 				Affect.HasAffect<Staff> (own, (a) => {
@@ -80,6 +88,13 @@ namespace Mob
 			}
 			return false;
 		}
+
+		public override bool Disuse ()
+		{
+			Affect.GetAffects<Staff> (own, x => x.Disuse ());
+			DestroyImmediate (gameObject);
+			return true;
+		}
 	}
 
 	public class StaffBoughtItem: GearBoughtItem {
@@ -96,8 +111,9 @@ namespace Mob
 			BuyAndUseImmediately<StaffItem> (who, new Race[]{ who }, price, a => {
 				AlternateInStoreState();
 				who.GetModule<GearModule> (x => {
-					if(x.weapon != null)
-						DestroyImmediate (x.weapon.gameObject);
+					if(x.weapon != null){
+						x.weapon.Disuse();
+					}
 				});
 				a.title = title;
 				a.brief = brief;

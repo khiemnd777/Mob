@@ -9,17 +9,16 @@ namespace Mob
 	public class ScrollableList : MonoHandler 
 	{
 		public Padding padding;
+		public ScrollRect scrollRect;
 
 		RectTransform _rectTrans;
-		ScrollRect _scrollRect;
 
 		void Start(){
 			_rectTrans = GetComponent<RectTransform> ();
-			_scrollRect = GetComponentInParent<ScrollRect> ();
 
 			_rectTrans.SetPivot (new Vector2 (0.5f, 1f));
-			_scrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHide;
-			_scrollRect.horizontalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHide;
+			scrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHide;
+			scrollRect.horizontalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHide;
 
 			Init ();
 		}
@@ -32,10 +31,10 @@ namespace Mob
 			foreach (var item in GetItems()) {
 				DestroyImmediate (item.gameObject);
 			}
-			_rectTrans.SetHeight(0f);
+			(_rectTrans ?? (_rectTrans = GetComponent<RectTransform>())).SetHeight(0f);
 		}
 
-		ScrollableListItem[] GetItems(){
+		public ScrollableListItem[] GetItems(){
 			return GetComponentsInChildren<ScrollableListItem> (false);
 		}
 

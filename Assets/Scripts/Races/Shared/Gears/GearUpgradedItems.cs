@@ -20,8 +20,12 @@ namespace Mob
 			if(_case1 != null)
 				return _case1;
 			var i = new List<BoughtItem> {
-				BoughtItem.CreatePrimitive<AddDefendChanceBoughtItem> (x => x.chance = .1f)
-				, BoughtItem.CreatePrimitive<AddHpChanceBoughtItem> (x => x.chance = .1f)
+				BoughtItem.CreatePrimitive<AddDefendChanceBoughtItem> (x => {
+					x.chance = .1f;
+				})
+				, BoughtItem.CreatePrimitive<AddHpChanceBoughtItem> (x => {
+					x.chance = .1f;
+				})
 				, BoughtItem.CreatePrimitive<AddCriticalChangeBoughtItem> (x => x.chance = .1f)
 				, BoughtItem.CreatePrimitive<AddMagicResistChanceBoughtItem> (x => x.chance = .1f)
 				, BoughtItem.CreatePrimitive<AddDamageChanceBoughtItem> (x => x.chance = .1f)

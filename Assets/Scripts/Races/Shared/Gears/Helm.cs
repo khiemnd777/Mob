@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Mob
 {
-	public class Helm : Affect
+	public class Helm : GearAffect
 	{
 		public float hp = 50f;
 
@@ -15,7 +15,7 @@ namespace Mob
 
 		public override void Execute ()
 		{
-			own.GetModule<HealthPowerModule>(x => x.AddHp(hp));
+			own.GetModule<HealthPowerModule>(x => x.maxHp = CalculatorUtility.AddExtraValueByPercent(x.maxHp, hp, .2f, upgradeCount));
 		}
 
 		public override bool Upgrade ()
@@ -27,6 +27,12 @@ namespace Mob
 			AddGainPoint ();
 
 			return true;
+		}
+
+		public override void Disuse ()
+		{
+			own.GetModule<HealthPowerModule>(x => x.maxHp -= hp);
+			DestroyImmediate (gameObject);
 		}
 	}
 
@@ -42,9 +48,9 @@ namespace Mob
 		}
 
 		public override Sprite GetIcon(){
-			if (upgradeCount >= 0 && upgradeCount < 5) {
+			if (upgradeCount >= 0 && upgradeCount < 4) {
 				return GetIcon ("lvl1");	
-			} else if (upgradeCount >= 5 && upgradeCount < 10) {
+			} else if (upgradeCount >= 4 && upgradeCount < 9) {
 				return GetIcon ("lvl5");	
 			} else {
 				return GetIcon ("lvl10");	
@@ -63,6 +69,9 @@ namespace Mob
 
 		public override bool Upgrade (float price = 0)
 		{
+			if (upgradeCount == 9)
+				return false;
+			
 			if (EnoughGold (own, upgradePrice)) {
 				++upgradeCount;
 				Affect.HasAffect<Helm> (own, (a) => {
@@ -79,6 +88,13 @@ namespace Mob
 				return true;
 			}
 			return false;
+		}
+
+		public override bool Disuse ()
+		{
+			Affect.GetAffects<Helm> (own, x => x.Disuse ());
+			DestroyImmediate (gameObject);
+			return true;
 		}
 	}
 
@@ -97,7 +113,7 @@ namespace Mob
 				AlternateInStoreState();
 				who.GetModule<GearModule> (x => {
 					if(x.helm != null)
-						DestroyImmediate (x.helm.gameObject);
+						x.helm.Disuse();
 				});
 				a.title = title;
 				a.brief = brief;

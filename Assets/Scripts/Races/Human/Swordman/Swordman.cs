@@ -82,7 +82,7 @@ namespace Mob
 				hp.Init();
 			});
 			AddModule<GoldModule> ((gold) => {
-				gold.maxGold = 999f;
+				gold.maxGold = 9999;
 				gold.Init();
 			});
 			AddModule<EnergyModule> ((energy) => {
