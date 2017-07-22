@@ -6,6 +6,14 @@ namespace Mob
 	public enum StatType {
 		Strength, Dexterity, Intelligent, Vitality, Luck
 	}
+
+	public enum Stat2ndType {
+		PhysicalAttack, PhysicalDefend
+		, AttackRating, CriticalRating
+		, MagicAttack, MagicResist
+		, MaxHp, RegenerateHp
+		, LuckDice, LuckReward
+	}
 	
 	public class StatModule : RaceModule
 	{
@@ -25,7 +33,7 @@ namespace Mob
 		public float attackRating;
 		public float attackRatingSeed = 2f;
 		public float criticalRating;
-		public float criticalRatingSeed = 0.01f;
+		public float criticalRatingSeed = 0.75f;
 
 		[Header("Intelligent")]
 		public float intelligent = 1f;
@@ -41,7 +49,7 @@ namespace Mob
 		public float maxHp;
 		public float maxHpSeed = 3f;
 		public float regenerateHp;
-		public float regenerateHpSeed = 0.002f;
+		public float regenerateHpSeed = 0.75f;
 
 		[Header("Luck")]
 		public float luck = 1f;

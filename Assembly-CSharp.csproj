@@ -52,6 +52,8 @@
      <Compile Include="Assets\Scripts\Controllers\Gears\GearListBuyItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\GearListUpgradeItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\TouchOnGear.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Stats\Stat2ndController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Stats\Stat2ndListItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\StatController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\StatListItem.cs" />
      <Compile Include="Assets\Scripts\Enums.cs" />

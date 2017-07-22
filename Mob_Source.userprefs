@@ -1,37 +1,25 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Modules/GoldModule.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Controllers/Stats/StatController.cs">
     <Files>
-      <File FileName="Assets/Scripts/Controllers/Gears/TouchOnGear.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/UI/Shared/ScrollableList/ScrollableList.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/Helm.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Controllers/Gears/GearController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Controllers/Gears/GearListBuyItem.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Item.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/Armor.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Modules/GearModule.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/Cloth.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/Ring.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/Staff.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/Sword.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/GearItem.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MonoHandler.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Races/Shared/AvailableBoughtItems.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/GearBoughtItem.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Constants.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Enums.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Controllers/Gears/GearListUpgradeItem.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Races/Shared/BoughtItem.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Races/Affect.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Modules/AffectModule.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MainTestGearModule.cs" Line="16" Column="39" />
-      <File FileName="Assets/Scripts/UI/Shared/ScrollableList/ScrollableListItem.cs" Line="11" Column="1" />
-      <File FileName="Assets/Scripts/Modules/GoldModule.cs" Line="32" Column="45" />
-      <File FileName="Assets/Scripts/Races/Human/Swordman/Swordman.cs" Line="85" Column="24" />
+      <File FileName="Assets/Scripts/Controllers/Stats/StatController.cs" Line="17" Column="1" />
+      <File FileName="Assets/Scripts/Controllers/Stats/StatListItem.cs" Line="11" Column="22" />
+      <File FileName="Assets/Scripts/Modules/StatModule.cs" Line="49" Column="25" />
+      <File FileName="Assets/Scripts/Controllers/Gears/GearController.cs" Line="124" Column="4" />
+      <File FileName="Assets/Scripts/Modules/GearModule.cs" Line="6" Column="2" />
+      <File FileName="Assets/Scripts/Controllers/Gears/GearListBuyItem.cs" Line="28" Column="20" />
+      <File FileName="Assets/Scripts/Controllers/Gears/TouchOnGear.cs" Line="28" Column="19" />
+      <File FileName="Assets/Scripts/UI/Shared/ScrollableList/ScrollableList.cs" Line="16" Column="16" />
+      <File FileName="Assets/Scripts/Extensions/RectTransformExtension.cs" Line="60" Column="1" />
+      <File FileName="Assets/Scripts/MainTestGearModule.cs" Line="11" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/kandy/Projects/Mob_Source/Assets/Scripts/Races/Human/Swordman/Treasures/Treasure.cs" line="82" column="32" />
+      <Breakpoint file="/Users/kandy/Projects/Mob_Source/Assets/Scripts/Races/Human/Swordman/Treasures/Treasure.cs" line="109" column="32" />
+      <Breakpoint file="/Users/kandy/Projects/Mob_Source/Assets/Scripts/Races/Human/Swordman/Treasures/Treasure.cs" line="142" column="32" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
