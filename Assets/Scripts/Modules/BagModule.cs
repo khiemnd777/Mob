@@ -37,7 +37,8 @@ namespace Mob
 
 			if (item.quantity == 0) {
 				items.Remove (item);
-				Destroy (item.gameObject);
+				DestroyImmediate (item.gameObject);
+				EventManager.TriggerEvent (Constants.EVENT_ITEM_OVER_IN_BAG);
 			}
 		}
 	}

@@ -28,6 +28,10 @@ namespace Mob
 		public const string PLAYER6 = "Player6";
 		public const string PLAYER7 = "Player7";
 		public const string PLAYER8 = "Player8"; 
+
+		// Event names
+		public const string EVENT_ITEM_BOUGHT_FIRED = "item_bought_fired";
+		public const string EVENT_ITEM_OVER_IN_BAG = "item_over_in_bag";
 	}
 }
 

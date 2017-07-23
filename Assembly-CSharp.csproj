@@ -48,6 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BattleController.cs" />
      <Compile Include="Assets\Scripts\Constants.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Bags\BagController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Bags\BagItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\GearAvailableItems.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\GearController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\GearListBuyItem.cs" />
@@ -61,6 +63,7 @@
      <Compile Include="Assets\Scripts\Controllers\Stats\StatController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\StatListItem.cs" />
      <Compile Include="Assets\Scripts\Enums.cs" />
+     <Compile Include="Assets\Scripts\EventManager.cs" />
      <Compile Include="Assets\Scripts\Extensions\ActionExtensions.cs" />
      <Compile Include="Assets\Scripts\Extensions\RectTransformExtension.cs" />
      <Compile Include="Assets\Scripts\Extensions\TypeExtensions.cs" />
@@ -184,7 +187,8 @@
      <Compile Include="Assets\Scripts\UI\ItemList.cs" />
      <Compile Include="Assets\Scripts\UI\NegativeAffectList.cs" />
      <Compile Include="Assets\Scripts\UI\Shared\CommonButtons\CloseBtn.cs" />
-     <Compile Include="Assets\Scripts\UI\Shared\GridView\ScalableGridItem.cs" />
+     <Compile Include="Assets\Scripts\UI\Shared\GridView\GridItem.cs" />
+     <Compile Include="Assets\Scripts\UI\Shared\GridView\ScalableGridView.cs" />
      <Compile Include="Assets\Scripts\UI\Shared\Padding.cs" />
      <Compile Include="Assets\Scripts\UI\Shared\ScrollableList\ScrollableList.cs" />
      <Compile Include="Assets\Scripts\UI\Shared\ScrollableList\ScrollableListItem.cs" />
