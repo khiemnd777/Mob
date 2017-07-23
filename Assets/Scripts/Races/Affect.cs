@@ -180,6 +180,7 @@ namespace Mob
 					var stat = own.GetModule<StatModule> ();
 					var targetStat = target.GetModule<StatModule> ();
 					var isHit = AccuracyCalculator.IsHit (stat.attackRating, targetStat.attackRating);
+					isHit = !isHit ? AccuracyCalculator.IsDodgeable(own, target) : isHit;
 					isHit = !isHit ? AccuracyCalculator.MakeSureHit(own) : isHit;
 					a.effectValues.Add ("isHit", isHit);
 					if (isHit) {
@@ -213,6 +214,7 @@ namespace Mob
 					var stat = own.GetModule<StatModule> ();
 					var targetStat = target.GetModule<StatModule> ();
 					var isHit = AccuracyCalculator.IsHit (stat.attackRating, targetStat.attackRating);
+					isHit = !isHit ? AccuracyCalculator.IsDodgeable(own, target) : isHit;
 					isHit = !isHit ? AccuracyCalculator.MakeSureHit(own) : isHit;
 					a.effectValues.Add ("isHit", isHit);
 					if (isHit) {

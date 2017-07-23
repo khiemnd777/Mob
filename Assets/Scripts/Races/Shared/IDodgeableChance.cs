@@ -2,7 +2,7 @@
 {
 	public interface IDodgeableChance
 	{
-		float DodgeChance(float accuracy);
+		float dodgeChance{ get;}
 	}
 }
 

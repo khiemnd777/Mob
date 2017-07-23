@@ -9,7 +9,7 @@ namespace Mob
 		public InStoreState inStoreState;
 
 		public void AlternateInStoreState(){
-			var boughtItems = AvailableBoughtItem.GetManyBy (x => typeof(GearBoughtItem).IsAssignableFrom (x.GetType ())).Cast<GearBoughtItem>();
+			var boughtItems = GearAvailableItems.list;
 			foreach (var boughtItem in boughtItems) {
 				if (boughtItem.gearType != gearType)
 					continue;

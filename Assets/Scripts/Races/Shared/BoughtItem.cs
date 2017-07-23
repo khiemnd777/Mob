@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Mob
@@ -22,7 +23,19 @@ namespace Mob
 		public virtual void Init(){
 			
 		}
-		
+
+		public virtual Sprite GetIcon(string key, Func<bool> predicate){
+			return predicate != null && predicate.Invoke () ? icons [key] : null;
+		}
+
+		public virtual Sprite GetIcon(string key){
+			return icons [key];
+		}
+
+		public virtual Sprite GetIcon(){
+			return icons.Count > 0 ? icons.FirstOrDefault().Value : null;
+		}
+
 		public virtual void Buy(Race who, float price = 0f, int quantity = 0){
 			
 		}

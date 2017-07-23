@@ -92,11 +92,11 @@ namespace Mob
 
 			// Inventory is used to store the items
 			AddModule<BagModule> (inventory => {
-				inventory.Add<SpeedyItem>(99);
-				inventory.Add<PotionItem>(99);
-				inventory.Add<GreatPotionItem>(99);
-				inventory.Add<BurstStrengthItem>(99);
-				inventory.Add<AntidoteItem>(99);
+//				inventory.Add<SpeedyItem>(99);
+//				inventory.Add<PotionItem>(99);
+//				inventory.Add<GreatPotionItem>(99);
+//				inventory.Add<BurstStrengthItem>(99);
+//				inventory.Add<AntidoteItem>(99);
 			});
 
 			// Skill is used to store the skills

@@ -19,17 +19,18 @@ namespace Mob
 		public Image ring;
 		public Image artifact;
 
-		public BoughtItem[] availableItems;
+		public GearBoughtItem[] availableItems;
 
 		public Race player;
 		GearModule _gearModule;
 		Sprite _none;
+
 		void Start(){
-			availableItems = AvailableBoughtItem.GetManyBy (x => typeof(GearBoughtItem).IsAssignableFrom (x.GetType ()));
 			list.ClearAll ();
 			player = Race.FindWithPlayerId (Constants.PLAYER1) [0];
 			_gearModule = player.GetModule<GearModule> ();
 			_none = Resources.Load<Sprite> ("Sprites/none");
+			availableItems = GearAvailableItems.list.ToArray ();
 		}
 
 		public void WearHelm(){
@@ -58,7 +59,6 @@ namespace Mob
 
 		public GearBoughtItem[] GetAvailableGearBoughtItemsByType(GearType gearType){
 			return availableItems
-				.Cast<GearBoughtItem> ()
 				.Where (x => x.gearType == gearType && x.inStoreState == InStoreState.Available)
 				.ToArray ();
 		}

@@ -87,15 +87,20 @@ namespace Mob
 			accuracy = Mathf.Max (_, accuracy);
 		}
 
-		public static void DodgeChance(ref float accuracy, Race own, Race target){
+		public static bool IsDodgeable(Race own, Race target){
 			var _ = float.MaxValue;
-			var ac = accuracy;
 			target.GetModule<AffectModule>(am => {
 				am.GetSubAffects<IDodgeableChance>(a => {
-					_ = Mathf.Min(_, a.DodgeChance(ac));
+					_ = Mathf.Min(_, a.dodgeChance);
 				});
 			});
-			accuracy = Mathf.Min (_, accuracy);
+
+			var percents = new float[] {_, 100f - _};
+			// init accuracy values
+			var accuracies = new bool[] {true, false};
+			var arr = Probability.Initialize(accuracies, percents);
+			var index = Random.Range (0, arr.Length - 1);
+			return arr [index];
 		}
 
 		public static float GetAccuracyWithProbability(float chance, float currentAccuracy){
