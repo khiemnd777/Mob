@@ -101,7 +101,7 @@ namespace Mob
 				var result = Probability.GetValueInProbability (probability);
 				if (!result)
 					continue;
-				Affect.CreatePrimitive (occur.Key, own, new Race[]{ target }, af => {
+				Affect.CreatePrimitiveAndUse (occur.Key, own, new Race[]{ target }, af => {
 					foreach(var defineAffect in defineAffects.Where(d => d.Key == occur.Key)){
 						var affect = defineAffect.Value.affect;
 						var method = defineAffect.Value.methodDefineAffect;

@@ -23,7 +23,7 @@ namespace Mob
 
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<StatResistanceAdding> (own, targets, x => x.extraResistance = extraResistance);
+			Affect.CreatePrimitiveAndUse<StatResistanceAdding> (own, targets, x => x.extraResistance = extraResistance);
 			return true;
 		}	
 	}

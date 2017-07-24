@@ -40,11 +40,13 @@ namespace Mob
 	{	
 		public override bool Use (Race[] targets)
 		{
-			if (Affect.HasAffect<Speedy> (own)) {
-				return false;
-			}
-			Affect.CreatePrimitive<Speedy> (own, targets);
+			Affect.CreatePrimitiveAndUse<Speedy> (own, targets);
 			return true;
+		}
+
+		protected override bool Enable ()
+		{
+			return !Affect.HasAffect<Speedy> (own);
 		}
 	}
 

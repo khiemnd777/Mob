@@ -25,7 +25,7 @@ namespace Mob
 		
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<Antidote> (own, targets);
+			Affect.CreatePrimitiveAndUse<Antidote> (own, targets);
 			return true;
 		}
 	}

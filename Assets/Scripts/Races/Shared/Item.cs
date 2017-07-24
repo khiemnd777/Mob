@@ -22,6 +22,7 @@ namespace Mob
 		public string brief;
 		public int cooldown = 0;
 		public float upgradePrice = 0f;
+		public bool isEnabled { get; private set; }
 
 		public virtual void Init(){
 			
@@ -107,14 +108,18 @@ namespace Mob
 			return result;
 		}
 
-		public bool Enable(){
-			return EnoughEnergy () && EnoughLevel () && EnoughCooldown ();
+		protected virtual bool Enable(){
+			return true;
 		}
 
 		public void SubtractEnergy(float energy = 0f){
 			own.GetModule<EnergyModule> ((e) => {
 				e.SubtractEnergy (energy == 0f ? this.energy : energy);
 			});
+		}
+
+		protected virtual void Update(){
+			isEnabled = Enable ();
 		}
 
 		public static T Create<T>(string resource, Race own, int quantity, Action<T> predicate = null) where T : Item {

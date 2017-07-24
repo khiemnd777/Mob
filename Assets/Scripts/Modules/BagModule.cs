@@ -31,9 +31,10 @@ namespace Mob
 			} else if (typeof(ITargetUsable).IsAssignableFrom (item.GetType ())) {
 				t = _race.targets;
 			}
-			item.Use (t);
-			item.usedTurn = _race.turnNumber;
-			--item.quantity;
+			if (item.Use (t)) {
+				item.usedTurn = _race.turnNumber;
+				--item.quantity;	
+			}
 
 			if (item.quantity == 0) {
 				items.Remove (item);

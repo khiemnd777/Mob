@@ -25,7 +25,7 @@ namespace Mob
 
 		public void HandleAttack(Race target){
 			OnSetTimeout (() => {
-				Affect.CreatePrimitive<BurnAffect> (own, new Race[] { target }, x => {
+				Affect.CreatePrimitiveAndUse<BurnAffect> (own, new Race[] { target }, x => {
 					x.subtractHp = 6f;
 					x.turnNumber = 3;
 				});

@@ -18,7 +18,7 @@ namespace Mob
 
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<StatDamageAdding> (own, targets, d => d.extraDamage = extraDamage);
+			Affect.CreatePrimitiveAndUse<StatDamageAdding> (own, targets, d => d.extraDamage = extraDamage);
 			return true;
 		}	
 	}

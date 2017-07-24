@@ -15,7 +15,7 @@ namespace Mob
 
 		public void AssignAttackableAffect (Race target)
 		{
-			Affect.CreatePrimitive<BurnAffect> (own, new Race[]{ target }, b => {
+			Affect.CreatePrimitiveAndUse<BurnAffect> (own, new Race[]{ target }, b => {
 				b.subtractHp = 10f;
 			});
 		}
@@ -41,7 +41,7 @@ namespace Mob
 
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<HeartOfHestia> (own, targets);
+			Affect.CreatePrimitiveAndUse<HeartOfHestia> (own, targets);
 			return true;
 		}
 	}

@@ -155,7 +155,7 @@ namespace Mob
 			_turnNumber++;
 			GetModule<StatModule> (s => {
 				GetModule<HealthPowerModule>(hp => {
-					Affect.CreatePrimitive<HealthPowerRestoring> (this, new Race[]{this}, hpr => hpr.extraHp = s.regenerateHp * hp.hp);
+					Affect.CreatePrimitiveAndUse<HealthPowerRestoring> (this, new Race[]{this}, hpr => hpr.extraHp = s.regenerateHp * hp.hp);
 				});
 			});
 		}

@@ -30,10 +30,13 @@ namespace Mob
 	{	
 		public override bool Use (Race[] targets)
 		{
-			if (Affect.HasAffect<BurstStrength> (own))
-				return false;
-			Affect.CreatePrimitive<BurstStrength> (own, targets);
+			Affect.CreatePrimitiveAndUse<BurstStrength> (own, targets);
 			return true;
+		}
+
+		protected override bool Enable ()
+		{
+			return !Affect.HasAffect<BurstStrength> (own);
 		}
 	}
 

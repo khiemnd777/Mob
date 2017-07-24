@@ -16,7 +16,7 @@ namespace Mob
 
 		public override void Execute ()
 		{
-			Affect.CreatePrimitive<HealthPowerRestoring> (own, targets, predicate: hp => hp.extraHp = extraHp);
+			Affect.CreatePrimitiveAndUse<HealthPowerRestoring> (own, targets, predicate: hp => hp.extraHp = extraHp);
 		}
 	}
 
@@ -26,7 +26,7 @@ namespace Mob
 		public float extraHp;
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<GreatPotion> (own, targets, x => {
+			Affect.CreatePrimitiveAndUse<GreatPotion> (own, targets, x => {
 				x.extraHp = extraHp;
 			});
 			return true;

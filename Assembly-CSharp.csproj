@@ -109,7 +109,6 @@
      <Compile Include="Assets\Scripts\Races\Race.cs" />
      <Compile Include="Assets\Scripts\Races\RacePattern.cs" />
      <Compile Include="Assets\Scripts\Races\ResistanceCalculator.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Affects\StuntAffect.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\AvailableBoughtItems.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\BoughtItem.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\Gears\Armor.cs" />

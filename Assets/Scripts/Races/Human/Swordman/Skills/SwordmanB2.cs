@@ -27,7 +27,7 @@ namespace Mob
 
 		public void HandleAttack(Race target){
 			OnSetTimeout (() => {
-				Affect.CreatePrimitive<StunAffect> (own, new Race[]{ target }, x => {
+				Affect.CreatePrimitiveAndUse<StunAffect> (own, new Race[]{ target }, x => {
 					x.turnNumber = 1;
 				});
 			}, 3f);

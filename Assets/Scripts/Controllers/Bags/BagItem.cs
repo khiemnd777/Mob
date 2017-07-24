@@ -30,7 +30,7 @@ namespace Mob
 		void Prepare(){
 			if (item == null)
 				return;
-			useBtn.interactable = item.EnoughEnergy () && item.EnoughLevel () && item.EnoughCooldown ();
+			useBtn.interactable = item.isEnabled && item.EnoughEnergy () && item.EnoughLevel () && item.EnoughCooldown ();
 			quantity.text = "x" + item.quantity;
 			icon.sprite = item.GetIcon("default") ?? item.GetIcon("none");
 		}

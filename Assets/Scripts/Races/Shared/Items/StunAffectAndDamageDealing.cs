@@ -11,7 +11,7 @@ namespace Mob
 			foreach(var target in targets){
 				ExecuteInTurn (target, () => {
 					if(turn <= turnNumber){
-						Affect.CreatePrimitive<DamageDealing>(own, new Race[]{target}, d => d.damage = damage);
+						Affect.CreatePrimitiveAndUse<DamageDealing>(own, new Race[]{target}, d => d.damage = damage);
 						target.AllowAttack(false);
 					} else {
 						target.AllowAttack(true);
@@ -34,7 +34,7 @@ namespace Mob
 
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitive<StunAffectAndDamageDealing> (own, targets, x => {
+			Affect.CreatePrimitiveAndUse<StunAffectAndDamageDealing> (own, targets, x => {
 				x.turnNumber = turnNumber;
 				x.damage = damage;
 			});
