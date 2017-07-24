@@ -70,14 +70,16 @@ namespace Mob
 			return enough;
 		}
 
-		public void Buy<T>(Race who, float price = 0f, int quantity = 0, Action<T> predicate = null) where T: Item{
+		public void Buy<T>(Race who, float price = 0f, int quantity = 0, Action<T> predicate = null, Action postBuying = null) where T: Item{
 			EnoughGold (who, price, quantity, () => {
 				who.GetModule<BagModule>(i => i.Add<T>(quantity, predicate));
 				SubtractGold(who, price, quantity);
+				if(postBuying != null)
+					postBuying.Invoke();
 			});
 		}
 
-		public void BuyAndUseImmediately<T>(Race who, Race[] targets, float price = 0f, Action<T> predicate = null) where T: Item{
+		public void BuyAndUseImmediately<T>(Race who, Race[] targets, float price = 0f, Action<T> predicate = null, Action postBuying = null) where T: Item{
 			EnoughGold (who, price, 1, () => {
 				Item.CreatePrimitive<T>(who, 1, predicate: x => {
 					if(predicate != null){
@@ -87,6 +89,8 @@ namespace Mob
 					x.FlushAll();
 				});
 				SubtractGold(who, price, 1);
+				if(postBuying != null)
+					postBuying.Invoke();
 			});
 			FlushAll ();
 		}

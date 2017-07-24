@@ -4,6 +4,7 @@ namespace Mob
 {
 	public class Constants
 	{
+		public const float PRICE_UP_TO = 1.05f;
 		public const int HUMAN_MAX_LEVEL = 16;
 		public const int ORC_MAX_LEVEL = 16;
 		public const int MIN_LEVEL = 2;
