@@ -4,7 +4,10 @@ namespace Mob
 {
 	public abstract class Skill : Item
 	{
-		public bool learned  { get; private set; }
+		protected override bool Interact ()
+		{
+			return EnoughEnergy () && EnoughLevel () && EnoughCooldown ();
+		}
 	}
 }
 

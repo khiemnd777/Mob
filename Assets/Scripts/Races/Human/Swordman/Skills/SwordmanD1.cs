@@ -102,5 +102,15 @@ namespace Mob
 			--skillModule.evolvedSkillPoint;
 			enabled = false;
 		}
+
+		LevelModule _level;
+		SkillModule _skill;
+
+		protected override bool Interact ()
+		{
+			var level = _level ?? (_level = own.GetModule<LevelModule> ());
+			var skill = _skill ?? (_skill = own.GetModule<SkillModule> ());
+			return level.level >= 12 && skill.evolvedSkillPoint > 0;
+		}
 	}
 }

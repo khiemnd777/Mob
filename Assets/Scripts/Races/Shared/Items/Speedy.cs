@@ -44,9 +44,9 @@ namespace Mob
 			return true;
 		}
 
-		protected override bool Enable ()
+		protected override bool Interact ()
 		{
-			return !Affect.HasAffect<Speedy> (own);
+			return !Affect.HasAffect<Speedy> (own) && EnoughEnergy () && EnoughLevel () && EnoughCooldown (); ;
 		}
 	}
 

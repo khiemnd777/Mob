@@ -34,9 +34,9 @@ namespace Mob
 			return true;
 		}
 
-		protected override bool Enable ()
+		protected override bool Interact ()
 		{
-			return !Affect.HasAffect<BurstStrength> (own);
+			return !Affect.HasAffect<BurstStrength> (own) && EnoughEnergy () && EnoughLevel () && EnoughCooldown ();
 		}
 	}
 

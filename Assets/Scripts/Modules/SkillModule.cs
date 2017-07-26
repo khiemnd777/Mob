@@ -39,7 +39,7 @@ namespace Mob
 
 		public void AddAvailableSkill<T>(Action<T> predicate = null) where T: BoughtItem{
 			if (!availableSkills.Any (x => x.GetType().IsEqual<T> ())) {
-				availableSkills.Add (BoughtItem.CreatePrimitive<T> (predicate));
+				availableSkills.Add (BoughtItem.CreatePrimitiveWithOwn<T> (_race, predicate));
 				return;
 			}
 		}
@@ -49,6 +49,12 @@ namespace Mob
 			if (skill == null)
 				return;
 			skill.Pick (_race, 1);
+		}
+
+		public void PickAvailableSkill(BoughtItem boughtItem){
+			if (!availableSkills.Any (x => x.GetType ().IsAssignableFrom (boughtItem.GetType ())))
+				return;
+			boughtItem.Pick (_race, 1);
 		}
 
 		public T GetAvailableSkill<T>() where T: BoughtItem{

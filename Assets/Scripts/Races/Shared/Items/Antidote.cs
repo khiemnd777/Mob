@@ -28,6 +28,11 @@ namespace Mob
 			Affect.CreatePrimitiveAndUse<Antidote> (own, targets);
 			return true;
 		}
+
+		protected override bool Interact ()
+		{
+			return EnoughEnergy () && EnoughLevel () && EnoughCooldown ();
+		}
 	}
 
 	public class AntidoteBoughtItem: BoughtItem 

@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Mob
 {
@@ -22,10 +23,9 @@ namespace Mob
 		public string brief;
 		public int cooldown = 0;
 		public float upgradePrice = 0f;
-		public bool isEnabled { get; private set; }
 
 		public virtual void Init(){
-			
+				
 		}
 
 		public abstract bool Use (Race[] targets);
@@ -100,26 +100,20 @@ namespace Mob
 			return result;
 		}
 
+		public bool cooldownable { get; private set; }
+
 		public bool EnoughCooldown(Action predicate = null){
-			var result = cooldown == 0 || usedTurn == 0 || usedTurn + cooldown == own.turnNumber;
-			if (result && predicate != null) {
+			cooldownable = cooldown == 0 || usedTurn == 0 || usedTurn + cooldown == own.turnNumber;
+			if (cooldownable && predicate != null) {
 				predicate.Invoke ();
 			}
-			return result;
-		}
-
-		protected virtual bool Enable(){
-			return true;
+			return cooldownable;
 		}
 
 		public void SubtractEnergy(float energy = 0f){
 			own.GetModule<EnergyModule> ((e) => {
 				e.SubtractEnergy (energy == 0f ? this.energy : energy);
 			});
-		}
-
-		protected virtual void Update(){
-			isEnabled = Enable ();
 		}
 
 		public static T Create<T>(string resource, Race own, int quantity, Action<T> predicate = null) where T : Item {
@@ -135,6 +129,7 @@ namespace Mob
 				predicate.Invoke (a);
 			}
 			a.Init ();
+			a.StartCoroutine (a.Interacting (a.gameObject));
 
 			return a;
 		}
@@ -148,6 +143,7 @@ namespace Mob
 				predicate.Invoke (a);
 			}
 			a.Init ();
+			a.StartCoroutine (a.Interacting (a.gameObject));
 
 			return a;
 		}

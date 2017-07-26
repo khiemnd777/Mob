@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Controllers\Shops\ShopAvailableItems.cs" />
      <Compile Include="Assets\Scripts\Controllers\Shops\ShopController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Shops\ShopItem.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Skills\SkillItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\Stat2ndController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\Stat2ndListItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\StatController.cs" />

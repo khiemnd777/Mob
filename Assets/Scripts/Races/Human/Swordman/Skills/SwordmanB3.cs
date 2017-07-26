@@ -38,7 +38,6 @@ namespace Mob
 
 	public class SwordmanB3BoughtSkill : BoughtItem
 	{
-
 		public override void Pick (Race who, int quantity)
 		{
 			var skillModule = who.GetModule<SkillModule> ();
@@ -47,6 +46,16 @@ namespace Mob
 			BuyAndUseImmediately<SwordmanB1Skill> (who, new Race[]{ who }, 0f);
 			--skillModule.evolvedSkillPoint;
 			enabled = false;
+		}
+
+		LevelModule _level;
+		SkillModule _skill;
+
+		protected override bool Interact ()
+		{
+			var level = _level ?? (_level = own.GetModule<LevelModule> ());
+			var skill = _skill ?? (_skill = own.GetModule<SkillModule> ());
+			return level.level >= 4 && skill.evolvedSkillPoint > 0;
 		}
 	}
 }

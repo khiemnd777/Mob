@@ -31,6 +31,11 @@ namespace Mob
 			});
 			return true;
 		}
+
+		protected override bool Interact ()
+		{
+			return EnoughEnergy () && EnoughLevel () && EnoughCooldown ();
+		}
 	}
 
 	public class GreatPotionBoughtItem: BoughtItem 

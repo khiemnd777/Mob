@@ -272,6 +272,7 @@ namespace Mob
 				predicate.Invoke (a);
 			}
 			a.Init ();
+			a.StartCoroutine (a.Interacting (a.gameObject));
 			return a;
 		}
 

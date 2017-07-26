@@ -7,7 +7,7 @@ namespace Mob
 {
 	public abstract class BoughtItem : MonoHandler
 	{
-		public static int type;
+		public Race own;
 
 		public Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
 
@@ -16,6 +16,7 @@ namespace Mob
 		public float price = 0f;
 
 		string _title;
+
 		public string title { get { return _title??this.name; } set { _title = value; } }
 
 		public string brief;
@@ -102,6 +103,21 @@ namespace Mob
 				predicate.Invoke (a);
 			}
 			a.Init ();
+			a.StartCoroutine (a.Interacting (a.gameObject));
+
+			return a;
+		}
+
+		public static T CreatePrimitiveWithOwn<T>(Race own, Action<T> predicate = null) where T: BoughtItem {
+			var go = new GameObject (typeof(T).Name, typeof(T));
+			var a = go.GetComponent<T> ();
+			a.own = own;
+			if (predicate != null) {
+				predicate.Invoke (a);
+			}
+			a.Init ();
+			a.StartCoroutine (a.Interacting (a.gameObject));
+
 			return a;
 		}
 	}

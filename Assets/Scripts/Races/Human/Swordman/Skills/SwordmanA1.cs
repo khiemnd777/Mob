@@ -72,7 +72,8 @@ namespace Mob
 			return true;
 		}
 
-		void Update(){
+		void Update ()
+		{
 			if(usedNumber == 10){
 				own.GetModule<SkillModule> (s => {
 					s.Add<SwordmanA2Skill> (1);
@@ -87,6 +88,16 @@ namespace Mob
 		public override void Pick (Race who, int quantity)
 		{
 			who.GetModule<SkillModule> (x => x.Add<SwordmanA1Skill> (quantity));
+		}
+
+		LevelModule _level;
+		SkillModule _skill;
+
+		protected override bool Interact ()
+		{
+			var level = _level ?? (_level = own.GetModule<LevelModule> ());
+			var skill = _skill ?? (_skill = own.GetModule<SkillModule> ());
+			return level.level == 1 && skill.evolvedSkillPoint > 0;
 		}
 	}
 }

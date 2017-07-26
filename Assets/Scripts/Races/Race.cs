@@ -11,6 +11,33 @@ namespace Mob
 	{
 		public Race[] targets;
 
+		public T GetModule<T>(System.Action<T> predicate = null) where T : RaceModule
+		{
+			var module = GetComponent<T> ();	
+			if (predicate != null) {
+				predicate.Invoke (module);
+			}
+			return module;
+		}
+
+		public T[] GetModules<T>(System.Action<T> predicate = null){
+			var modules = GetComponents<T>();
+			foreach (var module in modules) {
+				if (predicate != null) {
+					predicate.Invoke (module);
+				}
+			}
+			return modules;
+		}
+
+		public T AddModule<T>(System.Action<T> predicate = null) where T: RaceModule{
+			var module = gameObject.AddComponent<T> ();
+			if (predicate != null) {
+				predicate.Invoke (module);
+			}
+			return module;
+		}
+
 		public static Race[] FindWithPlayerId(params string[] playerId){
 			var list = new List<GameObject> ();
 			foreach (var pid in playerId) {
