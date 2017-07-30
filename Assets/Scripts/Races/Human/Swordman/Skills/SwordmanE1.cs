@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using UnityEngine;
 
 namespace Mob
 {
@@ -46,19 +48,42 @@ namespace Mob
 
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitiveAndUse<SwordmanE1> (own, targets);
+			Affect.CreatePrimitiveAndUse<SwordmanE1> (own, targets, t => {
+				t.gainPoint = gainPoint;
+			});
 			return true;
 		}
 	}
 
-	public class SwordmanE1BoughtSkill : BoughtItem
+	public class SwordmanE1BoughtSkill : SkillBoughtItem
 	{
+		public override void Init ()
+		{
+			title = "E1";
+			brief = "Transforming to Holy Knight in 3 turns for being critical damage at all. Yet to increase to 50% for all attack damages if the opponent has any negative effects.";
+			cooldown = 6;
+			learnedLevel = 16;
+			gainPoint = 30f;
+			reducedEnergy = 12f;
+			icons.Add ("none", Resources.Load<Sprite> ("Sprites/icon"));
+			icons.Add ("default", Resources.LoadAll<Sprite>("Sprites/swordman-skills").FirstOrDefault(x => x.name == "swordman-skills-e1"));	
+		}
+
 		public override void Pick (Race who, int quantity)
 		{
 			var skillModule = who.GetModule<SkillModule> ();
 			if (skillModule.evolvedSkillPoint <= 0)
 				return;
-			who.GetModule<SkillModule> (x => x.Add<SwordmanE1Skill> (quantity));
+			who.GetModule<SkillModule> (x => x.Add<SwordmanE1Skill> (quantity, t => 
+				{
+					t.icons = icons;
+					t.title = title;
+					t.brief = brief;
+					t.cooldown = cooldown;
+					t.level = learnedLevel;
+					t.gainPoint = gainPoint;
+					t.energy = reducedEnergy;
+				}));
 			--skillModule.evolvedSkillPoint;
 			enabled = false;
 		}
@@ -70,7 +95,7 @@ namespace Mob
 		{
 			var level = _level ?? (_level = own.GetModule<LevelModule> ());
 			var skill = _skill ?? (_skill = own.GetModule<SkillModule> ());
-			return level.level >= 16 && skill.evolvedSkillPoint > 0;
+			return level.level >= 16 && skill.evolvedSkillPoint > 0 && !skill.HasSkill<SwordmanE1Skill>();
 		}
 	}
 }

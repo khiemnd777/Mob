@@ -9,8 +9,9 @@ namespace Mob
 		public Text brief;
 		public Image icon;
 		public Button learnBtn;
+		public Text learnTxt;
 
-		public BoughtItem boughtItem;
+		public SkillBoughtItem boughtItem;
 
 		Race _player;
 		SkillModule _skillModule;
@@ -21,14 +22,18 @@ namespace Mob
 
 			learnBtn.onClick.AddListener (() => {
 				_skillModule.PickAvailableSkill(boughtItem);
+				EventManager.TriggerEvent(Constants.EVENT_SKILL_LEARNED);
 			});
 		}
 
 		void Update(){
+			if (boughtItem == null)
+				return;
+			learnTxt.text = boughtItem.learned ? "Learned" : "Learn";
 			learnBtn.interactable = boughtItem.interactable;
-			title.text = boughtItem.title;
+			title.text = boughtItem.title + "";
 			brief.text = boughtItem.brief;
-			icon.sprite = boughtItem.GetIcon("default") ?? boughtItem.GetIcon("none");
+			icon.sprite = boughtItem.GetIcon("default") ?? boughtItem.GetIcon("none") ?? null;
 		}
 	}
 }

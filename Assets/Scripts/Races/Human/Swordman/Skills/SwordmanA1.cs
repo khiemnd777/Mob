@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -68,7 +69,9 @@ namespace Mob
 
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitiveAndUse<SwordmanA1> (own, targets);
+			Affect.CreatePrimitiveAndUse<SwordmanA1> (own, targets, t => {
+				t.gainPoint = gainPoint;
+			});
 			return true;
 		}
 
@@ -83,11 +86,31 @@ namespace Mob
 		}
 	}
 
-	public class SwordmanA1BoughtSkill : BoughtItem
+	public class SwordmanA1BoughtSkill : SkillBoughtItem
 	{
+		public override void Init ()
+		{
+			title = "A1";
+			brief = "Increasing 110% physical damage to opponent, when it's used 10 times will be self-upgrading to A2.";
+			cooldown = 0;
+			learnedLevel = 1;
+			reducedEnergy = 4f;
+			gainPoint = 5f;
+			icons.Add ("none", Resources.Load<Sprite> ("Sprites/icon"));
+			icons.Add ("default", Resources.LoadAll<Sprite>("Sprites/swordman-skills").FirstOrDefault(x => x.name == "swordman-skills-a1"));	
+		}
+
 		public override void Pick (Race who, int quantity)
 		{
-			who.GetModule<SkillModule> (x => x.Add<SwordmanA1Skill> (quantity));
+			who.GetModule<SkillModule> (x => x.Add<SwordmanA1Skill> (quantity, t => {
+				t.icons = icons;
+				t.title = title;
+				t.brief = brief;
+				t.gainPoint = gainPoint;
+				t.level = learnedLevel;
+				t.cooldown = cooldown;
+				t.energy = reducedEnergy;
+			}));
 		}
 
 		LevelModule _level;
@@ -97,7 +120,7 @@ namespace Mob
 		{
 			var level = _level ?? (_level = own.GetModule<LevelModule> ());
 			var skill = _skill ?? (_skill = own.GetModule<SkillModule> ());
-			return level.level == 1 && skill.evolvedSkillPoint > 0;
+			return level.level == 1 && !skill.HasSkill<SwordmanA1Skill>();
 		}
 	}
 }

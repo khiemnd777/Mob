@@ -12,7 +12,7 @@ namespace Mob
 		public SkillTreeUI skillTreeUI;
 
 		public List<Skill> skills = new List<Skill>();
-		public List<BoughtItem> availableSkills = new List<BoughtItem>();
+		public List<SkillBoughtItem> availableSkills = new List<SkillBoughtItem>();
 
 		void Start(){
 			if (skillTreeUIPrefab != null) {
@@ -23,9 +23,9 @@ namespace Mob
 			}
 		}
 
-		public void Add<T>(int quantity) where T: Skill{
+		public void Add<T>(int quantity, Action<T> predicate = null) where T: Skill{
 			if (!skills.Any (x => x.GetType().IsEqual<T> ())) {
-				skills.Add (Skill.CreatePrimitive<T> (_race, quantity));
+				skills.Add (Skill.CreatePrimitive<T> (_race, quantity, predicate));
 				return;
 			}
 		}
@@ -37,27 +37,37 @@ namespace Mob
 			return (T)skill;
 		}
 
-		public void AddAvailableSkill<T>(Action<T> predicate = null) where T: BoughtItem{
+		public bool HasSkill<T>() where T: Skill{
+			return skills.Any (x => x.GetType ().IsEqual<T> ());
+		}
+
+		public bool HasSkill(Skill skill){
+			return skills.Any (x => x.GetType ().IsAssignableFrom(skill.GetType()));
+		}
+
+		public void AddAvailableSkill<T>(Action<T> predicate = null) where T: SkillBoughtItem{
 			if (!availableSkills.Any (x => x.GetType().IsEqual<T> ())) {
-				availableSkills.Add (BoughtItem.CreatePrimitiveWithOwn<T> (_race, predicate));
+				availableSkills.Add (SkillBoughtItem.CreatePrimitiveWithOwn<T> (_race, predicate));
 				return;
 			}
 		}
 
-		public void PickAvailableSkill<T>() where T: BoughtItem{
+		public void PickAvailableSkill<T>() where T: SkillBoughtItem{
 			var skill = GetAvailableSkill<T> ();
 			if (skill == null)
 				return;
 			skill.Pick (_race, 1);
+			skill.learned = true;
 		}
 
-		public void PickAvailableSkill(BoughtItem boughtItem){
+		public void PickAvailableSkill(SkillBoughtItem boughtItem){
 			if (!availableSkills.Any (x => x.GetType ().IsAssignableFrom (boughtItem.GetType ())))
 				return;
 			boughtItem.Pick (_race, 1);
+			boughtItem.learned = true;
 		}
 
-		public T GetAvailableSkill<T>() where T: BoughtItem{
+		public T GetAvailableSkill<T>() where T: SkillBoughtItem{
 			if(!availableSkills.Any(x => x.GetType().IsEqual<T>()))
 				return null;
 			var skill = availableSkills.FirstOrDefault (x => x.GetType ().IsEqual<T> ());

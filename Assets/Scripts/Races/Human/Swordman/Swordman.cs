@@ -101,7 +101,8 @@ namespace Mob
 
 			// Skill is used to store the skills
 			AddModule<SkillModule> (skill => {				
-				skill.Add<SwordmanA1Skill>(1);
+				//skill.Add<SwordmanA1Skill>(1);
+				skill.AddAvailableSkill<SwordmanA1BoughtSkill>();
 				skill.AddAvailableSkill<SwordmanB1BoughtSkill>();
 				skill.AddAvailableSkill<SwordmanB2BoughtSkill>();
 				skill.AddAvailableSkill<SwordmanB3BoughtSkill>();

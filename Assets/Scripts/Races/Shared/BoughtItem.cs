@@ -30,7 +30,7 @@ namespace Mob
 		}
 
 		public virtual Sprite GetIcon(string key){
-			return icons [key];
+			return icons.ContainsKey(key) ? icons [key] : null;
 		}
 
 		public virtual Sprite GetIcon(){

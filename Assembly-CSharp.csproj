@@ -48,6 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BattleController.cs" />
      <Compile Include="Assets\Scripts\Constants.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Attacks\AttackController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Attacks\AttackItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Bags\BagController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Bags\BagItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\GearAvailableItems.cs" />
@@ -58,6 +60,7 @@
      <Compile Include="Assets\Scripts\Controllers\Shops\ShopAvailableItems.cs" />
      <Compile Include="Assets\Scripts\Controllers\Shops\ShopController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Shops\ShopItem.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Skills\SkillController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Skills\SkillItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\Stat2ndController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\Stat2ndListItem.cs" />
@@ -176,8 +179,9 @@
      <Compile Include="Assets\Scripts\Races\Shared\Items\StatTechniqueAdding.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\Items\StunAffect.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\Items\StunAffectAndDamageDealing.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\Skill.cs" />
-     <Compile Include="Assets\Scripts\Races\Shared\SkillAffect.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Skills\Skill.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Skills\SkillAffect.cs" />
+     <Compile Include="Assets\Scripts\Races\Shared\Skills\SkillBoughtItem.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\StatConverter.cs" />
      <Compile Include="Assets\Scripts\Races\Shared\UI\SkillTreeUI.cs" />
      <Compile Include="Assets\Scripts\Races\StatCalculator.cs" />
@@ -192,6 +196,9 @@
      <Compile Include="Assets\Scripts\UI\Shared\Padding.cs" />
      <Compile Include="Assets\Scripts\UI\Shared\ScrollableList\ScrollableList.cs" />
      <Compile Include="Assets\Scripts\UI\Shared\ScrollableList\ScrollableListItem.cs" />
+     <Compile Include="Assets\Scripts\UI\Shared\TabView\TabContent.cs" />
+     <Compile Include="Assets\Scripts\UI\Shared\TabView\TabItem.cs" />
+     <Compile Include="Assets\Scripts\UI\Shared\TabView\TabViewContainer.cs" />
      <Compile Include="Assets\Scripts\UI\SkillList.cs" />
      <Compile Include="Assets\Scripts\UI\TreasureList.cs" />
      <Compile Include="Assets\Scripts\Utilities\CalculatorUtility.cs" />

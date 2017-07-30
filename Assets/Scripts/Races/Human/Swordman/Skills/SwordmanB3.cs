@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -36,14 +37,34 @@ namespace Mob
 		}
 	}
 
-	public class SwordmanB3BoughtSkill : BoughtItem
+	public class SwordmanB3BoughtSkill : SkillBoughtItem
 	{
+		public override void Init ()
+		{
+			title = "B3";
+			brief = "+1 dexterity when you obviously avoid of opponent's.";
+			cooldown = 0;
+			learnedLevel = 4;
+			gainPoint = 0f;
+			reducedEnergy = 0f;
+			icons.Add ("none", Resources.Load<Sprite> ("Sprites/icon"));
+			icons.Add ("default", Resources.LoadAll<Sprite>("Sprites/swordman-skills").FirstOrDefault(x => x.name == "swordman-skills-b3"));	
+		}
+
 		public override void Pick (Race who, int quantity)
 		{
 			var skillModule = who.GetModule<SkillModule> ();
 			if (skillModule.evolvedSkillPoint <= 0)
 				return;
-			BuyAndUseImmediately<SwordmanB1Skill> (who, new Race[]{ who }, 0f);
+			BuyAndUseImmediately<SwordmanB1Skill> (who, new Race[]{ who }, 0f, t => {
+				t.icons = icons;
+				t.title = title;
+				t.brief = brief;
+				t.cooldown = cooldown;
+				t.level = learnedLevel;
+				t.gainPoint = gainPoint;
+				t.energy = reducedEnergy;
+			});
 			--skillModule.evolvedSkillPoint;
 			enabled = false;
 		}
@@ -55,7 +76,7 @@ namespace Mob
 		{
 			var level = _level ?? (_level = own.GetModule<LevelModule> ());
 			var skill = _skill ?? (_skill = own.GetModule<SkillModule> ());
-			return level.level >= 4 && skill.evolvedSkillPoint > 0;
+			return level.level >= 4 && skill.evolvedSkillPoint > 0 && !skill.HasSkill<SwordmanB3Skill>();
 		}
 	}
 }

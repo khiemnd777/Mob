@@ -33,6 +33,7 @@ namespace Mob
 		// Event names
 		public const string EVENT_ITEM_BOUGHT_FIRED = "item_bought_fired";
 		public const string EVENT_ITEM_OVER_IN_BAG = "item_over_in_bag";
+		public const string EVENT_SKILL_LEARNED = "skill_learned";
 	}
 }
 

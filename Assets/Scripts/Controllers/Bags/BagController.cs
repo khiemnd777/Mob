@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,11 +21,12 @@ namespace Mob
 
 			gridView.ClearAll ();
 
-			EventManager.StartListening (Constants.EVENT_ITEM_BOUGHT_FIRED, Prepare);
-			EventManager.StartListening (Constants.EVENT_ITEM_OVER_IN_BAG, Prepare);
+			EventManager.StartListening (Constants.EVENT_ITEM_BOUGHT_FIRED, new Action<string>(Prepare));
+			EventManager.StartListening (Constants.EVENT_ITEM_OVER_IN_BAG, new Action<string>(Prepare));
 		}
 
-		void Prepare(){
+		void Prepare(string t){
+			Debug.Log (t);
 			var itemUIs = gridView.GetItems ().Select (x => x.GetComponent<BagItem> ()).ToArray();
 			foreach (var item in itemUIs) {
 				if (!_bagModule.items.Any (x => item.item.Equals (x))) {

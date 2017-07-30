@@ -23,7 +23,7 @@ namespace Mob
 
 			buyBtn.onClick.AddListener (() => {
 				boughtItem.Buy(_player, boughtItem.price, 1);
-				EventManager.TriggerEvent(Constants.EVENT_ITEM_BOUGHT_FIRED);
+				EventManager.TriggerEvent(Constants.EVENT_ITEM_BOUGHT_FIRED, new {t = "test"});
 			});
 		}
 

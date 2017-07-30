@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -76,13 +77,19 @@ namespace Mob
 	{
 		public override void Init ()
 		{
+			title = "A1";
+			brief = "Increasing 130% physical damage to opponent and x2 damage when it be occurred an critical attack";
+			cooldown = 0;
 			level = 1;
+			gainPoint = 8f;
 			energy = 4f;
+			icons.Add ("none", Resources.Load<Sprite> ("Sprites/icon"));
+			icons.Add ("default", Resources.LoadAll<Sprite>("Sprites/swordman-skills").FirstOrDefault(x => x.name == "swordman-skills-a1"));	
 		}
 
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitiveAndUse<SwordmanA2> (own, targets);
+			Affect.CreatePrimitiveAndUse<SwordmanA2> (own, targets, t => t.gainPoint = gainPoint);
 			return true;
 		}
 	}

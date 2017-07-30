@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,7 +8,7 @@ namespace Mob
 {
 	public class EventManager : MonoBehaviour {
 
-		private Dictionary <string, UnityEvent> eventDictionary;
+		private Dictionary <string, Delegate> eventDictionary;
 
 		private static EventManager eventManager;
 
@@ -37,41 +38,57 @@ namespace Mob
 		{
 			if (eventDictionary == null)
 			{
-				eventDictionary = new Dictionary<string, UnityEvent>();
+				eventDictionary = new Dictionary<string, Delegate>();
 			}
 		}
 
-		public static void StartListening (string eventName, UnityAction listener)
+		public static void StartListening (string eventName, Delegate listener)
 		{
-			UnityEvent thisEvent = null;
+			Delegate thisEvent = null;
+
 			if (instance.eventDictionary.TryGetValue (eventName, out thisEvent))
 			{
-				thisEvent.AddListener (listener);
+				instance.eventDictionary [eventName] = Delegate.Combine(instance.eventDictionary [eventName], listener);
 			} 
 			else
 			{
-				thisEvent = new UnityEvent ();
-				thisEvent.AddListener (listener);
-				instance.eventDictionary.Add (eventName, thisEvent);
+				instance.eventDictionary.Add (eventName, listener);
 			}
 		}
 
-		public static void StopListening (string eventName, UnityAction listener)
+		public static void StopListening (string eventName, Action listener)
 		{
 			if (eventManager == null) return;
-			UnityEvent thisEvent = null;
-			if (instance.eventDictionary.TryGetValue (eventName, out thisEvent))
-			{
-				thisEvent.RemoveListener (listener);
+			Delegate thisEvent = null;
+			if (instance.eventDictionary.TryGetValue (eventName, out thisEvent)) {
+				instance.eventDictionary [eventName] = Delegate.Remove(instance.eventDictionary [eventName], listener);
 			}
 		}
 
-		public static void TriggerEvent (string eventName)
+		public static void TriggerEvent (string eventName, object args = null)
 		{
-			UnityEvent thisEvent = null;
+			Delegate thisEvent = null;
 			if (instance.eventDictionary.TryGetValue (eventName, out thisEvent))
 			{
-				thisEvent.Invoke ();
+				var methodInfo = thisEvent.Method;
+				var target = thisEvent.Target;
+				if (args == null) {
+					methodInfo.Invoke (target, null);
+					return;
+				}
+				var paramList = methodInfo.GetParameters ();
+				var type = args.GetType ();
+				var __a = new object[paramList.Length];
+				for (int index = 0; index < paramList.Length; index++)
+				{
+					var parameter = paramList[index];
+					var name = parameter.Name;
+					// Get the value from obj
+					var property = type.GetProperty(name);
+					var value = property.GetValue(args, null);
+					__a[index] = value;
+				}
+				methodInfo.Invoke (target, __a);
 			}
 		}
 	}	

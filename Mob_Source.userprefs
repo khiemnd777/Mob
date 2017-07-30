@@ -1,50 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Races/Shared/Items/Speedy.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/EventManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/Races/Shared/Items/Antidote.cs" Line="50" Column="5" />
-      <File FileName="Assets/Scripts/Races/Shared/Items/BurstStrength.cs" Line="69" Column="21" />
-      <File FileName="Assets/Scripts/Modules/BagModule.cs" Line="12" Column="17" />
-      <File FileName="Assets/Scripts/Controllers/Bags/BagController.cs" Line="40" Column="1" />
-      <File FileName="Assets/Scripts/Controllers/Bags/BagItem.cs" Line="33" Column="34" />
-      <File FileName="Assets/Scripts/Races/Shared/Item.cs" Line="153" Column="1" />
-      <File FileName="Assets/Scripts/Controllers/Shops/ShopAvailableItems.cs" Line="14" Column="45" />
-      <File FileName="Assets/Scripts/Races/Shared/Items/Potion.cs" Line="69" Column="5" />
-      <File FileName="Assets/Scripts/Races/Shared/Items/GreatPotion.cs" Line="70" Column="5" />
-      <File FileName="Assets/Scripts/Races/Shared/Items/Speedy.cs" Line="79" Column="21" />
-      <File FileName="Assets/Scripts/Races/Affect.cs" Line="168" Column="43" />
-      <File FileName="Assets/Scripts/Races/Shared/Items/HealthPowerRestoring.cs" Line="30" Column="7" />
-      <File FileName="Assets/Scripts/Races/Shared/Items/BlessingOfAmphitrite.cs" Line="33" Column="32" />
-      <File FileName="Assets/Scripts/FeatureExperiment.cs" Line="20" Column="26" />
-      <File FileName="Assets/Scripts/Races/AttackPowerCalculator.cs" Line="100" Column="8" />
-      <File FileName="Assets/Scripts/Races/Shared/Items/DamageDealing.cs" Line="26" Column="4" />
-      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/SwordmanB1.cs" Line="28" Column="33" />
-      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/SwordmanB2.cs" Line="30" Column="33" />
-      <File FileName="Assets/Scripts/Races/Race.cs" Line="158" Column="34" />
-      <File FileName="Assets/Scripts/Races/Shared/Items/HeartOfHestia.cs" Line="44" Column="32" />
-      <File FileName="Assets/Scripts/Races/Shared/Items/StatDamageAdding.cs" Line="21" Column="32" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/Artifacts/Artifact1.cs" Line="46" Column="4" />
-      <File FileName="Assets/Scripts/Races/Shared/Items/StatLuckAdding.cs" Line="26" Column="32" />
-      <File FileName="Assets/Scripts/Races/Shared/Items/StatTechniqueAdding.cs" Line="26" Column="32" />
-      <File FileName="Assets/Scripts/Races/Shared/Items/StatResistanceAdding.cs" Line="26" Column="32" />
-      <File FileName="Assets/Scripts/Races/Shared/Items/StunAffect.cs" Line="34" Column="32" />
-      <File FileName="Assets/Scripts/Races/Shared/Items/StunAffectAndDamageDealing.cs" Line="42" Column="4" />
-      <File FileName="Assets/Scripts/UI/SkillList.cs" Line="25" Column="17" />
-      <File FileName="Assets/Scripts/Races/Shared/UI/SkillTreeUI.cs" Line="11" Column="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Skill.cs" Line="7" Column="45" />
-      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/SwordmanA1.cs" Line="30" Column="3" />
-      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/SwordmanA2.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Constants.cs" Line="26" Column="34" />
-      <File FileName="Assets/Scripts/Controllers/Shops/ShopController.cs" Line="7" Column="43" />
-      <File FileName="Assets/Scripts/Controllers/Shops/ShopItem.cs" Line="25" Column="1" />
-      <File FileName="Assets/Scripts/Races/Shared/BoughtItem.cs" Line="92" Column="27" />
-      <File FileName="Assets/Scripts/MonoHandler.cs" Line="22" Column="1" />
+      <File FileName="Assets/Scripts/EventManager.cs" Line="83" Column="6" />
+      <File FileName="Assets/Scripts/Controllers/Attacks/AttackController.cs" Line="19" Column="95" />
+      <File FileName="Assets/Scripts/Controllers/Bags/BagController.cs" Line="24" Column="28" />
+      <File FileName="Assets/Scripts/UI/Shared/TabView/TabContent.cs" Line="5" Column="2" />
+      <File FileName="Assets/Scripts/Controllers/Bags/BagItem.cs" Line="22" Column="8" />
+      <File FileName="Assets/Scripts/Controllers/Shops/ShopItem.cs" Line="26" Column="84" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/kandy/Projects/Mob_Source/Assets/Scripts/Controllers/Shops/ShopItem.cs" line="25" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

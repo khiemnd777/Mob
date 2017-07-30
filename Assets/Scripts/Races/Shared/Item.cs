@@ -15,7 +15,7 @@ namespace Mob
 		public int usedTurn = 0;
 		public int usedNumber = 0;
 		public int upgradeCount;
-
+		public float gainPoint = 0f;
 		public float energy = 0f;
 		public int level = 0;
 		string _title;
@@ -28,14 +28,18 @@ namespace Mob
 				
 		}
 
+		public virtual bool Interact(Race target){
+			return true;
+		}
+
 		public abstract bool Use (Race[] targets);
 
 		public virtual bool Disuse(){
 			return false;	
 		}
 
-		public bool Use<T>(Race[] targets) where T: Affect {
-			Affect.CreatePrimitive<T> (own, targets);
+		public bool Use<T>(Race[] targets, Action<T> predicate = null) where T: Affect {
+			Affect.CreatePrimitiveAndUse<T> (own, targets, predicate);
 			SubtractEnergy ();
 			return true;
 		}
@@ -49,7 +53,7 @@ namespace Mob
 		}
 
 		public virtual Sprite GetIcon(string key){
-			return icons [key];
+			return icons.ContainsKey(key) ? icons [key] : null;
 		}
 
 		public virtual Sprite GetIcon(){

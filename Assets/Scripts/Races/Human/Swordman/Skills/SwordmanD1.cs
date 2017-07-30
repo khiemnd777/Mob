@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -79,26 +80,53 @@ namespace Mob
 	{
 		public override void Init ()
 		{
-			energy = Mathf.Max(6f, own.GetModule<EnergyModule> ().energy);
 			level = 12;
 			cooldown = 3;
 		}
 
 		public override bool Use (Race[] targets)
 		{
-			Affect.CreatePrimitiveAndUse<SwordmanB2> (own, targets);
+			Affect.CreatePrimitiveAndUse<SwordmanD1> (own, targets, t => {
+				t.gainPoint = gainPoint;
+				t.storedEnergy = Mathf.Max (1f, own.GetModule<EnergyModule> ().energy);
+			});
 			return true;
+		}
+
+		protected override bool Interact ()
+		{
+			energy = Mathf.Max(1f, own.GetModule<EnergyModule> ().energy);
+			return base.Interact ();
 		}
 	}
 
-	public class SwordmanD1BoughtSkill : BoughtItem
+	public class SwordmanD1BoughtSkill : SkillBoughtItem
 	{
+		public override void Init ()
+		{
+			title = "D1";
+			brief = "20 magical attack (extra 10 x energy + 40% magic damage). Yet to restore 1/2 of enegery if it be occurred the critical damage.";
+			cooldown = 3;
+			learnedLevel = 12;
+			gainPoint = 18f;
+			reducedEnergy = 12f;
+			icons.Add ("none", Resources.Load<Sprite> ("Sprites/icon"));
+			icons.Add ("default", Resources.LoadAll<Sprite>("Sprites/swordman-skills").FirstOrDefault(x => x.name == "swordman-skills-d1"));	
+		}
+
 		public override void Pick (Race who, int quantity)
 		{
 			var skillModule = who.GetModule<SkillModule> ();
 			if (skillModule.evolvedSkillPoint <= 0)
 				return;
-			who.GetModule<SkillModule> (x => x.Add<SwordmanD1Skill> (quantity));
+			who.GetModule<SkillModule> (x => x.Add<SwordmanD1Skill> (quantity, t => {
+				t.icons = icons;
+				t.title = title;
+				t.brief = brief;
+				t.cooldown = cooldown;
+				t.level = learnedLevel;
+				t.gainPoint = gainPoint;
+			}));
 			--skillModule.evolvedSkillPoint;
 			enabled = false;
 		}
@@ -110,7 +138,7 @@ namespace Mob
 		{
 			var level = _level ?? (_level = own.GetModule<LevelModule> ());
 			var skill = _skill ?? (_skill = own.GetModule<SkillModule> ());
-			return level.level >= 12 && skill.evolvedSkillPoint > 0;
+			return level.level >= 12 && skill.evolvedSkillPoint > 0 && !skill.HasSkill<SwordmanD1Skill>();
 		}
 	}
 }
