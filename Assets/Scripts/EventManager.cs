@@ -88,7 +88,8 @@ namespace Mob
 					var value = property.GetValue(args, null);
 					__a[index] = value;
 				}
-				methodInfo.Invoke (target, __a);
+				//methodInfo.Invoke (target, __a);
+				thisEvent.DynamicInvoke (__a);
 			}
 		}
 	}	

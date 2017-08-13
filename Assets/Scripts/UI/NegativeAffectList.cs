@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Mob
 {
-	public class NegativeAffectList : MonoHandler
+	public class NegativeAffectList : MobBehaviour
 	{
 		public Affect[] affects;
 		public Button[] children;

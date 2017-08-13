@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Mob
 {
-	public class CountdownModule : MonoHandler
+	public class CountdownModule : MobBehaviour
 	{
 		public float timer = 90f;
 		public float minutes { get { return _m; } }

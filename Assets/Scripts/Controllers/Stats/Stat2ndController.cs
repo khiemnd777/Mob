@@ -5,17 +5,35 @@ using UnityEngine.UI;
 
 namespace Mob
 {
-	public class Stat2ndController : MonoHandler
+	public class Stat2ndController : MobNetworkBehaviour
 	{
 		public ScrollableList list;
 		public Stat2ndListItem stat2ndListItemResource;
 
+		Race _character;
+
 		void Start() {
+			
 			list.ClearAll ();
+		}
+
+		void Update(){
+			if (!NetworkHelper.instance.TryToConnect (() => {
+				if (_character != null)
+					return true;
+				_character = Race.GetLocalCharacter ();
+				return false;
+			}))
+				return;
+			
 			CreateItems ();
 		}
 
+		bool isCreateItem;
 		void CreateItems(){
+			if (isCreateItem)
+				return;
+			isCreateItem = true;
 			// Strength
 			PrepareItem(Stat2ndType.PhysicalAttack);
 			PrepareItem(Stat2ndType.PhysicalDefend);

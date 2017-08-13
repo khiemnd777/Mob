@@ -83,8 +83,13 @@ namespace Mob
 			level = 1;
 			gainPoint = 8f;
 			energy = 4f;
-			icons.Add ("none", Resources.Load<Sprite> ("Sprites/icon"));
-			icons.Add ("default", Resources.LoadAll<Sprite>("Sprites/swordman-skills").FirstOrDefault(x => x.name == "swordman-skills-a1"));	
+			icon.prefabs.Add ("none", "Sprites/icon");
+			icon.prefabs.Add ("default", "Sprites/swordman-skills => swordman-skills-a1");
+		}
+
+		public override string GetSyncIcon ()
+		{
+			return icon.prefabs.ContainsKey ("default")? icon.prefabs ["default"] : icon.prefabs ["none"];
 		}
 
 		public override bool Use (Race[] targets)

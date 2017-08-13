@@ -1,17 +1,29 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/EventManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Modules/SkillModule.cs">
     <Files>
-      <File FileName="Assets/Scripts/EventManager.cs" Line="83" Column="6" />
-      <File FileName="Assets/Scripts/Controllers/Attacks/AttackController.cs" Line="19" Column="95" />
-      <File FileName="Assets/Scripts/Controllers/Bags/BagController.cs" Line="24" Column="28" />
-      <File FileName="Assets/Scripts/UI/Shared/TabView/TabContent.cs" Line="5" Column="2" />
-      <File FileName="Assets/Scripts/Controllers/Bags/BagItem.cs" Line="22" Column="8" />
-      <File FileName="Assets/Scripts/Controllers/Shops/ShopItem.cs" Line="26" Column="84" />
+      <File FileName="Assets/Scripts/Controllers/Skills/SkillController.cs" Line="51" Column="35" />
+      <File FileName="Assets/Scripts/Controllers/Skills/SkillItem.cs" Line="6" Column="2" />
+      <File FileName="Assets/Scripts/Modules/SkillModule.cs" Line="41" Column="36" />
+      <File FileName="Assets/Scripts/Races/Race.cs" Line="125" Column="22" />
+      <File FileName="Assets/Scripts/Infrastructure/Networking/MobNetworkManager.cs" Line="11" Column="1" />
+      <File FileName="Assets/Scripts/Infrastructure/Networking/MobNetworkBehaviour.cs" Line="51" Column="12" />
+      <File FileName="Assets/Scripts/Races/Shared/Item.cs" Line="160" Column="13" />
+      <File FileName="Assets/Scripts/Infrastructure/IconHelper.cs" Line="22" Column="38" />
+      <File FileName="Assets/Scripts/Infrastructure/Icon.cs" Line="59" Column="61" />
+      <File FileName="Assets/Scripts/Controllers/Attacks/AttackController.cs" Line="19" Column="3" />
+      <File FileName="Assets/Scripts/Controllers/Bags/BagController.cs" Line="21" Column="3" />
+      <File FileName="Assets/Scripts/Infrastructure/MobBehaviour.cs" Line="10" Column="2" />
+      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/SwordmanA1.cs" Line="89" Column="47" />
+      <File FileName="Assets/Scripts/Races/Shared/Skills/SkillBoughtItem.cs" Line="24" Column="41" />
+      <File FileName="Assets/Scripts/Races/Shared/Skills/Skill.cs" Line="7" Column="38" />
+      <File FileName="Assets/Scripts/Races/Shared/BoughtItem.cs" Line="126" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/kandy/Projects/Mob_Source/Assets/Scripts/Modules/SkillModule.cs" line="111" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

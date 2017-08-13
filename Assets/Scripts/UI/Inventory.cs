@@ -2,7 +2,7 @@
 
 namespace Mob.UI
 {
-	public class Inventory : MonoHandler
+	public class Inventory : MobBehaviour
 	{
 		
 	}

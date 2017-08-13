@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Mob
 {
-	public class TabViewContainer : MonoHandler 
+	public class TabViewContainer : MobBehaviour 
 	{
 		RectTransform _rect;
 

@@ -1,15 +1,29 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 
 namespace Mob
 {
-	public abstract class BoughtItem : MonoHandler
+	public struct SyncBoughtItem {
+		public int id;
+		public int ownId;
+		public string title;
+		public string brief;
+		public float price;
+		public int quantity;
+		public string icon;
+		public bool interactable;
+	}
+
+	public class SyncListBoughtItem : SyncListStruct<SyncBoughtItem> { }
+
+	public abstract class BoughtItem : MobBehaviour
 	{
 		public Race own;
 
-		public Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
+		public Icon icon = new Icon();
 
 		public int quantity = 1;
 
@@ -17,24 +31,12 @@ namespace Mob
 
 		string _title;
 
-		public string title { get { return _title??this.name; } set { _title = value; } }
+		public string title { get { return _title ?? this.name; } set { _title = value; } }
 
 		public string brief;
 
 		public virtual void Init(){
 			
-		}
-
-		public virtual Sprite GetIcon(string key, Func<bool> predicate){
-			return predicate != null && predicate.Invoke () ? icons [key] : null;
-		}
-
-		public virtual Sprite GetIcon(string key){
-			return icons.ContainsKey(key) ? icons [key] : null;
-		}
-
-		public virtual Sprite GetIcon(){
-			return icons.Count > 0 ? icons.FirstOrDefault().Value : null;
 		}
 
 		public virtual void Buy(Race who, float price = 0f, int quantity = 0){
@@ -47,6 +49,22 @@ namespace Mob
 
 		public virtual void Pick(Race who, int quantity = 0){
 			
+		}
+
+		public virtual Sprite GetIcon(string key, Func<bool> predicate){
+			return icon.GetIconFromPrefab(key, predicate);
+		}
+
+		public virtual Sprite GetIcon(string key){
+			return icon.GetIconFromPrefab(key);
+		}
+
+		public virtual Sprite GetIcon(){
+			return icon.GetIconFromPrefab();
+		}
+
+		public virtual string GetSyncIcon(){
+			return icon.prefabs.Count == 0 ? null : icon.prefabs.FirstOrDefault().Value;
 		}
 
 		public void SubtractGold(Race who, float price = 0f, int quantity = 0){
@@ -96,6 +114,19 @@ namespace Mob
 			FlushAll ();
 		}
 
+		public virtual SyncBoughtItem ToSyncBoughtItem(){
+			return new SyncBoughtItem {
+				brief = this.brief,
+				icon = GetSyncIcon (),
+				id = GetInstanceID(),
+				ownId = this.own.GetInstanceID(),
+				price = this.price,
+				quantity = this.quantity,
+				title = this.title,
+				interactable = this.Interact()
+			};
+		}
+
 		public static T CreatePrimitive<T>(Action<T> predicate = null) where T: BoughtItem {
 			var go = new GameObject (typeof(T).Name, typeof(T));
 			var a = go.GetComponent<T> ();
@@ -115,6 +146,7 @@ namespace Mob
 			if (predicate != null) {
 				predicate.Invoke (a);
 			}
+			a.transform.SetParent (own.transform);
 			a.Init ();
 			a.StartCoroutine (a.Interacting (a.gameObject));
 

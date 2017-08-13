@@ -3,7 +3,7 @@ using System;
 
 namespace Mob
 {
-	public abstract class RacePattern : MonoHandler
+	public abstract class RacePattern : MobBehaviour
 	{
 		public abstract void Pick(string playerId);
 

@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public class SkillTreeUI : MonoHandler
+	public class SkillTreeUI : MobBehaviour
 	{
 		public Race own;
 	}

@@ -42,9 +42,15 @@ namespace Mob
 		{
 			upgradePrice = 50f;
 
-			icons.Add ("lvl1", Resources.LoadAll<Sprite>("Sprites/Gears").FirstOrDefault(x => x.name == "armor_1"));
-			icons.Add ("lvl5", Resources.LoadAll<Sprite>("Sprites/Gears").FirstOrDefault(x => x.name == "armor_5"));
-			icons.Add ("lvl10", Resources.LoadAll<Sprite>("Sprites/Gears").FirstOrDefault(x => x.name == "armor_10"));
+			// => The new way to init an icon
+			icon.prefabs.Add ("lvl1", "Sprites/Gears => armor_1");
+			icon.prefabs.Add ("lvl5", "Sprites/Gears => armor_5");
+			icon.prefabs.Add ("lvl10", "Sprites/Gears => armor_10");
+
+			// => And the old one
+//			icons.Add ("lvl1", Resources.LoadAll<Sprite>("Sprites/Gears").FirstOrDefault(x => x.name == "armor_1"));
+//			icons.Add ("lvl5", Resources.LoadAll<Sprite>("Sprites/Gears").FirstOrDefault(x => x.name == "armor_5"));
+//			icons.Add ("lvl10", Resources.LoadAll<Sprite>("Sprites/Gears").FirstOrDefault(x => x.name == "armor_10"));
 		}
 
 		public override Sprite GetIcon(){

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Mob
 {
-	public class SkillItem : MonoHandler
+	public class SkillItem : MobBehaviour
 	{
 		public Text title;
 		public Text brief;
@@ -11,29 +11,39 @@ namespace Mob
 		public Button learnBtn;
 		public Text learnTxt;
 
-		public SkillBoughtItem boughtItem;
+		public SyncSkillBoughtItem boughtItem;
 
-		Race _player;
+		Race _character;
 		SkillModule _skillModule;
 
 		void Start(){
-			_player = Race.FindWithPlayerId (Constants.PLAYER1) [0];
-			_skillModule = _player.GetModule<SkillModule> ();
-
 			learnBtn.onClick.AddListener (() => {
-				_skillModule.PickAvailableSkill(boughtItem);
+				_skillModule.CmdPickAvailableSkill(boughtItem);
 				EventManager.TriggerEvent(Constants.EVENT_SKILL_LEARNED);
 			});
 		}
 
 		void Update(){
-			if (boughtItem == null)
+			if (!NetworkHelper.instance.TryToConnect (() => {
+				if (_character != null && _skillModule != null)
+					return true;
+				_character = Race.GetLocalCharacter ();
+				if(_character == null)
+					return false;
+				_skillModule = _character.GetModule<SkillModule>();
+				return false;
+			}))
 				return;
+		}
+
+		bool isPrepareItem;
+
+		public void PrepareItem(){
 			learnTxt.text = boughtItem.learned ? "Learned" : "Learn";
 			learnBtn.interactable = boughtItem.interactable;
-			title.text = boughtItem.title + "";
+			title.text = boughtItem.title;
 			brief.text = boughtItem.brief;
-			icon.sprite = boughtItem.GetIcon("default") ?? boughtItem.GetIcon("none") ?? null;
+			icon.sprite = IconHelper.instance.GetIcon(boughtItem.icon);
 		}
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public abstract class RaceModule : MonoHandler
+	public abstract class RaceModule : MobNetworkBehaviour
 	{
 		protected Race _race 
 		{

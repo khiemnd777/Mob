@@ -35,18 +35,18 @@ namespace Mob
 			// HP
 			_hp.SetMaxHp(levelUp, false);
 			// Treasures
-			BattleController.treasure = Treasure.GetFor(this);
+//			BattleController.treasure = Treasure.GetFor(this);
 		}
 
 		#endregion
 
 		public override void DefaultValue ()
 		{
-			AddModule<AffectModule> ();
+			GetModule<AffectModule> ();
 
-			AddModule<GearModule> ();
+			GetModule<GearModule> ();
 
-			AddModule<StatModule> ((stat) => {
+			GetModule<StatModule> ((stat) => {
 				stat.strengthPercent = 25f;
 				stat.dexterityPercent = 15f;
 				stat.intelligentPercent = 30f;
@@ -66,32 +66,34 @@ namespace Mob
 				stat.AddPoint(StatType.Vitality);
 				stat.AddPoint(StatType.Luck);
 
+				stat.point = 999999;
+
 				stat.Init();
 			});
 
-			AddModule<LevelModule> ((level) => {
+			GetModule<LevelModule> ((level) => {
 				level.level = 1;
 				level.maxLevel = 16;
 				level.seed = 20;
 				level.Init();
 			});
-			AddModule<HealthPowerModule> ((hp) => {
+			GetModule<HealthPowerModule> ((hp) => {
 				hp.hp = 300f;
 				hp.maxHp = 300f;
 				hp.hpPercent = 10f;
 				hp.Init();
 			});
-			AddModule<GoldModule> ((gold) => {
+			GetModule<GoldModule> ((gold) => {
 				gold.maxGold = 9999;
 				gold.Init();
 			});
-			AddModule<EnergyModule> ((energy) => {
+			GetModule<EnergyModule> ((energy) => {
 				energy.maxEnergy = 12f;
 				energy.Init();
 			});
 
 			// Inventory is used to store the items
-			AddModule<BagModule> (inventory => {
+			GetModule<BagModule> (inventory => {
 //				inventory.Add<SpeedyItem>(99);
 //				inventory.Add<PotionItem>(99);
 //				inventory.Add<GreatPotionItem>(99);
@@ -100,7 +102,7 @@ namespace Mob
 			});
 
 			// Skill is used to store the skills
-			AddModule<SkillModule> (skill => {				
+			GetModule<SkillModule> (skill => {				
 				//skill.Add<SwordmanA1Skill>(1);
 				skill.AddAvailableSkill<SwordmanA1BoughtSkill>();
 				skill.AddAvailableSkill<SwordmanB1BoughtSkill>();

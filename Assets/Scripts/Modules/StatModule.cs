@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Mob
 {
@@ -19,44 +20,48 @@ namespace Mob
 	{
 		public int initPoint = 5;
 
+		int logPoint;
+		[Header("Gain point")]
+		[SyncVar] 	public int point;
+
 		[Header("Strength")]
-		public float strength = 1f;
+		[SyncVar]	public float strength = 1f;
 		[Header("Sub-strength")]
-		public float physicalAttack;
+		[SyncVar]	public float physicalAttack;
 		public float physicalAttackSeed = 2f;
-		public float physicalDefend;
+		[SyncVar] 	public float physicalDefend;
 		public float physicalDefendSeed = 1.5f;
 
 		[Header("Dexterity")]
-		public float dexterity = 1f;
+		[SyncVar] 	public float dexterity = 1f;
 		[Header("Sub-dexterity")]
-		public float attackRating;
+		[SyncVar] 	public float attackRating;
 		public float attackRatingSeed = 2f;
-		public float criticalRating;
+		[SyncVar] 	public float criticalRating;
 		public float criticalRatingSeed = 0.75f;
 
 		[Header("Intelligent")]
-		public float intelligent = 1f;
+		[SyncVar] 	public float intelligent = 1f;
 		[Header("Sub-intelligent")]
-		public float magicAttack;
+		[SyncVar] 	public float magicAttack;
 		public float magicAttackSeed = 1.75f;
-		public float magicResist;
+		[SyncVar] 	public float magicResist;
 		public float magicResistSeed = 1.5f;
 
 		[Header("Vitality")]
-		public float vitality = 1f;
+		[SyncVar] 	public float vitality = 1f;
 		[Header("Sub-vitality")]
-		public float maxHp;
+		[SyncVar]	public float maxHp;
 		public float maxHpSeed = 3f;
-		public float regenerateHp;
+		[SyncVar]	public float regenerateHp;
 		public float regenerateHpSeed = 0.75f;
 
 		[Header("Luck")]
-		public float luck = 1f;
+		[SyncVar]	public float luck = 1f;
 		[Header("Sub-luck")]
-		public float luckDice;
+		[SyncVar]	public float luckDice;
 		public float luckDiceSeed = 1f;
-		public float luckReward;
+		[SyncVar]	public float luckReward;
 		public float luckRewardSeed = 1f;
 
 		[Header("Stat percent")]
@@ -72,9 +77,6 @@ namespace Mob
 		public void AutoAddPoint(bool allow){
 			_autoAddPoint = allow;
 		}
-
-		int logPoint;
-		public int point;
 
 		public void SetPoint(int point){
 			this.point += point;
@@ -228,6 +230,13 @@ namespace Mob
 			default:
 				break;
 			}
+		}
+
+		[Command]
+		public void CmdAddPoint(StatType statType){
+			if (!isServer)
+				return;
+			AddPoint (statType);
 		}
 
 		void AutoCalculatePoint(){

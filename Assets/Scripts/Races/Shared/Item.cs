@@ -1,15 +1,32 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
 
 namespace Mob
-{
-	public abstract class Item : MonoHandler
-	{
-		public Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
+{	
+	public struct SyncItem {
+		public int id;
+		public string ownId;
+		public string targetId;
+		public string title;
+		public string brief;
+		public float energy;
+		public float gainPoint;
+		public int level;
+		public int upgradeCount;
+		public int usedTurn;
+		public int cooldown;
+		public string icon;
+	}
 
+	public class SyncListItem : SyncListStruct<SyncItem> { }
+
+	public abstract class Item : MobBehaviour
+	{
+		public Icon icon = new Icon();
 		public int quantity;
 		public Race own;
 		public int usedTurn = 0;
@@ -49,15 +66,19 @@ namespace Mob
 		}
 
 		public virtual Sprite GetIcon(string key, Func<bool> predicate){
-			return predicate != null && predicate.Invoke () ? icons [key] : null;
+			return icon.GetIconFromPrefab(key, predicate);
 		}
 
 		public virtual Sprite GetIcon(string key){
-			return icons.ContainsKey(key) ? icons [key] : null;
+			return icon.GetIconFromPrefab(key);
 		}
 
 		public virtual Sprite GetIcon(){
-			return icons.Count > 0 ? icons.FirstOrDefault().Value : null;
+			return icon.GetIconFromPrefab();
+		}
+
+		public virtual string GetSyncIcon(){
+			return icon.prefabs.Count == 0 ? null : icon.prefabs.FirstOrDefault().Value;
 		}
 
 		public void SubtractGold(Race who, float price = 0f, int quantity = 0){
@@ -132,6 +153,7 @@ namespace Mob
 			if (predicate != null) {
 				predicate.Invoke (a);
 			}
+			a.transform.SetParent (own.transform);
 			a.Init ();
 			a.StartCoroutine (a.Interacting (a.gameObject));
 
@@ -146,6 +168,7 @@ namespace Mob
 			if (predicate != null) {
 				predicate.Invoke (a);
 			}
+			a.transform.SetParent (own.transform);
 			a.Init ();
 			a.StartCoroutine (a.Interacting (a.gameObject));
 

@@ -71,9 +71,9 @@ namespace Mob
 		{
 			upgradePrice = 50f;
 
-			icons.Add ("lvl1", Resources.LoadAll<Sprite>("Sprites/Gears").FirstOrDefault(x => x.name == "ring_1"));
-			icons.Add ("lvl2", Resources.LoadAll<Sprite>("Sprites/Gears").FirstOrDefault(x => x.name == "ring_2"));
-			icons.Add ("lvl3", Resources.LoadAll<Sprite>("Sprites/Gears").FirstOrDefault(x => x.name == "ring_3"));
+			icon.prefabs.Add ("lvl1", "Sprites/Gears => ring_1");
+			icon.prefabs.Add ("lvl2", "Sprites/Gears => ring_2");
+			icon.prefabs.Add ("lvl3", "Sprites/Gears => ring_3");
 		}
 
 		public override Sprite GetIcon(){

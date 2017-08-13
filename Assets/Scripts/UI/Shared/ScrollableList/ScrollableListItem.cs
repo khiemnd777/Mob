@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public class ScrollableListItem : MonoHandler
+	public class ScrollableListItem : MobBehaviour
 	{
 		public Padding padding;
 	}

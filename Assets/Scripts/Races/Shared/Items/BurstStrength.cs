@@ -46,15 +46,16 @@ namespace Mob
 		{
 			title = "Burst strength";
 			price = 40f;
-			icons.Add ("none", Resources.Load<Sprite> ("Sprites/icon"));
-			icons.Add ("default", Resources.LoadAll<Sprite>("Sprites/items").FirstOrDefault(x => x.name == "burst_strength"));
+
+			icon.prefabs.Add ("none", "Sprites/icon");
+			icon.prefabs.Add ("default", "Sprites/items => burst_strength");
 		}
 
 		public override void Buy (Race who, float price, int quantity)
 		{
 			Buy<BurstStrengthItem> (who, price, quantity, x=>{
 				x.title = title;
-				x.icons = icons;
+				x.icon = icon;
 			}, () => {
 				this.price *= Constants.PRICE_UP_TO;
 			});
@@ -66,7 +67,7 @@ namespace Mob
 				timeToDestroy = 5f;
 				x.title = title;
 				x.timeToDestroy = 2f;
-				x.icons = icons;
+				x.icon = icon;
 			}, () => {
 				this.price *= Constants.PRICE_UP_TO;
 			});

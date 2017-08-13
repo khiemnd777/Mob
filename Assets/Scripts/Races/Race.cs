@@ -3,13 +3,26 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace Mob
 {
-	public abstract class Race : MonoHandler
+	[RequireComponent(typeof(NetworkIdentity))]
+	public class Race : MobNetworkBehaviour
 	{
+		public BattlePlayer player;
 		public Race[] targets;
+
+		public override void OnStartClient ()
+		{
+			tag = Constants.OPPONENT_CHARACTER;
+		}
+
+		public override void OnStartAuthority ()
+		{
+			tag = Constants.LOCAL_CHARACTER;
+		}
 
 		public T GetModule<T>(System.Action<T> predicate = null) where T : RaceModule
 		{
@@ -38,42 +51,6 @@ namespace Mob
 			return module;
 		}
 
-		public static Race[] FindWithPlayerId(params string[] playerId){
-			var list = new List<GameObject> ();
-			foreach (var pid in playerId) {
-				var go = GameObject.FindGameObjectsWithTag (pid);
-				if (go.Length > 0) {
-					list.AddRange (go);
-				}
-			}
-
-			return list
-				.Select (x => x.GetComponent<Race> ())
-				.ToArray();
-		}
-
-		public static T Create<T>(string resource, Action<T> predicate = null) where T: Race{
-			var go = InstantiateFromMonoResource<GameObject> (resource);
-			if (go == null)
-				return null;
-			var race = go.GetComponent<T> ();
-			if (predicate != null) {
-				predicate.Invoke (race);
-			}
-			return race;
-		}
-
-		public static T CreatePrimitive<T>(Action<T> predicate = null) where T: Race{
-			var go = new GameObject (typeof(T).Name, typeof(T));
-			var race = go.GetComponent<T> ();
-			if (predicate != null) {
-				predicate.Invoke (race);
-			}
-			return race;
-		}
-
-		#region Turn base
-
 		protected bool _isTurn;
 		protected int _turnNumber;
 
@@ -93,8 +70,6 @@ namespace Mob
 		{
 			_isTurn = allow;
 		}
-		 
-		#endregion
 
 		#region Gain point functions
 
@@ -123,7 +98,7 @@ namespace Mob
 		#endregion
 
 		public virtual void DefaultValue(){
-			
+
 		}
 
 		protected bool _enableAttack;
@@ -158,22 +133,22 @@ namespace Mob
 			skill.Use (targets);
 		}
 
-		public virtual void Attack<T>(Race[] targets){
+		public virtual void Attack<T>(Race[] targets) where T: Skill{
 			if (!_enableAttack)
 				return;
 			GetModule<SkillModule> (x => x.Use<T> (targets));
 		}
 
 		public virtual void BuyItem (){
-			
+
 		}
 
 		public virtual void Upgrade (){
-			
+
 		}
 
 		public virtual void OpenSkillTree(){
-			
+
 		}
 
 		public virtual void StartTurn(){
@@ -196,6 +171,63 @@ namespace Mob
 		public virtual void EndTurn(){
 			_isTurn = false;
 			_isEndTurn = true;
+		}
+
+		public static T Create<T>(string resource, Action<T> predicate = null) where T: Race{
+			var go = InstantiateFromMonoResource<GameObject> (resource);
+			if (go == null)
+				return null;
+
+			var race = go.GetComponent<T> ();
+			if (predicate != null) {
+				predicate.Invoke (race);
+			}
+			return race;
+		}
+
+		public static T Create<T>(T prefab, Action<T> predicate = null) where T: Race{
+			var go = Instantiate<T> (prefab);
+
+			var race = go.GetComponent<T> ();
+			if (predicate != null) {
+				predicate.Invoke (race);
+			}
+			return race;
+		}
+
+		public static T CreatePrimitive<T>(Action<T> predicate = null) where T: Race {
+			var go = new GameObject (typeof(T).Name, typeof(T));
+
+			// Network identity
+			var networkIdentity = go.GetComponent<NetworkIdentity> ();
+			networkIdentity.localPlayerAuthority = true;
+
+//			// Network transform
+//			var networkTransform = go.GetComponent<NetworkTransform>();
+//			networkTransform.transformSyncMode = NetworkTransform.TransformSyncMode.SyncCharacterController;
+
+			// Own component via Race
+			var race = go.GetComponent<T> ();
+			if (predicate != null) {
+				predicate.Invoke (race);
+			}
+
+			return race;
+		}
+
+		public static Race GetLocalCharacter(){
+			var go = GameObject.FindGameObjectWithTag (Constants.LOCAL_CHARACTER);
+			return go != null ? go.GetComponent<Race> () : null;
+		}
+
+		public static Race GetOpponentCharacter(){
+			var go = GameObject.FindGameObjectWithTag (Constants.OPPONENT_CHARACTER);
+			return go != null ? go.GetComponent<Race> () : null;
+		}
+
+		public static Race[] GetOpponentCharacters(){
+			var go = GameObject.FindGameObjectsWithTag (Constants.OPPONENT_CHARACTER);
+			return go.Length > 0 ? go.Select (x => x.GetComponent<Race> ()).ToArray() : new Race[0];
 		}
 	}
 }

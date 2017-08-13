@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public class BuyAction : MonoHandler
+	public class BuyAction : MobBehaviour
 	{
 		
 	}

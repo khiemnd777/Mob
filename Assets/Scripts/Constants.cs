@@ -30,10 +30,19 @@ namespace Mob
 		public const string PLAYER7 = "Player7";
 		public const string PLAYER8 = "Player8"; 
 
+		// Battle player
+		public const string LOCAL_PLAYER = "LocalPlayer";
+		public const string LOCAL_CHARACTER = "LocalCharacter";
+		public const string SERVER_PLAYER = "Player";
+		public const string OPPONENT_PLAYER = "OpponentPlayer";
+		public const string OPPONENT_CHARACTER = "OpponentCharacter";
+
 		// Event names
 		public const string EVENT_ITEM_BOUGHT_FIRED = "item_bought_fired";
 		public const string EVENT_ITEM_OVER_IN_BAG = "item_over_in_bag";
 		public const string EVENT_SKILL_LEARNED = "skill_learned";
+		public const string EVENT_TAB_CONTENT_FIRED = "fire-tab-content";
+		public const string EVENT_TAB_VIEW_INIT = "init-tab-view";
 	}
 }
 

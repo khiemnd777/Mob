@@ -5,21 +5,27 @@ using UnityEngine.UI;
 
 namespace Mob
 {
-	public class Stat2ndListItem : MonoHandler
+	public class Stat2ndListItem : MobNetworkBehaviour
 	{
 		public Stat2ndType stat2ndType;
 		public Text statText;
 		public Text statValue;
 
-		Race _player;
+		BattlePlayer _player;
+		Race _character;
 		StatModule _statModule;
 
-		void Start(){
-			_player = Race.FindWithPlayerId (Constants.PLAYER1) [0];
-			_statModule = _player.GetModule<StatModule> ();
-		}
-
 		void Update(){
+			if (!NetworkHelper.instance.TryToConnect (() => {
+				if (_character != null && _statModule != null)
+					return true;
+				_character = Race.GetLocalCharacter ();
+				if(_character == null)
+					return false;
+				_statModule = _character.GetModule<StatModule> ();
+				return false;
+			}))
+				return;
 			Alternate ();
 		}
 

@@ -11,7 +11,7 @@ namespace Mob
 		Both, Width, Height
 	}
 	
-	public class ScalableGridView : MonoHandler
+	public class ScalableGridView : MobBehaviour
 	{
 		public int row, column;
 		public RectTransform parent;

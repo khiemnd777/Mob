@@ -47,8 +47,9 @@ namespace Mob
 			title = "Great potion";
 			extraHp = 150f;
 			price = 80f;
-			icons.Add ("none", Resources.Load<Sprite> ("Sprites/icon"));
-			icons.Add ("default", Resources.LoadAll<Sprite>("Sprites/items").FirstOrDefault(x => x.name == "great_potion"));
+
+			icon.prefabs.Add ("none", "Sprites/icon");
+			icon.prefabs.Add ("default", "Sprites/items => great_potion");
 		}
 
 		public override void Buy (Race who, float price, int quantity)
@@ -56,7 +57,7 @@ namespace Mob
 			Buy<GreatPotionItem> (who, price, quantity, x=>{
 				x.extraHp = extraHp;
 				x.title = title;
-				x.icons = icons;
+				x.icon = icon;
 			}, () => {
 				this.price *= Constants.PRICE_UP_TO;
 			});
@@ -69,7 +70,7 @@ namespace Mob
 				x.title = title;
 				x.extraHp = extraHp;
 				x.timeToDestroy = 2f;
-				x.icons = icons;
+				x.icon = icon;
 			}, () => {
 				this.price *= Constants.PRICE_UP_TO;
 			});

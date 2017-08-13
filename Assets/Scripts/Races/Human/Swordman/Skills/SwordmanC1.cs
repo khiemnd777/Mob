@@ -115,8 +115,14 @@ namespace Mob
 			learnedLevel = 8;
 			gainPoint = 12f;
 			reducedEnergy = 8f;
-			icons.Add ("none", Resources.Load<Sprite> ("Sprites/icon"));
-			icons.Add ("default", Resources.LoadAll<Sprite>("Sprites/swordman-skills").FirstOrDefault(x => x.name == "swordman-skills-c1"));	
+
+			icon.prefabs.Add ("none", "Sprites/icon");
+			icon.prefabs.Add ("default", "Sprites/swordman-skills => swordman-skills-c1");
+		}
+
+		public override string GetSyncIcon ()
+		{
+			return icon.prefabs.ContainsKey ("default")? icon.prefabs ["default"] : icon.prefabs ["none"];
 		}
 
 		public override void Pick (Race who, int quantity)
@@ -126,7 +132,7 @@ namespace Mob
 				return;
 			who.GetModule<SkillModule> (x => x.Add<SwordmanC1Skill> (quantity, t => 
 				{
-					t.icons = icons;
+					t.icon = icon;
 					t.title = title;
 					t.brief = brief;
 					t.cooldown = cooldown;

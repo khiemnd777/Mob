@@ -5,26 +5,33 @@ using UnityEngine.UI;
 
 namespace Mob
 {
-	public class StatListItem : MonoHandler
+	public class StatListItem : MobBehaviour
 	{
 		public StatType statType;
 		public Text statText;
 		public Text statValue;
 		public Button addBtn;
 
-		Race _player;
+		Race _character;
 		StatModule _statModule;
 
 		void Start(){
-			_player = Race.FindWithPlayerId (Constants.PLAYER1) [0];
-			_statModule = _player.GetModule<StatModule> ();
-
 			addBtn.onClick.AddListener (() => {
-				_statModule.AddPoint(statType);
+				_statModule.CmdAddPoint(statType);
 			});
 		}
 
 		void Update(){
+			if (!NetworkHelper.instance.TryToConnect (() => {
+				if (_character != null && _statModule != null)
+					return true;
+				_character = Race.GetLocalCharacter ();
+				if(_character == null)
+					return false;
+				_statModule = _character.GetModule<StatModule> ();
+				return false;
+			}))
+				return;
 			Alternate ();
 		}
 

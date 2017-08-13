@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Mob
 {
-	public abstract class Affect : MonoHandler
+	public abstract class Affect : MobBehaviour
 	{
 		public int level = 1;
 		public int upgradeCount = 0;
@@ -271,6 +271,7 @@ namespace Mob
 			if (predicate != null) {
 				predicate.Invoke (a);
 			}
+			a.transform.SetParent (own.transform);
 			a.Init ();
 			a.StartCoroutine (a.Interacting (a.gameObject));
 			return a;

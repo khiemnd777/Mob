@@ -2,7 +2,7 @@
 
 namespace Mob
 {
-	public class GridItem : MonoHandler
+	public class GridItem : MobBehaviour
 	{
 		
 	}

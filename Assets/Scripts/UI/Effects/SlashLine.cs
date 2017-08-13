@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Mob
 {
-	public class SlashLine : MonoHandler
+	public class SlashLine : MobBehaviour
 	{
 		public Transform target;
 		public float maxDistance = 10f;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Mob
 {
-	public class ScrollableList : MonoHandler 
+	public class ScrollableList : MobBehaviour 
 	{
 		public Padding padding;
 		public ScrollRect scrollRect;

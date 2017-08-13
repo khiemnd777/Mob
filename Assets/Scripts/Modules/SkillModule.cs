@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Mob
@@ -10,9 +12,15 @@ namespace Mob
 		public int evolvedSkillPoint;
 		public RectTransform skillTreeUIPrefab;
 		public SkillTreeUI skillTreeUI;
-
 		public List<Skill> skills = new List<Skill>();
 		public List<SkillBoughtItem> availableSkills = new List<SkillBoughtItem>();
+
+		[SyncVar] 
+		public SyncListString networkSkills = new SyncListString();
+
+		[SyncVar] 
+//		public SyncListString networkAvailableSkills = new SyncListString();
+		public SyncListSkillBoughtItem networkAvailableSkills = new SyncListSkillBoughtItem();
 
 		void Start(){
 			if (skillTreeUIPrefab != null) {
@@ -20,6 +28,41 @@ namespace Mob
 				skillTreeUI = instPfb.GetComponent<SkillTreeUI> ();
 				skillTreeUI.own = _race;
 				skillTreeUI.gameObject.SetActive (false);
+			}
+		}
+
+		void Update(){
+			if (isServer) {
+//				networkSkills.Clear ();
+//
+//				foreach(var str in skills.Select (x => x.title))
+//					networkSkills.Add(str);
+//				
+//				RefreshSyncAvailableSkills();
+			}
+		}
+
+		void RefreshSyncAvailableSkills(){
+			var removedItems = new List<SyncSkillBoughtItem> ();
+			foreach (var syncObj in networkAvailableSkills) {
+				if (availableSkills.Any (x => x.GetInstanceID () == syncObj.id))
+					continue;
+				removedItems.Add (syncObj);
+			}
+
+			foreach (var syncObj in removedItems) {
+				networkAvailableSkills.Remove (syncObj);
+			}
+
+			foreach (var item in availableSkills) {
+				var syncItem = item.ToSyncSkillBoughtItem ();
+				if(!networkAvailableSkills.Any(x => x.id == item.GetInstanceID())) {
+					networkAvailableSkills.Add(syncItem);
+					continue;
+				}
+				var syncObj = networkAvailableSkills.FirstOrDefault (x => x.id == item.GetInstanceID ());
+				var syncObjIndex = networkAvailableSkills.IndexOf (syncObj);
+				networkAvailableSkills[syncObjIndex] = syncItem;
 			}
 		}
 
@@ -48,6 +91,7 @@ namespace Mob
 		public void AddAvailableSkill<T>(Action<T> predicate = null) where T: SkillBoughtItem{
 			if (!availableSkills.Any (x => x.GetType().IsEqual<T> ())) {
 				availableSkills.Add (SkillBoughtItem.CreatePrimitiveWithOwn<T> (_race, predicate));
+				RefreshSyncAvailableSkills ();
 				return;
 			}
 		}
@@ -56,8 +100,7 @@ namespace Mob
 			var skill = GetAvailableSkill<T> ();
 			if (skill == null)
 				return;
-			skill.Pick (_race, 1);
-			skill.learned = true;
+			PickAvailableSkill (skill);
 		}
 
 		public void PickAvailableSkill(SkillBoughtItem boughtItem){
@@ -65,6 +108,15 @@ namespace Mob
 				return;
 			boughtItem.Pick (_race, 1);
 			boughtItem.learned = true;
+			RefreshSyncAvailableSkills ();
+		}
+
+		[Command]
+		public void CmdPickAvailableSkill(SyncSkillBoughtItem syncBoughtItem){
+			var boughtItem = availableSkills.FirstOrDefault (x => x.GetInstanceID () == syncBoughtItem.id);
+			if (boughtItem == null)
+				return;
+			PickAvailableSkill (boughtItem);
 		}
 
 		public T GetAvailableSkill<T>() where T: SkillBoughtItem{
@@ -95,7 +147,7 @@ namespace Mob
 			Use (item, targets);
 		}
 
-		public void Use(Skill skill, Race[] targets){
+		public void Use(Skill skill, Race[] targets) {
 			skill.Use (targets);
 			skill.SubtractEnergy ();
 			++skill.usedNumber;
