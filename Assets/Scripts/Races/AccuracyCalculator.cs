@@ -88,7 +88,7 @@ namespace Mob
 		}
 
 		public static bool IsDodgeable(Race own, Race target){
-			var _ = float.MaxValue;
+			var _ = 0f;
 			target.GetModule<AffectModule>(am => {
 				am.GetSubAffects<IDodgeableChance>(a => {
 					_ = Mathf.Min(_, a.dodgeChance);

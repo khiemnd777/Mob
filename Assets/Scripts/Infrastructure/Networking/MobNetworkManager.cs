@@ -5,7 +5,6 @@ namespace Mob
 {
 	public class MobNetworkManager : NetworkManager
 	{
-		
+				
 	}
 }
-

@@ -14,10 +14,16 @@ namespace Mob
 
 		List<PluginHandler> plugins = new List<PluginHandler> ();
 
+		public bool visible { get { return _visible; } }
+		bool _visible = true;
 		public bool interactable { get; private set; }
 
 		protected virtual bool Interact(){
 			return true;
+		}
+
+		protected virtual void SetVisible(bool visible){
+			this._visible = visible;
 		}
 
 		protected IEnumerator Interacting(GameObject go){
@@ -31,7 +37,7 @@ namespace Mob
 		public void AddPlugin(PluginHandler plugin){
 			if (plugin == null)
 				return;
-			plugins.Add (plugin);	
+			plugins.Add (plugin);
 		}
 
 		public List<PluginHandler> GetPlugins(){
@@ -338,9 +344,9 @@ namespace Mob
 		}
 
 		protected IEnumerator OnSetTimeout(Action act, float t = .0f){
-			if (act == null)
-				yield return null;
-			act.Invoke ();
+			if (act != null) {
+				act.Invoke ();
+			}
 			yield return new WaitForSeconds (t);
 		}
 
@@ -360,17 +366,19 @@ namespace Mob
 			StartCoroutine (OnWhile (act, step, t));
 		}
 
-		protected void MathfLerp(float from , float to, Action<float> result = null, float t = 0.1f){
+		protected void MathfLerp(float from , float to, Action<float> result = null, float t = 1f){
 			StartCoroutine (OnMathfLerp (from, to, result, t));
 		}
 
-		protected IEnumerator OnMathfLerp(float from, float to, Action<float> result = null, float t = 0.1f){
-			while (!Mathf.Approximately (from, to)) {
-				from = Mathf.Lerp (from, to, t);
+		protected IEnumerator OnMathfLerp(float from, float to, Action<float> result = null, float t = 1f){
+			var d = 0f;
+			while (d <= 1f) {
+				d += Time.deltaTime / t;
+				var r = Mathf.Lerp (from, to, d);
 				if (result != null) {
-					result.Invoke (from);
+					result.Invoke (r);
 				}
-				yield return new WaitForFixedUpdate();
+				yield return null;
 			}
 		}
 
@@ -387,22 +395,23 @@ namespace Mob
 			}
 		}
 
-		protected void ShowSubLabel(string label, Transform target, float value, float deltaMoveUp = 25f, float deltaTime = 0.025f){
+		protected void ShowSubLabel(string label, Transform target, float value, float deltaMoveUp = 25f, float deltaTime = 0.1f){
 			var decreaseLabel = InstantiateFromMonoResource<Text> (label, target.position, target.rotation, target.parent);
-			var l = decreaseLabel.transform.localPosition;
-			l.y += deltaMoveUp;
+			var l0 = decreaseLabel.transform.localPosition;
+			var l1 = (Vector2)l0 + new Vector2(0, deltaMoveUp);
 			var targetColor = decreaseLabel.color;
 			decreaseLabel.text += Mathf.RoundToInt(value);
 			targetColor.a = 0f;
+			var sourceColor = decreaseLabel.color;
 			StartCoroutine(OnLoadingPercent(percent => {
-				decreaseLabel.color = Color.Lerp(decreaseLabel.color, targetColor, percent);
-				decreaseLabel.transform.localPosition = Vector3.Lerp(decreaseLabel.transform.localPosition, l, percent);
+				decreaseLabel.color = Color.Lerp(sourceColor, targetColor, percent);
+				decreaseLabel.transform.localPosition = Vector3.Lerp(l0, l1, percent);
 			}, () => {
 				Destroy(decreaseLabel.gameObject);
 			}, deltaTime));
 		}
 
-		protected void JumpEffectAndShowSubLabel(Transform target, string label, float value, float deltaMoveUp = 25f, float deltaTime = 0.025f){
+		protected void JumpEffectAndShowSubLabel(Transform target, string label, float value, float deltaMoveUp = 25f, float deltaTime = 0.1f){
 			if (target == null)
 				return;
 			JumpEffect (target, Vector3.one);

@@ -46,6 +46,11 @@ namespace Mob
 			cooldown = 6;
 		}
 
+		public override string GetSyncIcon ()
+		{
+			return icon.prefabs.ContainsKey ("default") ? icon.prefabs ["default"] : icon.prefabs ["none"];
+		}
+
 		public override bool Use (Race[] targets)
 		{
 			Affect.CreatePrimitiveAndUse<SwordmanE1> (own, targets, t => {

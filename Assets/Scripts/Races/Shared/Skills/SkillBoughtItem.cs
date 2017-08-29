@@ -17,6 +17,7 @@ namespace Mob
 		public int cooldown;
 		public float gainPoint;
 		public bool interactable;
+		public bool visible;
 	}
 
 	public class SyncListSkillBoughtItem : SyncListStruct<SyncSkillBoughtItem> { }
@@ -43,7 +44,8 @@ namespace Mob
 				reducedEnergy = this.reducedEnergy,
 				cooldown = this.cooldown,
 				gainPoint = this.gainPoint,
-				interactable = this.Interact()
+				interactable = this.Interact(),
+				visible = this.visible
 			};
 		}
 	}

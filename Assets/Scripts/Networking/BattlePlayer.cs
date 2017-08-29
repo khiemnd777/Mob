@@ -37,9 +37,17 @@ namespace Mob
 			if (isServer) {
 				var p = Race.Create<Swordman> (swordmanPrefab);
 				p.DefaultValue ();
-				character = p;
-				p.player = this;
+				p.playerNetId = netId.Value;
+				p.GetModule<GoldModule> (x => {
+					x.AddGold(9999f);
+				});
+				p.GetModule<EnergyModule> (x => {
+					x.maxEnergy = 9999f;
+					x.AddEnergy(9999f);
+				});
 				p.transform.SetParent (transform);
+				character = p;
+
 				NetworkServer.SpawnWithClientAuthority (p.gameObject, gameObject);
 			}
 		}

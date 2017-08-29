@@ -11,17 +11,23 @@ namespace Mob
 	[RequireComponent(typeof(NetworkIdentity))]
 	public class Race : MobNetworkBehaviour
 	{
-		public BattlePlayer player;
+		[SyncVar]
+		public string className;
+		[SyncVar]
+		public uint playerNetId;
+
 		public Race[] targets;
+
+		[Command]
+		void CmdCheckAuthority(){
+			
+		}
 
 		public override void OnStartClient ()
 		{
-			tag = Constants.OPPONENT_CHARACTER;
-		}
-
-		public override void OnStartAuthority ()
-		{
-			tag = Constants.LOCAL_CHARACTER;
+			var playerGo = ClientScene.FindLocalObject(new NetworkInstanceId(playerNetId));
+			var netIdentity = playerGo.GetComponent<NetworkIdentity> ();
+			tag = netIdentity.isLocalPlayer ? Constants.LOCAL_CHARACTER : Constants.OPPONENT_CHARACTER;
 		}
 
 		public T GetModule<T>(System.Action<T> predicate = null) where T : RaceModule
@@ -228,6 +234,40 @@ namespace Mob
 		public static Race[] GetOpponentCharacters(){
 			var go = GameObject.FindGameObjectsWithTag (Constants.OPPONENT_CHARACTER);
 			return go.Length > 0 ? go.Select (x => x.GetComponent<Race> ()).ToArray() : new Race[0];
+		}
+
+		public static Race GetCharacterByNetId(uint netId, bool isServer = true){
+			GameObject targetGo = null;
+			if (isServer) {
+				targetGo = NetworkServer.FindLocalObject (new NetworkInstanceId (netId));	
+			} else {
+				targetGo = ClientScene.FindLocalObject(new NetworkInstanceId(netId));
+			}
+			if (targetGo == null)
+				return null;
+			return targetGo.GetComponent<Race> ();
+		}
+
+		public static Race[] GetCharactersByNetIds(uint[] netId, bool isServer = true){
+			var targetsGo = netId
+				.Select (x => GetCharacterByNetId (x, isServer))
+				.Where (x => x != null)
+				.ToArray ();
+			return targetsGo;
+		}
+
+		public static uint GetOpponentCharacterNetId(){
+			var race = GetOpponentCharacter ();
+			if (race == null)
+				return new uint();
+			return race.netId.Value;
+		}
+
+		public static uint[] GetOpponentCharacterNetIds(){
+			var races = GetOpponentCharacters ();
+			if (races.Length <= 0)
+				return new uint[0];
+			return races.Select (x => x.netId.Value).ToArray ();
 		}
 	}
 }

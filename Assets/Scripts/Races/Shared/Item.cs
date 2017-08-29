@@ -9,17 +9,25 @@ namespace Mob
 {	
 	public struct SyncItem {
 		public int id;
-		public string ownId;
-		public string targetId;
+		public int ownId;
+		public uint ownNetId;
+		public int effectName;
+		public int[] targetId;
+		public uint[] targetNetIds;
 		public string title;
 		public string brief;
 		public float energy;
 		public float gainPoint;
 		public int level;
 		public int upgradeCount;
+		public float upgradePrice;
 		public int usedTurn;
 		public int cooldown;
 		public string icon;
+		public int usedNumber;
+		public bool interactable;
+		public bool cooldownable;
+		public bool visible;
 	}
 
 	public class SyncListItem : SyncListStruct<SyncItem> { }
@@ -40,6 +48,8 @@ namespace Mob
 		public string brief;
 		public int cooldown = 0;
 		public float upgradePrice = 0f;
+		public bool cooldownable { get; private set; }
+		public Type effectType;
 
 		public virtual void Init(){
 				
@@ -125,20 +135,39 @@ namespace Mob
 			return result;
 		}
 
-		public bool cooldownable { get; private set; }
-
 		public bool EnoughCooldown(Action predicate = null){
-			cooldownable = cooldown == 0 || usedTurn == 0 || usedTurn + cooldown == own.turnNumber;
-			if (cooldownable && predicate != null) {
+			cooldownable = !(cooldown == 0 || usedTurn == 0 || usedTurn + cooldown == own.turnNumber);
+			if (!cooldownable && predicate != null) {
 				predicate.Invoke ();
 			}
-			return cooldownable;
+			return !cooldownable;
 		}
 
 		public void SubtractEnergy(float energy = 0f){
 			own.GetModule<EnergyModule> ((e) => {
 				e.SubtractEnergy (energy == 0f ? this.energy : energy);
 			});
+		}
+
+		public virtual SyncItem ToSyncItem(){
+			return new SyncItem {
+				brief = this.brief,
+				icon = GetSyncIcon (),
+				id = GetInstanceID(),
+				ownId = this.own.GetInstanceID(),
+				title = this.title,
+				interactable = this.Interact(),
+				cooldown = this.cooldown,
+				energy = this.energy,
+				gainPoint = this.gainPoint,
+				level = this.level,
+				upgradeCount = this.upgradeCount,
+				upgradePrice = this.upgradePrice,
+				usedTurn = this.usedTurn,
+				usedNumber = this.usedNumber,
+				cooldownable = this.cooldownable,
+				visible = this.visible
+			};
 		}
 
 		public static T Create<T>(string resource, Race own, int quantity, Action<T> predicate = null) where T : Item {

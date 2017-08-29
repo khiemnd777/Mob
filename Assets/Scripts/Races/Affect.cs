@@ -175,6 +175,7 @@ namespace Mob
 				target.GetModule<AffectModule> ((am) => {
 					am.AddAffect(a);
 				});
+				var effectValueTransfer = own.GetModule<EffectValueTransferModule> ();
 				if (typeof(IPhysicalAttackingEventHandler).IsAssignableFrom (a.GetType ())) {
 					var physicalAttacking = ((IPhysicalAttackingEventHandler)a);
 					var stat = own.GetModule<StatModule> ();
@@ -182,7 +183,7 @@ namespace Mob
 					var isHit = AccuracyCalculator.IsHit (stat.attackRating, targetStat.attackRating);
 					isHit = !isHit ? AccuracyCalculator.IsDodgeable(own, target) : isHit;
 					isHit = !isHit ? AccuracyCalculator.MakeSureHit(own) : isHit;
-					a.effectValues.Add ("isHit", isHit);
+					effectValueTransfer.Add ("isHit", isHit);
 					if (isHit) {
 						var isCritHit = AccuracyCalculator.IsCriticalHit (own, stat.criticalRating);
 						isCritHit = !isCritHit ? AccuracyCalculator.MakeSureCritical (own) : isCritHit;
@@ -193,9 +194,10 @@ namespace Mob
 
 						target.GetModule<HealthPowerModule> (x => x.SubtractHp (outputDamage));
 
-						a.effectValues.Add ("damage", outputDamage);
-						a.effectValues.Add ("isCritHit", isCritHit);
-						a.effectValues.Add ("target", target);
+						effectValueTransfer.Add ("damage", outputDamage);
+						effectValueTransfer.Add ("targetHp", target.GetModule<HealthPowerModule> ().hp);
+						effectValueTransfer.Add ("isCritHit", isCritHit);
+						effectValueTransfer.Add ("targetNetId", target.netId.Value);
 
 						AttackPowerCalculator.OccurAffectChange(own, target);
 						AttackPowerCalculator.ExtraAttackableAffect (own, target);
@@ -204,9 +206,11 @@ namespace Mob
 						var isCritHit = AccuracyCalculator.IsCriticalHit (own, stat.criticalRating);
 						var damage = AttackPowerCalculator.TakeDamage(physicalAttacking.bonusDamage, targetStat.physicalDefend, isCritHit);
 
-						a.effectValues.Add ("damage", damage);
-						a.effectValues.Add ("isCritHit", isCritHit);
-						a.effectValues.Add ("target", target);
+						effectValueTransfer.Add ("damage", damage);
+						effectValueTransfer.Add ("targetHp", target.GetModule<HealthPowerModule> ().hp);
+						effectValueTransfer.Add ("isCritHit", isCritHit);
+						effectValueTransfer.Add ("targetNetId", target.netId.Value);
+
 						physicalAttacking.HandleAttack (target);
 					}
 				} else if(typeof(IMagicalAttackingEventHandler).IsAssignableFrom(a.GetType())){
@@ -216,7 +220,7 @@ namespace Mob
 					var isHit = AccuracyCalculator.IsHit (stat.attackRating, targetStat.attackRating);
 					isHit = !isHit ? AccuracyCalculator.IsDodgeable(own, target) : isHit;
 					isHit = !isHit ? AccuracyCalculator.MakeSureHit(own) : isHit;
-					a.effectValues.Add ("isHit", isHit);
+					effectValueTransfer.Add ("isHit", isHit);
 					if (isHit) {
 						var isCritHit = AccuracyCalculator.IsCriticalHit (own, stat.criticalRating);
 						isCritHit = !isCritHit ? AccuracyCalculator.MakeSureCritical (own) : isCritHit;
@@ -227,9 +231,10 @@ namespace Mob
 
 						target.GetModule<HealthPowerModule> (x => x.SubtractHp (outputDamage));
 
-						a.effectValues.Add ("damage", outputDamage);
-						a.effectValues.Add ("isCritHit", isCritHit);
-						a.effectValues.Add ("target", target);
+						effectValueTransfer.Add ("damage", outputDamage);
+						effectValueTransfer.Add ("targetHp", target.GetModule<HealthPowerModule> ().hp);
+						effectValueTransfer.Add ("isCritHit", isCritHit);
+						effectValueTransfer.Add ("targetNetId", target.netId.Value);
 
 						AttackPowerCalculator.OccurAffectChange(own, target);
 						AttackPowerCalculator.ExtraAttackableAffect (own, target);	
@@ -238,9 +243,10 @@ namespace Mob
 						var isCritHit = AccuracyCalculator.IsCriticalHit (own, stat.criticalRating);
 						var damage = AttackPowerCalculator.TakeDamage(magicalAttacking.bonusDamage, targetStat.physicalDefend, isCritHit);
 
-						a.effectValues.Add ("damage", damage);
-						a.effectValues.Add ("isCritHit", isCritHit);
-						a.effectValues.Add ("target", target);
+						effectValueTransfer.Add ("damage", damage);
+						effectValueTransfer.Add ("targetHp", target.GetModule<HealthPowerModule> ().hp);
+						effectValueTransfer.Add ("isCritHit", isCritHit);
+						effectValueTransfer.Add ("targetNetId", target.netId.Value);
 						magicalAttacking.HandleAttack (target);
 
 					}

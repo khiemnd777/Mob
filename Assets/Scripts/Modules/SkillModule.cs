@@ -13,14 +13,16 @@ namespace Mob
 		public RectTransform skillTreeUIPrefab;
 		public SkillTreeUI skillTreeUI;
 		public List<Skill> skills = new List<Skill>();
+		public Dictionary<string, Type> skillEffects = new Dictionary<string, Type> ();
 		public List<SkillBoughtItem> availableSkills = new List<SkillBoughtItem>();
 
 		[SyncVar] 
-		public SyncListString networkSkills = new SyncListString();
+		//public SyncListString networkSkills = new SyncListString();
+		public SyncListItem syncSkills = new SyncListItem();
 
 		[SyncVar] 
-//		public SyncListString networkAvailableSkills = new SyncListString();
-		public SyncListSkillBoughtItem networkAvailableSkills = new SyncListSkillBoughtItem();
+//		public SyncListString syncAvailableSkills = new SyncListString();
+		public SyncListSkillBoughtItem syncAvailableSkills = new SyncListSkillBoughtItem();
 
 		void Start(){
 			if (skillTreeUIPrefab != null) {
@@ -31,46 +33,89 @@ namespace Mob
 			}
 		}
 
-		void Update(){
-			if (isServer) {
-//				networkSkills.Clear ();
-//
-//				foreach(var str in skills.Select (x => x.title))
-//					networkSkills.Add(str);
-//				
-//				RefreshSyncAvailableSkills();
+		void RefeshSyncSkills(){
+			var removedItems = new List<SyncItem> ();
+			foreach (var syncObj in syncSkills) {
+				if (skills.Any (x => x.GetInstanceID () == syncObj.id))
+					continue;
+				removedItems.Add (syncObj);
 			}
+
+			foreach (var syncObj in removedItems) {
+				syncSkills.RemoveAt (syncSkills.IndexOf(syncObj));
+			}
+
+			foreach (var item in skills) {
+				var syncItem = item.ToSyncItem ();
+				if(!syncSkills.Any(x => x.id == item.GetInstanceID())) {
+					syncSkills.Add(syncItem);
+					continue;
+				}
+				var syncObj = syncSkills.FirstOrDefault (x => x.id == item.GetInstanceID ());
+				var syncObjIndex = syncSkills.IndexOf (syncObj);
+				if(!object.ReferenceEquals(syncSkills[syncObjIndex], syncItem)){
+					syncSkills[syncObjIndex] = syncItem;	
+				}
+			}
+			RpcRefreshSyncSkillCallback ();
+		}
+
+		[ClientRpc]
+		void RpcRefreshSyncSkillCallback(){
+			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_SKILL);
 		}
 
 		void RefreshSyncAvailableSkills(){
 			var removedItems = new List<SyncSkillBoughtItem> ();
-			foreach (var syncObj in networkAvailableSkills) {
+			foreach (var syncObj in syncAvailableSkills) {
 				if (availableSkills.Any (x => x.GetInstanceID () == syncObj.id))
 					continue;
 				removedItems.Add (syncObj);
 			}
 
 			foreach (var syncObj in removedItems) {
-				networkAvailableSkills.Remove (syncObj);
+				syncSkills.RemoveAt (syncAvailableSkills.IndexOf(syncObj));
 			}
 
 			foreach (var item in availableSkills) {
 				var syncItem = item.ToSyncSkillBoughtItem ();
-				if(!networkAvailableSkills.Any(x => x.id == item.GetInstanceID())) {
-					networkAvailableSkills.Add(syncItem);
+				if(!syncAvailableSkills.Any(x => x.id == item.GetInstanceID())) {
+					syncAvailableSkills.Add(syncItem);
 					continue;
 				}
-				var syncObj = networkAvailableSkills.FirstOrDefault (x => x.id == item.GetInstanceID ());
-				var syncObjIndex = networkAvailableSkills.IndexOf (syncObj);
-				networkAvailableSkills[syncObjIndex] = syncItem;
+				var syncObj = syncAvailableSkills.FirstOrDefault (x => x.id == item.GetInstanceID ());
+				var syncObjIndex = syncAvailableSkills.IndexOf (syncObj);
+				if (!object.ReferenceEquals (syncAvailableSkills [syncObjIndex], syncItem)) {
+					syncAvailableSkills[syncObjIndex] = syncItem;	
+				}
 			}
+
+			RpcRefreshSyncAvailableSkillCallback ();
+		}
+
+		[ClientRpc]
+		void RpcRefreshSyncAvailableSkillCallback(){
+			EventManager.TriggerEvent(Constants.EVENT_REFRESH_SYNC_AVAILABLE_SKILL);
 		}
 
 		public void Add<T>(int quantity, Action<T> predicate = null) where T: Skill{
 			if (!skills.Any (x => x.GetType().IsEqual<T> ())) {
-				skills.Add (Skill.CreatePrimitive<T> (_race, quantity, predicate));
+				var skill = Skill.CreatePrimitive<T> (_race, quantity, predicate);
+				skills.Add (skill);
+//				RefeshSyncSkills ();
+				if (skill.effectType != null) {
+					RpcAddEffect (skill.name, skill.effectType.FullName);	
+				}
 				return;
 			}
+		}
+
+		[ClientRpc]
+		public void RpcAddEffect(string key, string effectType){
+			if (!isClient)
+				return;
+			var type = Type.GetType (effectType);
+			skillEffects.Add (key, type);
 		}
 
 		public T GetSkill<T>() where T: Skill{
@@ -108,7 +153,9 @@ namespace Mob
 				return;
 			boughtItem.Pick (_race, 1);
 			boughtItem.learned = true;
+
 			RefreshSyncAvailableSkills ();
+			RefeshSyncSkills ();
 		}
 
 		[Command]
@@ -130,13 +177,13 @@ namespace Mob
 			if (!skills.Any (x => x.GetType ().IsEqual<T> ()))
 				return;
 			var skill = skills.FirstOrDefault (x => x.GetType().IsEqual<T> ());
-			Destroy (skill.gameObject);
-			skills.RemoveAll (x => x.GetType ().IsEqual<T> ());
+			DestroyImmediate (skill.gameObject);
+			skills = skills.Where (x => x != null).ToList ();
 		}
 
 		public void Remove(Skill skill){
-			skills.Remove (skill);
-			Destroy (skill.gameObject);
+			DestroyImmediate (skill.gameObject);
+			skills = skills.Where (x => x != null).ToList();
 		}
 
 		public void Use<T>(Race[] targets){
@@ -154,10 +201,37 @@ namespace Mob
 			skill.usedTurn = _race.turnNumber;
 			--skill.quantity;
 
+			RefeshSyncSkills ();
+
 			if (skill.quantity == 0) {
 				skill.quantity = 1;
 				return;
 			}
+		}
+
+		[Command]
+		public void CmdUse(SyncItem syncItem){
+			var skill = skills.FirstOrDefault (x => x.GetInstanceID () == syncItem.id);
+			if (skill == null)
+				return;
+			
+			var opponents = Race.GetCharactersByNetIds(syncItem.targetNetIds);
+			Use (skill, opponents);
+
+			// EXECUTE EFFECT ON CLIENT
+			RpcInvokeEffect (skill.name, syncItem);
+		}
+
+		[ClientRpc]
+		public void RpcInvokeEffect(string key, SyncItem syncItem){
+			if (!isClient)
+				return;
+			var effectType = skillEffects [key];
+			if (effectType == null)
+				return;
+			var attacker = Race.GetCharacterByNetId (syncItem.ownNetId, false);
+			var opponents = Race.GetCharactersByNetIds(syncItem.targetNetIds, false);
+			Effect.CreatePrimitiveAndUse (effectType, null, attacker, opponents);
 		}
 
 		public void OpenSkillTreeUI(){
@@ -167,4 +241,3 @@ namespace Mob
 		}
 	}
 }
-

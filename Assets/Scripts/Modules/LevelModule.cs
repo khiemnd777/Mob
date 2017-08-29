@@ -2,15 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Mob
 {
 	public class LevelModule : RaceModule 
 	{
 		// Level
+		[SyncVar(hook="OnChangeLevel")]
 		public int level;
 
 		// Up level
+		[SyncVar(hook="OnChangeUpLevel")]
 		public int upLevel;
 
 		// Max level
@@ -35,6 +38,16 @@ namespace Mob
 				});
 //				BattleController.EmitLevelUpEvent(_race, level, upLevel);
 			}
+		}
+
+		void OnChangeLevel(int currentLevel) {
+			level = currentLevel;
+			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_LEVEL, new {level = currentLevel, ownNetId = _race.netId.Value});
+		}
+
+		void OnChangeUpLevel(int currentUpLevel) {
+			upLevel = currentUpLevel;
+			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_UP_LEVEL, new {upLevel = currentUpLevel, ownNetId = _race.netId.Value});
 		}
 	}
 

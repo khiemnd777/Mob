@@ -32,7 +32,7 @@ namespace Mob
 		public void AddPlugin(PluginHandler plugin){
 			if (plugin == null)
 				return;
-			plugins.Add (plugin);	
+			plugins.Add (plugin);
 		}
 
 		public List<PluginHandler> GetPlugins(){
@@ -368,17 +368,19 @@ namespace Mob
 			StartCoroutine (OnWhile (act, step, t));
 		}
 
-		protected void MathfLerp(float from , float to, Action<float> result = null, float t = 0.1f){
+		protected void MathfLerp(float from , float to, Action<float> result = null, float t = 1f){
 			StartCoroutine (OnMathfLerp (from, to, result, t));
 		}
 
-		protected IEnumerator OnMathfLerp(float from, float to, Action<float> result = null, float t = 0.1f){
-			while (!Mathf.Approximately (from, to)) {
-				from = Mathf.Lerp (from, to, t);
+		protected IEnumerator OnMathfLerp(float from, float to, Action<float> result = null, float t = 1f){
+			var d = 0f;
+			while (d <= t) {
+				d += Time.fixedDeltaTime;
+				var r = Mathf.Lerp (from, to, d);
 				if (result != null) {
-					result.Invoke (from);
+					result.Invoke (r);
 				}
-				yield return new WaitForFixedUpdate();
+				yield return new WaitForFixedUpdate ();
 			}
 		}
 

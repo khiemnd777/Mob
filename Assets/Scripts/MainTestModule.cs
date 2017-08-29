@@ -6,6 +6,10 @@ namespace Mob
 {
 	public class MainTestModule
 	{
+		void Awake(){
+			
+		}
+
 		void Start(){
 //			GearAvailableItems.Init ();
 //			GearUpgradedItems.Init ();

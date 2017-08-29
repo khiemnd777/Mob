@@ -52,6 +52,14 @@
      <Compile Include="Assets\Scripts\Controllers\Attacks\AttackItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Bags\BagController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Bags\BagItem.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Characters\LocalCharacter\EnergyLocalCharacterController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Characters\LocalCharacter\GoldLocalCharacterController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Characters\LocalCharacter\HpLocalCharacterController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Characters\LocalCharacter\LocalCharacterController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Characters\OpponentCharacter\EnergyOpponentCharacterController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Characters\OpponentCharacter\GoldOpponentCharacterController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Characters\OpponentCharacter\HpOpponentCharacterController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Characters\OpponentCharacter\OpponentCharacterController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\GearAvailableItems.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\GearController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\GearListBuyItem.cs" />
@@ -84,6 +92,7 @@
      <Compile Include="Assets\Scripts\Modules\AffectModule.cs" />
      <Compile Include="Assets\Scripts\Modules\BagModule.cs" />
      <Compile Include="Assets\Scripts\Modules\CountdownModule.cs" />
+     <Compile Include="Assets\Scripts\Modules\EffectValueTransferModule.cs" />
      <Compile Include="Assets\Scripts\Modules\EnergyModule.cs" />
      <Compile Include="Assets\Scripts\Modules\GearModule.cs" />
      <Compile Include="Assets\Scripts\Modules\GoldModule.cs" />

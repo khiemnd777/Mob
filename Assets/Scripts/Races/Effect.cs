@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,10 +7,16 @@ using System.Reflection;
 
 namespace Mob
 {
+	public struct EffectValueNetworkDelivery {
+		public string key;
+		public string value;
+	}
+
+	public class EffectValueNetworkTransfer : SyncListStruct<EffectValueNetworkDelivery> { }
+
 	public abstract class Effect : PluginHandler
 	{
 		public bool use;
-		public float timeToDestroy = -1f;
 		public Race attacker;
 		public Race[] targets;
 		public object host;
@@ -49,12 +56,19 @@ namespace Mob
 		public static void Use(Race attacker, Effect effect){
 			if (effect.use) {
 				Dictionary<string, object> ev = null;
+
+//				var effectValueTransfer = attacker.GetModule<EffectValueTransferModule> ();
+//				if (effectValueTransfer != null) {
+//					ev = effectValueTransfer.ToDictionary ();
+//				}
+
 				if (effect.host != null) {
 					var effectValues = effect.host.GetType ().GetField ("effectValues");
 					if (effectValues != null) {
-						ev = (Dictionary<string, object>)effectValues.GetValue(effect.host);
+						ev = (Dictionary<string, object>)effectValues.GetValue (effect.host);
 					}
-				}
+				} 
+
 				attacker.StartCoroutine(effect.Define (ev));
 				Destroy (effect.gameObject, effect.timeToDestroy <= -1f ? Constants.TIME_EFFECT_END_DEFAULT : effect.timeToDestroy);
 			}

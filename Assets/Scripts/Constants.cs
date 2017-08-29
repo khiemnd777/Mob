@@ -43,6 +43,19 @@ namespace Mob
 		public const string EVENT_SKILL_LEARNED = "skill_learned";
 		public const string EVENT_TAB_CONTENT_FIRED = "fire-tab-content";
 		public const string EVENT_TAB_VIEW_INIT = "init-tab-view";
+		public const string EVENT_REFRESH_SYNC_SKILL = "refresh-sync-skill";
+		public const string EVENT_REFRESH_SYNC_AVAILABLE_SKILL = "refresh-sync-available-skill";
+		public const string EVENT_REFRESH_SYNC_LEVEL = "refresh-sync-level";
+		public const string EVENT_REFRESH_SYNC_UP_LEVEL = "refresh-sync-up-level";
+		public const string EVENT_REFRESH_SYNC_HP = "refresh-sync-hp";
+		public const string EVENT_REFRESH_SYNC_ENERGY = "refresh-sync-energy";
+		public const string EVENT_REFRESH_SYNC_GOLD = "refresh-sync-gold";
+		public const string EVENT_HP_SUBTRACTING_EFFECT = "hp-subtracting-effect";
+		public const string EVENT_HP_ADDING_EFFECT = "hp-adding-effect";
+		public const string EVENT_ENERGY_SUBTRACTING_EFFECT = "energy-subtracting-effect";
+		public const string EVENT_ENERGY_ADDING_EFFECT = "energy-adding-effect";
+		public const string EVENT_GOLD_SUBTRACTING_EFFECT = "gold-subtracting-effect";
+		public const string EVENT_GOLD_ADDING_EFFECT = "gold-adding-effect";
 	}
 }
 

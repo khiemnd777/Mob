@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using System;
 using System.Linq;
 using System.Collections;
@@ -23,7 +24,7 @@ namespace Mob
 		public override void Init(){
 			timeToDestroy = 0f;
 			gainPoint = 5f;
-			AddPlugin (Effect.CreatePrimitive<SwordmanA1Effect>(this, own, targets));
+//			AddPlugin (Effect.CreatePrimitive<SwordmanA1Effect>(this, own, targets));
 		}
 	}
 
@@ -38,9 +39,14 @@ namespace Mob
 
 		public override IEnumerator Define (Dictionary<string, object> effectValues)
 		{
-			if ((bool)effectValues ["isHit"]) {
-				var damage = (float)effectValues ["damage"];
-				var target = (Race)effectValues ["target"];
+			var evt = attacker.GetModule<EffectValueTransferModule> ();
+			if (evt.GetValue<bool>("isHit")) {
+				var damage = evt.GetValue<float> ("damage");
+				var targetNetId = evt.GetValue<uint>("targetNetId");
+				var targetGo = ClientScene.FindLocalObject(new NetworkInstanceId(targetNetId));
+				var target = targetGo.GetComponent<Race> ();
+				EventManager.TriggerEvent (Constants.EVENT_HP_SUBTRACTING_EFFECT, new { evt = evt, targetNetId = targetNetId });
+
 				if (targetHpLabel == null) {
 					target.GetModule<HealthPowerModule> (x => x.SubtractHpEffect ());
 				} else {
@@ -71,18 +77,25 @@ namespace Mob
 		{
 			Affect.CreatePrimitiveAndUse<SwordmanA1> (own, targets, t => {
 				t.gainPoint = gainPoint;
+
+				if(usedNumber == 9){
+					own.GetModule<SkillModule> (s => {
+						s.Add<SwordmanA2Skill> (1);
+					});
+					SetVisible(false);
+				}
 			});
 			return true;
 		}
 
-		void Update ()
+		protected override bool Interact ()
 		{
-			if(usedNumber == 10){
-				own.GetModule<SkillModule> (s => {
-					s.Add<SwordmanA2Skill> (1);
-					s.Remove(this);
-				});
-			}
+			return usedNumber < 10 && base.Interact ();
+		}
+
+		public override string GetSyncIcon ()
+		{
+			return icon.prefabs.ContainsKey ("default") ? icon.prefabs ["default"] : icon.prefabs ["none"];
 		}
 	}
 
@@ -96,13 +109,14 @@ namespace Mob
 			learnedLevel = 1;
 			reducedEnergy = 4f;
 			gainPoint = 5f;
+			effectType = typeof(SwordmanA1Effect);
 			icon.prefabs.Add ("none", "Sprites/icon");
 			icon.prefabs.Add ("default", "Sprites/swordman-skills => swordman-skills-a1");
 		}
 
 		public override string GetSyncIcon ()
 		{
-			return icon.prefabs.ContainsKey ("default")? icon.prefabs ["default"] : icon.prefabs ["none"];
+			return icon.prefabs.ContainsKey ("default") ? icon.prefabs ["default"] : icon.prefabs ["none"];
 		}
 
 		public override void Pick (Race who, int quantity)
@@ -115,6 +129,7 @@ namespace Mob
 				t.level = learnedLevel;
 				t.cooldown = cooldown;
 				t.energy = reducedEnergy;
+				t.effectType = effectType;
 			}));
 		}
 

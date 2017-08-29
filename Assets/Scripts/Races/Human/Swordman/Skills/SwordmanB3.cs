@@ -26,7 +26,12 @@ namespace Mob
 		{
 			level = 4;
 		}
-		
+
+		public override string GetSyncIcon ()
+		{
+			return icon.prefabs.ContainsKey ("default") ? icon.prefabs ["default"] : icon.prefabs ["none"];
+		}
+
 		public override bool Use (Race[] targets)
 		{
 			if (Affect.HasAffect<SwordmanB3> (own)) {

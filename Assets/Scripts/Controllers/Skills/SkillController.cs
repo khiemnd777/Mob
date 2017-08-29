@@ -16,7 +16,7 @@ namespace Mob
 
 		void Start(){
 			list.ClearAll ();
-			EventManager.StartListening (Constants.EVENT_SKILL_LEARNED, new Action (RefreshItems));
+			EventManager.StartListening (Constants.EVENT_REFRESH_SYNC_AVAILABLE_SKILL, new Action (RefreshItems));
 		}
 
 		void Update(){
@@ -32,14 +32,14 @@ namespace Mob
 				return;
 
 			CreateItems ();
-			RefreshItems ();
+//			RefreshItems ();
 		}
 
 		bool isCreateItems;
 		void CreateItems(){
 			if (!isCreateItems) {
 				isCreateItems = true;
-				foreach (var item in _skillModule.networkAvailableSkills) {
+				foreach (var item in _skillModule.syncAvailableSkills) {
 					PrepareItems (item);
 				}
 				list.Refresh ();
@@ -49,18 +49,22 @@ namespace Mob
 		void RefreshItems(){
 			var itemUIs = list.GetItems ().Select (x => x.GetComponent<SkillItem> ()).ToArray();
 			foreach (var item in itemUIs) {
-				if (!_skillModule.networkAvailableSkills.Any (x => item.boughtItem.Equals (x))) {
+				if (!_skillModule.syncAvailableSkills.Any (x => item.boughtItem.id == x.id)) {
 					DestroyImmediate (item.gameObject);
+					list.Refresh ();
 				}
 			}
-			foreach (var item in _skillModule.networkAvailableSkills) {
-				if(!itemUIs.Any(x => item.Equals(x.boughtItem))){
+			foreach (var item in _skillModule.syncAvailableSkills) {
+				if(!itemUIs.Any(x => item.id == x.boughtItem.id)){
 					PrepareItems (item);
+					list.Refresh ();
 					continue;
 				}
-				var itemUI = itemUIs.FirstOrDefault (x => item.Equals (x.boughtItem));
-				itemUI.boughtItem = item;
-				itemUI.PrepareItem ();
+				var itemUI = itemUIs.FirstOrDefault (x => item.id == x.boughtItem.id);
+				if (!object.ReferenceEquals (itemUI.boughtItem, item)) {
+					itemUI.boughtItem = item;
+					itemUI.PrepareItem ();
+				}
 			}
 		}
 

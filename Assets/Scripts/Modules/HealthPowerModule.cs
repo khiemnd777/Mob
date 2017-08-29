@@ -1,28 +1,57 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 namespace Mob
 {
+	public struct SyncHp {
+		public float hp;
+		public float maxHp;
+	}
+
+	public class SyncHpField : SyncListStruct<SyncHp> { }
+	
 	public class HealthPowerModule : RaceModule
 	{
+//		[SyncVar(hook="OnChangeHp")]
 		public float hp;
+
 		public float hpEffect;
+
+//		[SyncVar(hook="OnChangeMaxHp")]
 		public float maxHp;
+
+		[SyncVar]
+		public SyncHpField syncHpField = new SyncHpField();
+
 		public float maxHpEffect;
+
 		public float hpPercent;
 
 		public override void Init ()
 		{
-			hpEffect = hp;
-			maxHpEffect = maxHp;
+//			hpEffect = hp;
+//			maxHpEffect = maxHp;
+			syncHpField.Add (new SyncHp {
+				hp = hp,
+				maxHp = maxHp
+			});
+		}
+
+		void RefreshSyncHpField(){
+			syncHpField[0] = new SyncHp {
+				hp = hp,
+				maxHp = maxHp
+			};
 		}
 
 		public void AddHp(float p){
 			hp = Mathf.Min(hp + p, maxHp);
+			RefreshSyncHpField ();
 		}
 
 		public void AddHpEffect(){
-			MathfLerp (hpEffect, hp, p => hpEffect = p);
+//			MathfLerp (hpEffect, hp, p => hpEffect = p);
 //			While ((inc, step) => {
 //				hpEffect = Mathf.Clamp(hpEffect + inc, hp, maxHp);
 //			}, p);
@@ -30,11 +59,12 @@ namespace Mob
 
 		public void SubtractHp(float p){
 			hp = Mathf.Max(hp - p, 0f);
+			RefreshSyncHpField ();
 		}
 
 		public void SubtractHpEffect(){
 //			var p = hpEffect - hp;
-			MathfLerp (hpEffect, hp, (p) => hpEffect = p);
+//			MathfLerp (hpEffect, hp, (p) => hpEffect = p);
 //			While ((inc, step) => {
 //				hpEffect = Mathf.Max(hpEffect - inc, 0f);
 //			}, p);
@@ -45,7 +75,7 @@ namespace Mob
 		}
 
 		public void SetFullHpEffect(){
-			AddHpEffect ();
+//			AddHpEffect ();
 		}
 
 		public void SetMaxHp(float time = 1f, bool setFullHp = true){
@@ -65,6 +95,14 @@ namespace Mob
 			}, maxHp - maxHpEffect);
 			if(setFullHp)
 				SetFullHpEffect();
+		}
+
+		void OnChangeHp(float currentHp){
+			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_HP, new { hp = currentHp, maxHp = maxHp });
+		}
+
+		void OnChangeMaxHp(float currentMaxHp){
+			EventManager.TriggerEvent(Constants.EVENT_REFRESH_SYNC_HP, new { hp = hp, maxHp = currentMaxHp });
 		}
 	}
 }

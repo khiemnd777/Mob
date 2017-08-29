@@ -15,6 +15,7 @@ namespace Mob
 		public int quantity;
 		public string icon;
 		public bool interactable;
+		public bool visible;
 	}
 
 	public class SyncListBoughtItem : SyncListStruct<SyncBoughtItem> { }
@@ -34,6 +35,8 @@ namespace Mob
 		public string title { get { return _title ?? this.name; } set { _title = value; } }
 
 		public string brief;
+
+		public Type effectType;
 
 		public virtual void Init(){
 			
@@ -123,7 +126,8 @@ namespace Mob
 				price = this.price,
 				quantity = this.quantity,
 				title = this.title,
-				interactable = this.Interact()
+				interactable = this.Interact(),
+				visible = this.visible
 			};
 		}
 

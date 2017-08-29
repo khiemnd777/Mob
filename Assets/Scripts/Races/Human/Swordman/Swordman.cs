@@ -42,6 +42,8 @@ namespace Mob
 
 		public override void DefaultValue ()
 		{
+			className = "Swordman";
+
 			GetModule<AffectModule> ();
 
 			GetModule<GearModule> ();
@@ -112,6 +114,8 @@ namespace Mob
 				skill.AddAvailableSkill<SwordmanC2BoughtSkill>();
 				skill.AddAvailableSkill<SwordmanD1BoughtSkill>();
 				skill.AddAvailableSkill<SwordmanE1BoughtSkill>();
+
+//				skill.skillEffects.Add("SwordmanA1Skill",);
 			});
 		}
 

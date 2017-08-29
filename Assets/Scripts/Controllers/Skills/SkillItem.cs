@@ -36,8 +36,6 @@ namespace Mob
 				return;
 		}
 
-		bool isPrepareItem;
-
 		public void PrepareItem(){
 			learnTxt.text = boughtItem.learned ? "Learned" : "Learn";
 			learnBtn.interactable = boughtItem.interactable;

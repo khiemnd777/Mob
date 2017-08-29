@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 namespace Mob
 {
@@ -12,7 +13,7 @@ namespace Mob
 		public override void Init(){
 			timeToDestroy = 0f;
 			gainPoint = 8f;
-			AddPlugin (Effect.CreatePrimitive<SwordmanA2Effect>(this, own, targets));
+//			AddPlugin (Effect.CreatePrimitive<SwordmanA2Effect>(this, own, targets));
 		}
 
 		#region ICriticalHandler implementation
@@ -51,15 +52,19 @@ namespace Mob
 
 		public override IEnumerator Define (Dictionary<string, object> effectValues)
 		{
-			if ((bool)effectValues ["isHit"]) {
-				var damage = (float)effectValues["damage"];
-				var target = (Race)effectValues ["target"];
+			var evt = attacker.GetModule<EffectValueTransferModule> ();
+			if (evt.GetValue<bool>("isHit")) {
+				var damage = evt.GetValue<float> ("damage");
+				var targetNetId = evt.GetValue<uint>("targetNetId");
+				var targetGo = ClientScene.FindLocalObject(new NetworkInstanceId(targetNetId));
+				var target = targetGo.GetComponent<Race> ();
+				EventManager.TriggerEvent (Constants.EVENT_HP_SUBTRACTING_EFFECT, new { evt = evt, targetNetId = targetNetId });
+
 				if (targetHpLabel == null) {
 					target.GetModule<HealthPowerModule> (x => x.SubtractHpEffect ());
-					Destroy (((Affect)host).gameObject, Constants.WAIT_FOR_DESTROY);
 				} else {
 					yield return OnSetTimeout (() => {
-						var slashLine = InstantiateFromMonoResource<SlashLine>(Constants.EFFECT_SLASH_LINE);
+						var slashLine = InstantiateFromMonoResource<SlashLine> (Constants.EFFECT_SLASH_LINE);
 						slashLine.target = targetHpLabel.transform;
 					}, 0.05f);
 
@@ -77,12 +82,13 @@ namespace Mob
 	{
 		public override void Init ()
 		{
-			title = "A1";
+			title = "A2";
 			brief = "Increasing 130% physical damage to opponent and x2 damage when it be occurred an critical attack";
 			cooldown = 0;
 			level = 1;
 			gainPoint = 8f;
 			energy = 4f;
+			effectType = typeof(SwordmanA2Effect);
 			icon.prefabs.Add ("none", "Sprites/icon");
 			icon.prefabs.Add ("default", "Sprites/swordman-skills => swordman-skills-a1");
 		}

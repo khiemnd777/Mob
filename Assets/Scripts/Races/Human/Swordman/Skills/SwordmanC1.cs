@@ -13,7 +13,7 @@ namespace Mob
 		{
 			timeToDestroy = 0f;
 			gainPoint = 12f;
-			AddPlugin (Effect.CreatePrimitive<SwordmanC1Effect> (this, own, targets));
+//			AddPlugin (Effect.CreatePrimitive<SwordmanC1Effect> (this, own, targets));
 		}
 
 		#region IPhysicalAttackingEventHandler implementation
@@ -72,6 +72,11 @@ namespace Mob
 			level = 8;
 			energy = 8f;
 			cooldown = 2;
+		}
+
+		public override string GetSyncIcon ()
+		{
+			return icon.prefabs.ContainsKey ("default") ? icon.prefabs ["default"] : icon.prefabs ["none"];
 		}
 
 //		bool subEnable;
