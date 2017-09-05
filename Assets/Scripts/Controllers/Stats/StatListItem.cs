@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,23 +20,62 @@ namespace Mob
 			addBtn.onClick.AddListener (() => {
 				_statModule.CmdAddPoint(statType);
 			});
+
+			EventManager.StartListening(Constants.EVENT_STAT_STRENGTH_CHANGED, new Action<float>((strength) => {
+				if(statType == StatType.Strength){
+					PrepareItems ("Strength", strength);
+				}
+			}));
+
+			EventManager.StartListening(Constants.EVENT_STAT_DEXTERITY_CHANGED, new Action<float>((dexterity) => {
+				if(statType == StatType.Dexterity){
+					PrepareItems ("Dexterity", dexterity);
+				}
+			}));
+
+			EventManager.StartListening(Constants.EVENT_STAT_INTELLIGENT_CHANGED, new Action<float>((intelligent) => {
+				if(statType == StatType.Intelligent){
+					PrepareItems ("Intelligent", intelligent);
+				}
+			}));
+
+			EventManager.StartListening(Constants.EVENT_STAT_VITALITY_CHANGED, new Action<float>((vitality) => {
+				if(statType == StatType.Vitality){
+					PrepareItems ("Vitality", vitality);
+				}
+			}));
+
+			EventManager.StartListening(Constants.EVENT_STAT_LUCK_CHANGED, new Action<float>((luck) => {
+				if(statType == StatType.Luck){
+					PrepareItems ("Luck", luck);
+				}
+			}));
 		}
 
 		void Update(){
-			if (!NetworkHelper.instance.TryToConnect (() => {
+			if (!TryToConnect())
+				return;
+			InitItems ();
+		}
+
+		bool TryToConnect(){
+			return NetworkHelper.instance.TryToConnect (() => {
 				if (_character != null && _statModule != null)
 					return true;
 				_character = Race.GetLocalCharacter ();
-				if(_character == null)
+				if (_character == null)
 					return false;
 				_statModule = _character.GetModule<StatModule> ();
 				return false;
-			}))
-				return;
-			Alternate ();
+			});
 		}
 
-		void Alternate(){
+		bool _isInitItem;
+
+		public void InitItems(){
+			if (_isInitItem)
+				return;
+			_isInitItem = true;
 			switch (statType) {
 			case StatType.Strength:
 				PrepareItems ("Strength", _statModule.strength);

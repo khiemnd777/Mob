@@ -76,6 +76,17 @@ namespace Mob
 			icon.prefabs.Add ("lvl3", "Sprites/Gears => ring_3");
 		}
 
+		public override string GetSyncIcon ()
+		{
+			if (upgradeCount >= 0 && upgradeCount < 1) {
+				return icon.GetIconName("lvl1");
+			} else if (upgradeCount == 1) {
+				return icon.GetIconName("lvl2");
+			} else {
+				return icon.GetIconName("lvl3");
+			}
+		}
+
 		public override Sprite GetIcon(){
 			if (upgradeCount >= 0 && upgradeCount < 1) {
 				return GetIcon ("lvl1");	
@@ -148,6 +159,7 @@ namespace Mob
 				});
 				a.title = title;
 				a.brief = brief;
+				a.gearType = gearType;
 				a.upgradePrice = this.price;
 				who.GetModule<GearModule>(x => x.ring = a);
 			});

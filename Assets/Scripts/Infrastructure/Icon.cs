@@ -16,6 +16,10 @@ namespace Mob
 			prefabs = new Dictionary<string, string> ();
 		}
 
+		public string GetIconName(string key){
+			return prefabs.ContainsKey (key) ? prefabs [key] : null;
+		}
+
 		public Sprite GetIconFromInstance(string key, Func<bool> predicate){
 			return predicate != null && predicate.Invoke () ? instances [key] : null;
 		}

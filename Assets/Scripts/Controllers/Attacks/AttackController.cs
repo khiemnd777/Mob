@@ -17,7 +17,7 @@ namespace Mob
 
 		void Start(){
 			list.ClearAll ();
-			EventManager.StartListening (Constants.EVENT_REFRESH_SYNC_SKILL, new Action(PrepareItems));
+			EventManager.StartListening (Constants.EVENT_REFRESH_SYNC_SKILLS, new Action(PrepareItems));
 		}
 
 		void Update(){

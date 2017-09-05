@@ -46,11 +46,17 @@ namespace Mob
 			icon.prefabs.Add ("lvl1", "Sprites/Gears => armor_1");
 			icon.prefabs.Add ("lvl5", "Sprites/Gears => armor_5");
 			icon.prefabs.Add ("lvl10", "Sprites/Gears => armor_10");
+		}
 
-			// => And the old one
-//			icons.Add ("lvl1", Resources.LoadAll<Sprite>("Sprites/Gears").FirstOrDefault(x => x.name == "armor_1"));
-//			icons.Add ("lvl5", Resources.LoadAll<Sprite>("Sprites/Gears").FirstOrDefault(x => x.name == "armor_5"));
-//			icons.Add ("lvl10", Resources.LoadAll<Sprite>("Sprites/Gears").FirstOrDefault(x => x.name == "armor_10"));
+		public override string GetSyncIcon ()
+		{
+			if (upgradeCount >= 0 && upgradeCount < 4) {
+				return icon.GetIconName("lvl1");
+			} else if (upgradeCount >= 4 && upgradeCount < 9) {
+				return icon.GetIconName("lvl5");
+			} else {
+				return icon.GetIconName("lvl10");
+			}
 		}
 
 		public override Sprite GetIcon(){
@@ -125,6 +131,7 @@ namespace Mob
 				});
 				a.title = title;
 				a.brief = brief;
+				a.gearType = gearType;
 				a.upgradePrice = this.price;
 				who.GetModule<GearModule>(x => x.armor = a);
 			});

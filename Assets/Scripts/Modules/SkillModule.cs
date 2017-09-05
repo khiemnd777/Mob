@@ -62,7 +62,7 @@ namespace Mob
 
 		[ClientRpc]
 		void RpcRefreshSyncSkillCallback(){
-			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_SKILL);
+			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_SKILLS);
 		}
 
 		void RefreshSyncAvailableSkills(){
@@ -95,7 +95,7 @@ namespace Mob
 
 		[ClientRpc]
 		void RpcRefreshSyncAvailableSkillCallback(){
-			EventManager.TriggerEvent(Constants.EVENT_REFRESH_SYNC_AVAILABLE_SKILL);
+			EventManager.TriggerEvent(Constants.EVENT_REFRESH_SYNC_AVAILABLE_SKILLS);
 		}
 
 		public void Add<T>(int quantity, Action<T> predicate = null) where T: Skill{

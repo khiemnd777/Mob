@@ -46,8 +46,6 @@ namespace Mob
 
 			GetModule<AffectModule> ();
 
-			GetModule<GearModule> ();
-
 			GetModule<StatModule> ((stat) => {
 				stat.strengthPercent = 25f;
 				stat.dexterityPercent = 15f;
@@ -116,6 +114,16 @@ namespace Mob
 				skill.AddAvailableSkill<SwordmanE1BoughtSkill>();
 
 //				skill.skillEffects.Add("SwordmanA1Skill",);
+			});
+
+			// Available gears are used in during game
+			GetModule<GearModule> (gear => {
+				gear.AddAvailableGear<HelmBoughtItem>(x => x.inStoreState = InStoreState.Available);
+				gear.AddAvailableGear<ArmorBoughtItem>(x => x.inStoreState = InStoreState.Available);
+				gear.AddAvailableGear<ClothBoughtItem>(x => x.inStoreState = InStoreState.Available);
+				gear.AddAvailableGear<SwordBoughtItem>(x => x.inStoreState = InStoreState.Available);
+				gear.AddAvailableGear<StaffBoughtItem>(x => x.inStoreState = InStoreState.Available);
+				gear.AddAvailableGear<RingBoughtItem>(x => x.inStoreState = InStoreState.Available);
 			});
 		}
 

@@ -22,46 +22,116 @@ namespace Mob
 
 		int logPoint;
 		[Header("Gain point")]
-		[SyncVar] 	public int point;
+		[SyncVar(hook="OnPointChanged")] 	public int point;
+
+		void OnPointChanged(int currentPoint){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_POINT_CHANGED, new {point = currentPoint});
+		}
 
 		[Header("Strength")]
-		[SyncVar]	public float strength = 1f;
+		[SyncVar(hook="OnStrengthChanged")]	public float strength = 1f;
+
+		void OnStrengthChanged(float currentStrength){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_STRENGTH_CHANGED, new { strength = currentStrength });
+		}
+
 		[Header("Sub-strength")]
-		[SyncVar]	public float physicalAttack;
+		[SyncVar(hook="OnPhysicalAttackChanged")]	public float physicalAttack;
+
+		void OnPhysicalAttackChanged (float currentPhysicalAttack){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_PHYSICAL_ATTACK_CHANGED, new {physicalAttack = currentPhysicalAttack});
+		}
+
 		public float physicalAttackSeed = 2f;
-		[SyncVar] 	public float physicalDefend;
+
+		[SyncVar(hook="OnPhysicalDefendChanged")] 	public float physicalDefend;
+		void OnPhysicalDefendChanged(float currentPhysicalDefend){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_PHYSICAL_DEFEND_CHANGED, new { physicalDefend = currentPhysicalDefend });
+		}
+
 		public float physicalDefendSeed = 1.5f;
 
 		[Header("Dexterity")]
-		[SyncVar] 	public float dexterity = 1f;
+		[SyncVar(hook="OnDexterityChanged")] 	public float dexterity = 1f;
+
+		void OnDexterityChanged(float currentDexterity){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_DEXTERITY_CHANGED, new {dexterity = currentDexterity});
+		}
+
 		[Header("Sub-dexterity")]
-		[SyncVar] 	public float attackRating;
+		[SyncVar(hook="OnAttackRatingChanged")] 	public float attackRating;
+
+		void OnAttackRatingChanged(float currentAttackRating){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_ATTACK_RATING_CHANGED, new {attackRating = currentAttackRating});
+		}
+
 		public float attackRatingSeed = 2f;
-		[SyncVar] 	public float criticalRating;
+		[SyncVar(hook="OnCriticalRatingChanged")] 	public float criticalRating;
+
+		void OnCriticalRatingChanged(float currentCriticalRating){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_CRITICAL_RATING_CHANGED, new {criticalRating = currentCriticalRating});	
+		}
+
 		public float criticalRatingSeed = 0.75f;
 
 		[Header("Intelligent")]
-		[SyncVar] 	public float intelligent = 1f;
+		[SyncVar(hook="OnIntelligentChanged")] 	public float intelligent = 1f;
+
+		void OnIntelligentChanged(float currentIntelligent){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_INTELLIGENT_CHANGED, new { intelligent = currentIntelligent });
+		}
+
 		[Header("Sub-intelligent")]
-		[SyncVar] 	public float magicAttack;
+		[SyncVar(hook="OnMagicAttackChanged")] 	public float magicAttack;
+
+		void OnMagicAttackChanged(float currentMagicAttack){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_MAGIC_ATTACK_CHANGED, new { magicAttack = currentMagicAttack });
+		}
+
 		public float magicAttackSeed = 1.75f;
-		[SyncVar] 	public float magicResist;
+
+		[SyncVar(hook="OnMagicResistChanged")] 	public float magicResist;
+
+		void OnMagicResistChanged(float currentMagicResist){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_MAGIC_RESIST_CHANGED, new { magicResist = currentMagicResist });
+		}
+
 		public float magicResistSeed = 1.5f;
 
 		[Header("Vitality")]
-		[SyncVar] 	public float vitality = 1f;
+		[SyncVar(hook="OnVitalityChanged")] 	public float vitality = 1f;
+
+		void OnVitalityChanged(float currentVitality){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_VITALITY_CHANGED, new { vitality = currentVitality });	
+		}
+
 		[Header("Sub-vitality")]
-		[SyncVar]	public float maxHp;
+		[SyncVar(hook="OnMaxHpChanged")]	public float maxHp;
+		void OnMaxHpChanged(float currentMaxHp){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_MAX_HP_CHANGED, new { maxHp = currentMaxHp });
+		}
 		public float maxHpSeed = 3f;
-		[SyncVar]	public float regenerateHp;
+		[SyncVar(hook="OnRegenerateHpChanged")]	public float regenerateHp;
+		void OnRegenerateHpChanged(float currentRegenerateHp){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_REGENERATE_HP_CHANGED, new {regenerateHp = currentRegenerateHp});
+		}
 		public float regenerateHpSeed = 0.75f;
 
 		[Header("Luck")]
-		[SyncVar]	public float luck = 1f;
+		[SyncVar(hook="OnLuckChanged")]	public float luck = 1f;
+		void OnLuckChanged(float currentLuck){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_LUCK_CHANGED, new { luck = currentLuck });
+		}
 		[Header("Sub-luck")]
-		[SyncVar]	public float luckDice;
+		[SyncVar(hook="OnLuckDiceChanged")]	public float luckDice;
+		void OnLuckDiceChanged(float currentLuckDice){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_LUCK_DICE_CHANGED, new { luckDice = currentLuckDice });
+		}
 		public float luckDiceSeed = 1f;
-		[SyncVar]	public float luckReward;
+		[SyncVar(hook="OnLuckRewardChanged")]	public float luckReward;
+		void OnLuckRewardChanged(float currentLuckReward){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_LUCK_REWARD_CHANGED, new {luckReward = currentLuckReward});
+		}
 		public float luckRewardSeed = 1f;
 
 		[Header("Stat percent")]

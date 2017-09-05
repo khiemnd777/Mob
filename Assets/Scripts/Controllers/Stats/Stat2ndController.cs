@@ -18,15 +18,19 @@ namespace Mob
 		}
 
 		void Update(){
-			if (!NetworkHelper.instance.TryToConnect (() => {
+			if (!TryToConnect())
+				return;
+			
+			CreateItems ();
+		}
+
+		bool TryToConnect(){
+			return NetworkHelper.instance.TryToConnect (() => {
 				if (_character != null)
 					return true;
 				_character = Race.GetLocalCharacter ();
 				return false;
-			}))
-				return;
-			
-			CreateItems ();
+			});
 		}
 
 		bool isCreateItem;

@@ -1,23 +1,33 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Networking/BattlePlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Races/Shared/Gears/Sword.cs">
     <Files>
-      <File FileName="Assets/Scripts/Networking/BattlePlayer.cs" Line="49" Column="19" />
-      <File FileName="Assets/Scripts/Races/Race.cs" Line="33" Column="3" />
-      <File FileName="Assets/Scripts/Controllers/Characters/OpponentCharacter/OpponentCharacterController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Controllers/Attacks/AttackItem.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Modules/LevelModule.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Modules/SkillModule.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Constants.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/EventManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Utilities/NetworkUtility.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Races/Human/Swordman/Swordman.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Infrastructure/Networking/MobNetworkBehaviour.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Modules/GearModule.cs" Line="192" Column="18" />
+      <File FileName="Assets/Scripts/Controllers/Gears/GearController.cs" Line="47" Column="1" />
+      <File FileName="Assets/Scripts/Controllers/Gears/GearListUpgradeItem.cs" Line="26" Column="23" />
+      <File FileName="Assets/Scripts/Controllers/Gears/GearListBuyItem.cs" Line="26" Column="7" />
+      <File FileName="Assets/Scripts/Constants.cs" Line="42" Column="59" />
+      <File FileName="Assets/Scripts/UI/Shared/ScrollableList/ScrollableList.cs" Line="20" Column="1" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/Helm.cs" Line="67" Column="37" />
+      <File FileName="Assets/Scripts/Enums.cs" Line="7" Column="45" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/Sword.cs" Line="90" Column="36" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/GearBoughtItem.cs" Line="42" Column="27" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/GearItem.cs" Line="44" Column="1" />
+      <File FileName="Assets/Scripts/Races/Shared/Item.cs" Line="79" Column="16" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/Cloth.cs" Line="63" Column="29" />
+      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/SwordmanA1.cs" Line="118" Column="4" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/Armor.cs" Line="16" Column="34" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/Ring.cs" Line="86" Column="36" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/Staff.cs" Line="117" Column="9" />
+      <File FileName="Assets/Scripts/Infrastructure/Icon.cs" Line="20" Column="60" />
+      <File FileName="Assets/Scripts/Races/Shared/BoughtItem.cs" Line="58" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/kandy/Projects/Mob_Source/Assets/Scripts/Modules/SkillModule.cs" line="185" column="1" />
+      <Breakpoint file="/Users/kandy/Projects/Mob_Source/Assets/Scripts/Controllers/Gears/GearController.cs" line="47" column="1" />
+      <Breakpoint file="/Users/kandy/Projects/Mob_Source/Assets/Scripts/Modules/GearModule.cs" line="107" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

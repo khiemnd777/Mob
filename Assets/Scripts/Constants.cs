@@ -38,24 +38,46 @@ namespace Mob
 		public const string OPPONENT_CHARACTER = "OpponentCharacter";
 
 		// Event names
+		public const string EVENT_BOUGHT_GEAR = "gear-bought-fired";
+		public const string EVENT_UPGRADED_GEAR = "gear-upgraded-fired";
 		public const string EVENT_ITEM_BOUGHT_FIRED = "item_bought_fired";
 		public const string EVENT_ITEM_OVER_IN_BAG = "item_over_in_bag";
 		public const string EVENT_SKILL_LEARNED = "skill_learned";
 		public const string EVENT_TAB_CONTENT_FIRED = "fire-tab-content";
 		public const string EVENT_TAB_VIEW_INIT = "init-tab-view";
-		public const string EVENT_REFRESH_SYNC_SKILL = "refresh-sync-skill";
-		public const string EVENT_REFRESH_SYNC_AVAILABLE_SKILL = "refresh-sync-available-skill";
+		public const string EVENT_REFRESH_SYNC_SKILLS = "refresh-sync-skills";
+		public const string EVENT_REFRESH_SYNC_AVAILABLE_SKILLS = "refresh-sync-available-skills";
 		public const string EVENT_REFRESH_SYNC_LEVEL = "refresh-sync-level";
 		public const string EVENT_REFRESH_SYNC_UP_LEVEL = "refresh-sync-up-level";
 		public const string EVENT_REFRESH_SYNC_HP = "refresh-sync-hp";
 		public const string EVENT_REFRESH_SYNC_ENERGY = "refresh-sync-energy";
 		public const string EVENT_REFRESH_SYNC_GOLD = "refresh-sync-gold";
+		public const string EVENT_REFRESH_SYNC_GEARS_BY_TYPE = "refresh-sync-gears-by-type";
+		public const string EVENT_REFRESH_SYNC_AVAILABLE_GEARS_BY_TYPE = "refresh-sync-available-gears-by-type";
+		public const string EVENT_REFRESH_SYNC_GEARS = "refresh-sync-gears";
+		public const string EVENT_REFRESH_SYNC_AVAILABLE_GEARS = "refresh-sync-available-gears";
 		public const string EVENT_HP_SUBTRACTING_EFFECT = "hp-subtracting-effect";
 		public const string EVENT_HP_ADDING_EFFECT = "hp-adding-effect";
 		public const string EVENT_ENERGY_SUBTRACTING_EFFECT = "energy-subtracting-effect";
 		public const string EVENT_ENERGY_ADDING_EFFECT = "energy-adding-effect";
 		public const string EVENT_GOLD_SUBTRACTING_EFFECT = "gold-subtracting-effect";
 		public const string EVENT_GOLD_ADDING_EFFECT = "gold-adding-effect";
+		public const string EVENT_STAT_POINT_CHANGED = "stat-point-changed";
+		public const string EVENT_STAT_STRENGTH_CHANGED = "stat-strength-changed";
+		public const string EVENT_STAT_PHYSICAL_ATTACK_CHANGED = "stat-physical-attack-changed";
+		public const string EVENT_STAT_PHYSICAL_DEFEND_CHANGED = "stat-physical-defend-changed";
+		public const string EVENT_STAT_DEXTERITY_CHANGED = "stat-dexterity-changed";
+		public const string EVENT_STAT_ATTACK_RATING_CHANGED = "stat-attack-rating-changed";
+		public const string EVENT_STAT_CRITICAL_RATING_CHANGED = "stat-critical-rating-changed";
+		public const string EVENT_STAT_INTELLIGENT_CHANGED = "stat-intelligent-changed";
+		public const string EVENT_STAT_MAGIC_ATTACK_CHANGED = "stat-magic-attack-changed";
+		public const string EVENT_STAT_MAGIC_RESIST_CHANGED = "stat-magic-resist-changed";
+		public const string EVENT_STAT_VITALITY_CHANGED = "stat-vitality-changed";
+		public const string EVENT_STAT_MAX_HP_CHANGED = "stat-max-hp-changed";
+		public const string EVENT_STAT_REGENERATE_HP_CHANGED = "stat-regenerate-hp-changed";
+		public const string EVENT_STAT_LUCK_CHANGED = "stat-luck-changed";
+		public const string EVENT_STAT_LUCK_DICE_CHANGED = "stat-luck-dice-changed";
+		public const string EVENT_STAT_LUCK_REWARD_CHANGED = "stat-luck-reward-changed";
 	}
 }
 

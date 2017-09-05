@@ -57,6 +57,17 @@ namespace Mob
 			}
 		}
 
+		public override string GetSyncIcon ()
+		{
+			if (upgradeCount >= 0 && upgradeCount < 4) {
+				return icon.GetIconName("lvl1");
+			} else if (upgradeCount >= 4 && upgradeCount < 9) {
+				return icon.GetIconName("lvl5");
+			} else {
+				return icon.GetIconName("lvl10");
+			}
+		}
+
 		public override bool Use (Race[] targets)
 		{
 			if (Affect.HasAffect<Helm> (own))
@@ -117,6 +128,7 @@ namespace Mob
 				});
 				a.title = title;
 				a.brief = brief;
+				a.gearType = gearType;
 				a.upgradePrice = this.price;
 				who.GetModule<GearModule>(x => x.helm = a);
 			});
