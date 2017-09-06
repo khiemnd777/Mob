@@ -56,7 +56,7 @@ namespace Mob
 			}
 		}
 
-		public static void StopListening (string eventName, Action listener)
+		public static void StopListening (string eventName, Delegate listener)
 		{
 			if (eventManager == null) return;
 			Delegate thisEvent = null;
@@ -70,26 +70,33 @@ namespace Mob
 			Delegate thisEvent = null;
 			if (instance.eventDictionary.TryGetValue (eventName, out thisEvent))
 			{
-				var methodInfo = thisEvent.Method;
-				var target = thisEvent.Target;
-				if (args == null) {
-					methodInfo.Invoke (target, null);
-					return;
+				var invocataionList = thisEvent.GetInvocationList ();
+				foreach (var evt in invocataionList) {
+					var target = evt.Target;
+					if (target == null || (target is UnityEngine.Object) && (target.Equals (null))) {
+						StopListening (eventName, evt);
+					} else {
+						var methodInfo = evt.Method;
+						if (args == null) {
+							methodInfo.Invoke (target, null);
+							continue;
+						}
+						var paramList = methodInfo.GetParameters ();
+						var type = args.GetType ();
+						var __a = new object[paramList.Length];
+						for (int index = 0; index < paramList.Length; index++)
+						{
+							var parameter = paramList[index];
+							var name = parameter.Name;
+							// Get the value from obj
+							var property = type.GetProperty(name);
+							var value = property.GetValue(args, null);
+							__a[index] = value;
+						}
+						methodInfo.Invoke (target, __a);
+//						thisEvent.DynamicInvoke (__a);		
+					}
 				}
-				var paramList = methodInfo.GetParameters ();
-				var type = args.GetType ();
-				var __a = new object[paramList.Length];
-				for (int index = 0; index < paramList.Length; index++)
-				{
-					var parameter = paramList[index];
-					var name = parameter.Name;
-					// Get the value from obj
-					var property = type.GetProperty(name);
-					var value = property.GetValue(args, null);
-					__a[index] = value;
-				}
-				//methodInfo.Invoke (target, __a);
-				thisEvent.DynamicInvoke (__a);
 			}
 		}
 	}	

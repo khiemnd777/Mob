@@ -129,7 +129,9 @@ namespace Mob
 			if (artifact != null && !syncGear.Any (x => x.id == artifact.GetInstanceID ())) {
 				syncGear.Add (artifact.ToSyncGearItem ());
 			}
-
+			Affect.GetSubAffects<GearAffect> (_race, x => {
+				Debug.Log(x);
+			});
 			RpcRefreshSyncGear ();
 		}
 

@@ -38,6 +38,8 @@ namespace Mob
 
 	public class SwordItem: GearItem, ISelfUsable 
 	{
+		public float damage = 20f;
+
 		public override void Init ()
 		{
 			upgradePrice = 50f;
