@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\Controllers\Gears\GearController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\GearListBuyItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\GearListUpgradeItem.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Gears\GearStatController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\TouchOnGear.cs" />
      <Compile Include="Assets\Scripts\Controllers\Shops\ShopAvailableItems.cs" />
      <Compile Include="Assets\Scripts\Controllers\Shops\ShopController.cs" />

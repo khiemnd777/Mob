@@ -6,8 +6,8 @@ namespace Mob
 {
 	public class Ring : GearAffect
 	{
-		float[] upPoints = new float[]{ 1f, 3f, 6f };
-		float[] upGainPoints = new float[]{ 6f, 8f, 12f };
+		float[] upPoints = new float[] { 1f, 3f, 6f };
+		float[] upGainPoints = new float[] { 6f, 8f, 12f };
 
 		public override void Init ()
 		{
@@ -49,13 +49,13 @@ namespace Mob
 		}
 
 		void SubtractAllStats(){
-			var subtractPoint = upPoints[upgradeCount];
+			point = upPoints[upgradeCount];
 			own.GetModule<StatModule> (x => {
-				x.strength -= subtractPoint;
-				x.dexterity -= subtractPoint;
-				x.intelligent -= subtractPoint;
-				x.vitality -= subtractPoint;
-				x.luck -= subtractPoint;
+				x.strength -= point;
+				x.dexterity -= point;
+				x.intelligent -= point;
+				x.vitality -= point;
+				x.luck -= point;
 			});
 		}
 

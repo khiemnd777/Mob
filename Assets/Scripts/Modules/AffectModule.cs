@@ -49,7 +49,8 @@ namespace Mob
 			if (_affects == null)
 				return null;
 			var result = _affects
-				.Where (x => typeof(T).IsAssignableFrom (x.GetType ()))
+				.Where (x => typeof(T).IsAssignableFrom (x.GetType ())
+					&& !(x == null ||  x is UnityEngine.Object && x.Equals(null)))
 				.Cast<T> ()
 				.ToArray();
 			if (result.Length > 0 && predicate != null) {

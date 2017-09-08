@@ -20,12 +20,31 @@ namespace Mob
 		public GearItem ring;
 		public GearItem artifact;
 
-		public override void Init ()
-		{
-			
+		public float GetStat(string name) {
+			var val = .0f;
+			Affect.GetSubAffects<GearAffect> (_race, x => {
+				
+				var fi = x.GetType().GetField(name);
+				if(fi != null){
+					var v = fi.GetValue(x);
+					val += (float) System.Convert.ChangeType(v, typeof(float));
+				}
+			});
+			return val;
 		}
 
-		public void AddAvailableGear<T>(Action<T> predicate = null) where T: GearBoughtItem{
+		[Command]
+		public void CmdGetStat(string name){
+			var statVal = GetStat (name);
+			RpcReturnStatValue (name, statVal);
+		}
+
+		[ClientRpc]
+		void RpcReturnStatValue(string name, float statVal){
+			EventManager.TriggerEvent (Constants.EVENT_RETURN_STAT_VALUE, new { name = name, statVal = statVal });
+		}
+
+		public void AddAvailableGear<T>(Action<T> predicate = null) where T: GearBoughtItem {
 			if (!availableGears.Any (x => x.GetType().IsEqual<T> ())) {
 				availableGears.Add (GearBoughtItem.CreatePrimitiveWithOwn<T> (_race, predicate));
 				RefreshSyncAvailableGears ();
@@ -129,15 +148,20 @@ namespace Mob
 			if (artifact != null && !syncGear.Any (x => x.id == artifact.GetInstanceID ())) {
 				syncGear.Add (artifact.ToSyncGearItem ());
 			}
-			Affect.GetSubAffects<GearAffect> (_race, x => {
-				Debug.Log(x);
-			});
+
+			RpcReturnStatValue ("damage", GetStat ("damage"));
+			RpcReturnStatValue ("magicAttack", GetStat ("magicAttack"));
+			RpcReturnStatValue ("defend", GetStat ("defend"));
+			RpcReturnStatValue ("magicResist", GetStat ("magicResist"));
+			RpcReturnStatValue ("hp", GetStat ("hp"));
+			RpcReturnStatValue ("point", GetStat ("point"));
+
 			RpcRefreshSyncGear ();
 		}
 
 		[ClientRpc]
 		void RpcRefreshSyncGear(){
-			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_GEARS);	
+			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_GEARS);
 		}
 
 		void RefreshSyncAvailableGears(){

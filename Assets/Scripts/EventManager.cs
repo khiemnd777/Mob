@@ -94,7 +94,8 @@ namespace Mob
 							__a[index] = value;
 						}
 						methodInfo.Invoke (target, __a);
-//						thisEvent.DynamicInvoke (__a);		
+						// I think Invoke is better than DynamicInvoke about performance
+//						thisEvent.DynamicInvoke (__a);
 					}
 				}
 			}

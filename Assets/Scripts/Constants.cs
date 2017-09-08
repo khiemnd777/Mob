@@ -45,6 +45,8 @@ namespace Mob
 		public const string EVENT_SKILL_LEARNED = "skill_learned";
 		public const string EVENT_TAB_CONTENT_FIRED = "fire-tab-content";
 		public const string EVENT_TAB_VIEW_INIT = "init-tab-view";
+		public const string EVENT_RETURN_STAT_VALUE = "return-stat-value";
+		public const string EVENT_REFRESH_GEAR_STAT = "refresh-gear-stat";
 		public const string EVENT_REFRESH_SYNC_SKILLS = "refresh-sync-skills";
 		public const string EVENT_REFRESH_SYNC_AVAILABLE_SKILLS = "refresh-sync-available-skills";
 		public const string EVENT_REFRESH_SYNC_LEVEL = "refresh-sync-level";
