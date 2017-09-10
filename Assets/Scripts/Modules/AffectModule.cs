@@ -36,7 +36,8 @@ namespace Mob
 
 		public T[] GetAffects<T>(Action<T> predicate = null) where T: Affect{
 			T[] result = _affects
-				.Where(x => x.GetType().IsEqual<T>())
+				.Where(x => x.GetType().IsEqual<T>()
+					&& !x.IsNull())
 				.Cast<T>()
 				.ToArray();
 			foreach (var r in result) {
@@ -50,7 +51,7 @@ namespace Mob
 				return null;
 			var result = _affects
 				.Where (x => typeof(T).IsAssignableFrom (x.GetType ())
-					&& !(x == null ||  x is UnityEngine.Object && x.Equals(null)))
+					&& !x.IsNull())
 				.Cast<T> ()
 				.ToArray();
 			if (result.Length > 0 && predicate != null) {

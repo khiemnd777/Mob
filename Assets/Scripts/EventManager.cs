@@ -73,7 +73,7 @@ namespace Mob
 				var invocataionList = thisEvent.GetInvocationList ();
 				foreach (var evt in invocataionList) {
 					var target = evt.Target;
-					if (target == null || (target is UnityEngine.Object) && (target.Equals (null))) {
+					if (target.IsNull()) {
 						StopListening (eventName, evt);
 					} else {
 						var methodInfo = evt.Method;

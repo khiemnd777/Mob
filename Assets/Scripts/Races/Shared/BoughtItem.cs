@@ -122,7 +122,7 @@ namespace Mob
 				brief = this.brief,
 				icon = GetSyncIcon (),
 				id = GetInstanceID(),
-				ownId = this.own.GetInstanceID(),
+				ownId = this.own.IsNull() ? default(int) : this.own.GetInstanceID(),
 				price = this.price,
 				quantity = this.quantity,
 				title = this.title,

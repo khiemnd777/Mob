@@ -33,6 +33,11 @@ namespace Mob
 			return true;
 		}
 
+		public override string GetSyncIcon ()
+		{
+			return icon.prefabs.ContainsKey ("default") ? icon.prefabs ["default"] : icon.prefabs ["none"];
+		}
+
 		protected override bool Interact ()
 		{
 			return EnoughEnergy () && EnoughLevel () && EnoughCooldown ();
@@ -51,6 +56,11 @@ namespace Mob
 
 			icon.prefabs.Add ("none", "Sprites/icon");
 			icon.prefabs.Add ("default", "Sprites/items => potion");
+		}
+
+		public override string GetSyncIcon ()
+		{
+			return icon.prefabs.ContainsKey ("default") ? icon.prefabs ["default"] : icon.prefabs ["none"];
 		}
 
 		public override void Buy (Race who, float price, int quantity)

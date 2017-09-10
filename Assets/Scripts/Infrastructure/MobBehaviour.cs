@@ -14,8 +14,8 @@ namespace Mob
 
 		List<PluginHandler> plugins = new List<PluginHandler> ();
 
-		public bool visible { get { return _visible; } }
 		bool _visible = true;
+		public bool visible { get { return _visible; } }
 		public bool interactable { get; private set; }
 
 		protected virtual bool Interact(){

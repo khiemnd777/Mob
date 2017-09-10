@@ -46,6 +46,8 @@ namespace Mob
 
 			GetModule<AffectModule> ();
 
+			GetModule<ShopModule> (x => x.Init ());
+
 			GetModule<StatModule> ((stat) => {
 				stat.strengthPercent = 25f;
 				stat.dexterityPercent = 15f;
@@ -94,6 +96,7 @@ namespace Mob
 
 			// Inventory is used to store the items
 			GetModule<BagModule> (inventory => {
+				inventory.Init();
 //				inventory.Add<SpeedyItem>(99);
 //				inventory.Add<PotionItem>(99);
 //				inventory.Add<GreatPotionItem>(99);

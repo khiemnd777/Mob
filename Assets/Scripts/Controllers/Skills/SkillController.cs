@@ -32,7 +32,6 @@ namespace Mob
 				return;
 
 			CreateItems ();
-//			RefreshItems ();
 		}
 
 		bool isCreateItems;

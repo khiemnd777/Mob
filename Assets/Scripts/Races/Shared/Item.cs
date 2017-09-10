@@ -15,6 +15,7 @@ namespace Mob
 		public int[] targetId;
 		public uint[] targetNetIds;
 		public string title;
+		public int quantity;
 		public string brief;
 		public float energy;
 		public float gainPoint;
@@ -166,6 +167,7 @@ namespace Mob
 				usedTurn = this.usedTurn,
 				usedNumber = this.usedNumber,
 				cooldownable = this.cooldownable,
+				quantity = this.quantity,
 				visible = this.visible
 			};
 		}

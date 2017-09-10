@@ -34,6 +34,11 @@ namespace Mob
 			return true;
 		}
 
+		public override string GetSyncIcon ()
+		{
+			return icon.prefabs.ContainsKey ("default") ? icon.prefabs ["default"] : icon.prefabs ["none"];
+		}
+
 		protected override bool Interact ()
 		{
 			return !Affect.HasAffect<BurstStrength> (own) && EnoughEnergy () && EnoughLevel () && EnoughCooldown ();
@@ -49,6 +54,11 @@ namespace Mob
 
 			icon.prefabs.Add ("none", "Sprites/icon");
 			icon.prefabs.Add ("default", "Sprites/items => burst_strength");
+		}
+
+		public override string GetSyncIcon ()
+		{
+			return icon.prefabs.ContainsKey ("default") ? icon.prefabs ["default"] : icon.prefabs ["none"];
 		}
 
 		public override void Buy (Race who, float price, int quantity)

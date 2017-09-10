@@ -38,6 +38,7 @@ namespace Mob
 		public const string OPPONENT_CHARACTER = "OpponentCharacter";
 
 		// Event names
+		public const string EVENT_BOUGHT_ITEM_FROM_SHOP = "shop-bought-fired";
 		public const string EVENT_BOUGHT_GEAR = "gear-bought-fired";
 		public const string EVENT_UPGRADED_GEAR = "gear-upgraded-fired";
 		public const string EVENT_ITEM_BOUGHT_FIRED = "item_bought_fired";
@@ -58,6 +59,8 @@ namespace Mob
 		public const string EVENT_REFRESH_SYNC_AVAILABLE_GEARS_BY_TYPE = "refresh-sync-available-gears-by-type";
 		public const string EVENT_REFRESH_SYNC_GEARS = "refresh-sync-gears";
 		public const string EVENT_REFRESH_SYNC_AVAILABLE_GEARS = "refresh-sync-available-gears";
+		public const string EVENT_REFRESH_SYNC_SHOP_ITEMS = "refresh-sync-shop-items";
+		public const string EVENT_REFRESH_SYNC_BAG_ITEMS = "refres-sync-bag-items";
 		public const string EVENT_HP_SUBTRACTING_EFFECT = "hp-subtracting-effect";
 		public const string EVENT_HP_ADDING_EFFECT = "hp-adding-effect";
 		public const string EVENT_ENERGY_SUBTRACTING_EFFECT = "energy-subtracting-effect";
