@@ -232,7 +232,7 @@ namespace Mob
 				{
 					++strength;
 					++logPoint;
-					physicalAttack = strength * physicalAttackSeed; 
+					physicalAttack += strength * physicalAttackSeed; 
 					physicalDefend = strength * physicalDefendSeed;
 					point = Mathf.Max(0, point - 1);
 				}

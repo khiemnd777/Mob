@@ -43,16 +43,19 @@ namespace Mob
 		public void Scale(){
 			if (GetItems ().Length == 0)
 				return;
+			var spacing = _grid.spacing;
 			switch (scalableType) {
 			default:
 			case ScalableGridType.Both:
-				_grid.cellSize = new Vector2 (parent.rect.width / row, parent.rect.height / column);
+				_grid.cellSize = new Vector2 (parent.rect.width / column - spacing.x, parent.rect.height / row - spacing.y);
 				break;
 			case ScalableGridType.Width:
-				_grid.cellSize = new Vector2 (parent.rect.width / row, parent.rect.width / row);
+				_grid.cellSize.Set (parent.rect.width / column, 0f);
+//				_grid.cellSize = new Vector2 (parent.rect.width / column - spacing.x, );
 				break;
 			case ScalableGridType.Height:
-				_grid.cellSize = new Vector2 (parent.rect.height / column, parent.rect.height / column);
+				_grid.cellSize.Set (0f, parent.rect.height / row - spacing.y);
+//				_grid.cellSize = new Vector2 (_grid.cellSize.x - spacing.x, parent.rect.height / row - spacing.y);
 				break;
 			}
 			_rect.SetHeight(_grid.preferredHeight);

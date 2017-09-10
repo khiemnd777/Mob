@@ -37,22 +37,6 @@ namespace Mob
 			});
 		}
 
-//		void Prepare(string t){
-//			var itemUIs = gridView.GetItems ().Select (x => x.GetComponent<BagItem> ()).ToArray();
-//			foreach (var item in itemUIs) {
-//				if (!_bagModule.items.Any (x => item.item.Equals (x))) {
-//					DestroyImmediate (item.gameObject);
-//				}
-//			}
-//			foreach (var item in _bagModule.syncItems) {
-//				if(!itemUIs.Any(x => item.Equals(x.item))){
-//					var ui = Instantiate<BagItem> (bagItemResource, gridView.transform);
-//					ui.item = item;	
-//					continue;
-//				}
-//			}
-//		}
-
 		void RefreshItems(){
 			var itemUIs = gridView.GetItems ().Select (x => x.GetComponent<BagItem> ()).ToArray();
 			foreach (var item in itemUIs) {

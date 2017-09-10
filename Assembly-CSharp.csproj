@@ -72,8 +72,12 @@
      <Compile Include="Assets\Scripts\Controllers\Skills\SkillController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Skills\SkillItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\Stat2ndController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Stats\Stat2ndHController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Stats\Stat2ndHListItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\Stat2ndListItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\StatController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Stats\StatHController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Stats\StatHListItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\StatListItem.cs" />
      <Compile Include="Assets\Scripts\Enums.cs" />
      <Compile Include="Assets\Scripts\EventManager.cs" />

@@ -1,18 +1,22 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Modules/AffectModule.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Modules/StatModule.cs">
     <Files>
-      <File FileName="Assets/Scripts/Controllers/Gears/GearStatController.cs" Line="28" Column="19" />
-      <File FileName="Assets/Scripts/EventManager.cs" Line="9" Column="2" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/Helm.cs" Line="7" Column="2" NotebookId="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/Armor.cs" Line="1" Column="1" NotebookId="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/Sword.cs" Line="8" Column="3" NotebookId="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/Staff.cs" Line="15" Column="3" NotebookId="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/Cloth.cs" Line="1" Column="1" NotebookId="1" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/Ring.cs" Line="15" Column="4" NotebookId="1" />
-      <File FileName="Assets/Scripts/Modules/GearModule.cs" Line="25" Column="19" NotebookId="1" />
-      <File FileName="Assets/Scripts/Races/Affect.cs" Line="134" Column="18" NotebookId="1" />
-      <File FileName="Assets/Scripts/Modules/AffectModule.cs" Line="53" Column="67" NotebookId="1" />
+      <File FileName="Assets/Scripts/Controllers/Stats/Stat2ndHController.cs" Line="59" Column="33" />
+      <File FileName="Assets/Scripts/Controllers/Stats/StatHController.cs" Line="11" Column="26" />
+      <File FileName="Assets/Scripts/Controllers/Bags/BagController.cs" Line="12" Column="26" />
+      <File FileName="Assets/Scripts/Controllers/Stats/StatHListItem.cs" Line="63" Column="32" />
+      <File FileName="Assets/Scripts/UI/Shared/GridView/ScalableGridView.cs" Line="57" Column="27" />
+      <File FileName="Assets/Scripts/Controllers/Gears/GearController.cs" Line="126" Column="4" />
+      <File FileName="Assets/Scripts/EventManager.cs" Line="74" Column="13" />
+      <File FileName="Assets/Scripts/Modules/StatModule.cs" Line="168" Column="21" />
+      <File FileName="Assets/Scripts/Races/Human/Swordman/Swordman.cs" Line="65" Column="1" />
+      <File FileName="Assets/Scripts/Networking/BattlePlayer.cs" Line="39" Column="1" />
+      <File FileName="Assets/Scripts/Races/Race.cs" Line="37" Column="1" />
+      <File FileName="Assets/Scripts/Controllers/Stats/Stat2ndHListItem.cs" Line="107" Column="50" />
+      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/SwordmanA1.cs" Line="16" Column="24" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/Sword.cs" Line="26" Column="15" />
+      <File FileName="Assets/Scripts/Utilities/CalculatorUtility.cs" Line="8" Column="73" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

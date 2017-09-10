@@ -70,6 +70,8 @@ namespace Mob
 			Delegate thisEvent = null;
 			if (instance.eventDictionary.TryGetValue (eventName, out thisEvent))
 			{
+				if (thisEvent.IsNull ())
+					return;
 				var invocataionList = thisEvent.GetInvocationList ();
 				foreach (var evt in invocataionList) {
 					var target = evt.Target;
