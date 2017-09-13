@@ -15,7 +15,10 @@ namespace Mob
 
 		public override void Execute ()
 		{
-			own.GetModule<StatModule> (x => x.magicAttack = CalculatorUtility.AddExtraValueByPercent(x.magicAttack, magicAttack, .2f, upgradeCount));
+			own.GetModule<StatModule> (x => {
+				x.extraMagicAttack = CalculatorUtility.AddExtraValueByPercent(x.extraMagicAttack, magicAttack, .2f, upgradeCount);
+				x.Calculate2ndPoint(StatType.Intelligent);
+			});
 		}
 
 		public override bool Upgrade ()
@@ -31,7 +34,10 @@ namespace Mob
 
 		public override void Disuse ()
 		{
-			own.GetModule<StatModule> (x => x.magicAttack -= magicAttack);	
+			own.GetModule<StatModule> (x => {
+				x.extraMagicAttack -= magicAttack;
+				x.Calculate2ndPoint(StatType.Intelligent);
+			});	
 			DestroyImmediate (gameObject);
 		}
 	}

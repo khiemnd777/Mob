@@ -15,7 +15,10 @@ namespace Mob
 
 		public override void Execute ()
 		{
-			own.GetModule<StatModule> (x => x.physicalAttack = CalculatorUtility.AddExtraValueByPercent(x.physicalAttack, damage, .2f, upgradeCount));
+			own.GetModule<StatModule> (x => {
+				x.extraPhysicalAttack = CalculatorUtility.AddExtraValueByPercent(x.extraPhysicalAttack, damage, .2f, upgradeCount);
+				x.Calculate2ndPoint(StatType.Strength);
+			});
 		}
 
 		public override bool Upgrade ()
@@ -31,15 +34,16 @@ namespace Mob
 
 		public override void Disuse ()
 		{
-			own.GetModule<StatModule> (x => x.physicalAttack -= damage);
+			own.GetModule<StatModule> (x => {
+				x.extraPhysicalAttack -= damage;
+				x.Calculate2ndPoint(StatType.Strength);
+			});
 			DestroyImmediate (gameObject);
 		}
 	}
 
 	public class SwordItem: GearItem, ISelfUsable 
 	{
-		public float damage = 20f;
-
 		public override void Init ()
 		{
 			upgradePrice = 50f;

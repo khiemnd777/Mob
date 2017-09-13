@@ -1,22 +1,39 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Modules/StatModule.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Races/Shared/Gears/GearUpgradedItems.cs">
     <Files>
-      <File FileName="Assets/Scripts/Controllers/Stats/Stat2ndHController.cs" Line="59" Column="33" />
-      <File FileName="Assets/Scripts/Controllers/Stats/StatHController.cs" Line="11" Column="26" />
-      <File FileName="Assets/Scripts/Controllers/Bags/BagController.cs" Line="12" Column="26" />
-      <File FileName="Assets/Scripts/Controllers/Stats/StatHListItem.cs" Line="63" Column="32" />
-      <File FileName="Assets/Scripts/UI/Shared/GridView/ScalableGridView.cs" Line="57" Column="27" />
-      <File FileName="Assets/Scripts/Controllers/Gears/GearController.cs" Line="126" Column="4" />
-      <File FileName="Assets/Scripts/EventManager.cs" Line="74" Column="13" />
-      <File FileName="Assets/Scripts/Modules/StatModule.cs" Line="168" Column="21" />
-      <File FileName="Assets/Scripts/Races/Human/Swordman/Swordman.cs" Line="65" Column="1" />
-      <File FileName="Assets/Scripts/Networking/BattlePlayer.cs" Line="39" Column="1" />
-      <File FileName="Assets/Scripts/Races/Race.cs" Line="37" Column="1" />
-      <File FileName="Assets/Scripts/Controllers/Stats/Stat2ndHListItem.cs" Line="107" Column="50" />
-      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/SwordmanA1.cs" Line="16" Column="24" />
-      <File FileName="Assets/Scripts/Races/Shared/Gears/Sword.cs" Line="26" Column="15" />
-      <File FileName="Assets/Scripts/Utilities/CalculatorUtility.cs" Line="8" Column="73" />
+      <File FileName="Assets/Scripts/Modules/StatModule.cs" Line="351" Column="1" />
+      <File FileName="Assets/Scripts/Controllers/Gears/GearController.cs" Line="137" Column="1" />
+      <File FileName="Assets/Scripts/Controllers/Gears/TouchOnGear.cs" Line="26" Column="12" />
+      <File FileName="Assets/Scripts/Infrastructure/MobBehaviour.cs" Line="12" Column="20" />
+      <File FileName="Assets/Scripts/Races/Shared/BoughtItem.cs" Line="111" Column="19" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/AddDamageChange.cs" Line="72" Column="26" />
+      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/SwordmanA1.cs" Line="11" Column="2" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/Potion.cs" Line="79" Column="23" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/AddCriticalChance.cs" Line="61" Column="2" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/AddDefendChance.cs" Line="73" Column="26" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/AddDexterityPoint.cs" Line="67" Column="26" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/AddHpChance.cs" Line="7" Column="2" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/AddIntelligentPoint.cs" Line="67" Column="12" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/AddLuckPoint.cs" Line="67" Column="14" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/AddMagicChance.cs" Line="72" Column="9" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/AddMagicResistChance.cs" Line="69" Column="10" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/AddStrengthPoint.cs" Line="67" Column="10" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/AddVitalityPoint.cs" Line="69" Column="21" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/Sword.cs" Line="100" Column="31" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/Speedy.cs" Line="86" Column="23" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/Antidote.cs" Line="71" Column="23" />
+      <File FileName="Assets/Scripts/Races/Shared/Items/GreatPotion.cs" Line="83" Column="19" />
+      <File FileName="Assets/Scripts/Races/Human/Swordman/Skills/SwordmanD1.cs" Line="10" Column="2" />
+      <File FileName="Assets/Scripts/Races/Human/Swordman/Swordman.cs" Line="39" Column="4" />
+      <File FileName="Assets/Scripts/Races/StatCalculator.cs" Line="7" Column="2" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/Armor.cs" Line="93" Column="8" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/GearItem.cs" Line="66" Column="62" />
+      <File FileName="Assets/Scripts/Races/Shared/Gears/GearUpgradedItems.cs" Line="29" Column="49" />
+      <File FileName="Assets/Scripts/Races/Affect.cs" Line="170" Column="1" />
+      <File FileName="Assets/Scripts/Races/Shared/Item.cs" Line="207" Column="1" />
+      <File FileName="Assets/Scripts/Extensions/ActionExtensions.cs" Line="11" Column="1" />
+      <File FileName="Assets/Scripts/Races/Race.cs" Line="40" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

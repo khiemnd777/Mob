@@ -11,7 +11,8 @@ namespace Mob
 			});
 
 			own.GetModule<StatModule> (x => {
-				x.regenerateHp += 5f;
+				x.extraRegenerateHp += 5f;
+				x.Calculate2ndPoint(StatType.Vitality);
 			});
 		}
 
@@ -22,7 +23,8 @@ namespace Mob
 			});
 
 			own.GetModule<StatModule> (x => {
-				x.regenerateHp -= 5f;
+				x.extraRegenerateHp -= 5f;
+				x.Calculate2ndPoint(StatType.Vitality);
 			});
 		}
 
@@ -35,7 +37,7 @@ namespace Mob
 				own.GetModule<HealthPowerModule>(x => {
 					if(Mathf.Clamp(x.hp, x.maxHp * .3f, x.maxHp) == x.maxHp * .3f){
 						own.GetModule<StatModule> (s => {
-							s.regenerateHp *= 2f;
+							s.extraRegenerateHp *= 2f;
 						});
 						isRegenHp = true;
 					}

@@ -27,12 +27,18 @@ namespace Mob
 
 		public override void Execute ()
 		{
-			own.GetModule<StatModule> (x => x.physicalAttack += 50f);
+			own.GetModule<StatModule> (x => {
+				x.extraPhysicalAttack += 50f;
+				x.Calculate2ndPoint(StatType.Strength);
+			});
 		}
 
 		public override void Disuse ()
 		{
-			own.GetModule<StatModule> (x => x.physicalAttack -= 50f);
+			own.GetModule<StatModule> (x => {
+				x.extraPhysicalAttack -= 50f;
+				x.Calculate2ndPoint(StatType.Strength);
+			});
 		}
 	}
 

@@ -16,6 +16,7 @@ namespace Mob
 
 		public override void Init ()
 		{
+			timeToDestroy = 0f;
 			AddPlugin (Effect.CreatePrimitive<AddCriticalChanceEffect> (this, own, targets));
 		}
 
@@ -73,10 +74,10 @@ namespace Mob
 
 		public override void BuyAndUseImmediately (Race who, Race[] targets, float price = 0)
 		{
-			timeToDestroy = 1f;
 			BuyAndUseImmediately<AddCriticalChangeItem> (who, targets, price, x => {
+//				timeToDestroy = 5f;
 				x.chance = chance;
-				x.timeToDestroy = 0f;
+				x.timeToDestroy = 2f;
 			});
 		}
 	}

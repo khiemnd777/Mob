@@ -9,8 +9,10 @@ namespace Mob
 		void Start(){
 			timeToDestroy = 0f;
 			own.GetModule<StatModule>(x => {
-				x.physicalDefend += x.physicalDefend * .2f;
-				x.magicResist += x.magicResist * .2f;
+				x.extraPhysicalDefend *= 1.2f;
+				x.extraMagicResist *= 1.2f;
+				x.Calculate2ndPoint(StatType.Strength);
+				x.Calculate2ndPoint(StatType.Intelligent);
 			});
 		}
 	}

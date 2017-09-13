@@ -76,8 +76,8 @@ namespace Mob
 
 		public override void BuyAndUseImmediately (Race who, Race[] targets, float price = 0)
 		{
+			timeToDestroy = 5f;
 			BuyAndUseImmediately<PotionItem> (who, targets, price, x => {
-				timeToDestroy = 5f;
 				x.title = title;
 				x.extraHp = extraHp;
 				x.timeToDestroy = 2f;

@@ -35,16 +35,20 @@ namespace Mob
 		public override void Execute ()
 		{
 			own.GetModule<StatModule> (x => {
-				x.magicAttack += 50f;
+				x.extraMagicAttack += 50f;
 				x.luck += 10f;
+				x.Calculate2ndPoint(StatType.Intelligent);
+				x.Calculate2ndPoint(StatType.Luck);
 			});
 		}
 
 		public override void Disuse ()
 		{
 			own.GetModule<StatModule> (x => {
-				x.magicAttack -= 50f;
+				x.extraMagicAttack -= 50f;
 				x.luck -= 10f;
+				x.Calculate2ndPoint(StatType.Intelligent);
+				x.Calculate2ndPoint(StatType.Luck);
 			});
 		}
 	}

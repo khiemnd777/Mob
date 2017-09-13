@@ -15,7 +15,10 @@ namespace Mob
 
 		public override void Execute ()
 		{
-			own.GetModule<StatModule> (x => x.physicalDefend = CalculatorUtility.AddExtraValueByPercent(x.physicalDefend, defend, .2f, upgradeCount));
+			own.GetModule<StatModule> (x => {
+				x.extraPhysicalDefend = CalculatorUtility.AddExtraValueByPercent(x.extraPhysicalDefend, defend, .2f, upgradeCount);
+				x.Calculate2ndPoint(StatType.Strength);
+			});
 		}
 
 		public override bool Upgrade ()
@@ -31,7 +34,10 @@ namespace Mob
 
 		public override void Disuse ()
 		{
-			own.GetModule<StatModule> (x => x.physicalDefend -= defend);
+			own.GetModule<StatModule> (x => {
+				x.extraPhysicalDefend -= defend;
+				x.Calculate2ndPoint(StatType.Strength);
+			});
 			DestroyImmediate (gameObject);
 		}
 	}

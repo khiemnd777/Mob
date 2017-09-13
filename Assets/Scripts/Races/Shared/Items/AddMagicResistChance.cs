@@ -16,7 +16,7 @@ namespace Mob
 
 		public override void Execute ()
 		{
-			own.GetModule<StatModule> (x => x.magicResist *= (1f + chance));
+			own.GetModule<StatModule> (x => x.extraMagicResist *= (1f + chance));
 		}
 	}
 
@@ -65,8 +65,8 @@ namespace Mob
 
 		public override void BuyAndUseImmediately (Race who, Race[] targets, float price = 0)
 		{
-			timeToDestroy = 5f;
 			BuyAndUseImmediately<AddMagicResistChanceItem> (who, targets, price, x => {
+//				timeToDestroy = 5f;
 				x.chance = chance;
 				x.timeToDestroy = 2f;
 			});

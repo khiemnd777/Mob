@@ -102,8 +102,8 @@ namespace Mob
 
 		public bool EnoughGold(Race who, float price = 0f, int quantity = 1, Action predicate = null){
 			var enough = false;
-			var p = price <= 0f ? this.upgradePrice : price;
-			var q = quantity <= 0 ? this.quantity : quantity;
+			var p = price < 0f ? this.upgradePrice : price;
+			var q = quantity < 0 ? this.quantity : quantity;
 
 			who.GetModule<GoldModule> ((g) => {
 				enough = g.gold >= p * q;

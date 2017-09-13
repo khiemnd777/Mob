@@ -63,8 +63,8 @@ namespace Mob
 
 		public override void BuyAndUseImmediately (Race who, Race[] targets, float price = 0)
 		{
-			timeToDestroy = 5f;
 			BuyAndUseImmediately<AddDexterityPointItem> (who, targets, price, x => {
+//				timeToDestroy = 5f;
 				x.point = point;
 				x.title = title;
 				x.timeToDestroy = 2f;

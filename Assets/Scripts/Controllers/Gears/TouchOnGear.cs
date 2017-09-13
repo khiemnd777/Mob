@@ -40,6 +40,8 @@ namespace Mob
 		}
 
 		void Act(){
+			if (!TryToConnect ())
+				return;
 			gearController.FilterItemsByType (gearType);
 		}
 	}	
