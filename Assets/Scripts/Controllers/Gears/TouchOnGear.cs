@@ -18,7 +18,7 @@ namespace Mob
 		void Start(){
 			_btn = GetComponent<Button> ();
 			_btn.onClick.AddListener (() => {
-				Act();	
+				Act();
 			});
 		}
 
@@ -43,6 +43,7 @@ namespace Mob
 			if (!TryToConnect ())
 				return;
 			gearController.FilterItemsByType (gearType);
+			EventManager.TriggerEvent ("gear-item-selected");
 		}
 	}	
 }

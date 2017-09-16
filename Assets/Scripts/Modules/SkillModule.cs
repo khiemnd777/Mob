@@ -156,6 +156,12 @@ namespace Mob
 
 			RefreshSyncAvailableSkills ();
 			RefeshSyncSkills ();
+			RpcPickedCallback ();
+		}
+
+		[ClientRpc]
+		void RpcPickedCallback(){
+			EventManager.TriggerEvent (Constants.EVENT_SKILL_PICKED);
 		}
 
 		[Command]

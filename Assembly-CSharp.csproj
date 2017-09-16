@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\Controllers\Gears\GearStatController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\TouchOnGear.cs" />
      <Compile Include="Assets\Scripts\Controllers\LeftPanelController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\PlayerActionPanel.cs" />
      <Compile Include="Assets\Scripts\Controllers\Shops\AvailableItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Shops\ShopController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Shops\ShopItem.cs" />
@@ -85,6 +86,7 @@
      <Compile Include="Assets\Scripts\Extensions\ActionExtensions.cs" />
      <Compile Include="Assets\Scripts\Extensions\ObjectExtensions.cs" />
      <Compile Include="Assets\Scripts\Extensions\RectTransformExtension.cs" />
+     <Compile Include="Assets\Scripts\Extensions\TransformExtensions.cs" />
      <Compile Include="Assets\Scripts\Extensions\TypeExtensions.cs" />
      <Compile Include="Assets\Scripts\FeatureExperiment.cs" />
      <Compile Include="Assets\Scripts\GameStarting.cs" />

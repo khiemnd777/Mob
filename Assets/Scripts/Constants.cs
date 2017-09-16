@@ -43,7 +43,8 @@ namespace Mob
 		public const string EVENT_UPGRADED_GEAR = "gear-upgraded-fired";
 		public const string EVENT_ITEM_BOUGHT_FIRED = "item_bought_fired";
 		public const string EVENT_ITEM_OVER_IN_BAG = "item_over_in_bag";
-		public const string EVENT_SKILL_LEARNED = "skill_learned";
+		public const string EVENT_SKILL_PICKED = "skill-picked";
+		public const string EVENT_SKILL_LEARNED = "skill-learned";
 		public const string EVENT_TAB_CONTENT_FIRED = "fire-tab-content";
 		public const string EVENT_TAB_VIEW_INIT = "init-tab-view";
 		public const string EVENT_RETURN_STAT_VALUE = "return-stat-value";
