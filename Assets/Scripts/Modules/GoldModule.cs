@@ -58,7 +58,7 @@ namespace Mob
 		}
 
 		void OnChangeGold(float currentGold){
-			EventManager.TriggerEvent(Constants.EVENT_REFRESH_SYNC_GOLD, new { gold = currentGold });
+			EventManager.TriggerEvent(Constants.EVENT_REFRESH_SYNC_GOLD, new { gold = currentGold, ownNetId = _race.netId.Value });
 		}
 	}
 }

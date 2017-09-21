@@ -62,7 +62,7 @@ namespace Mob
 
 		[ClientRpc]
 		void RpcRefreshSyncSkillCallback(){
-			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_SKILLS);
+			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_SKILLS, new { ownNetId = _race.netId.Value });
 		}
 
 		void RefreshSyncAvailableSkills(){
@@ -95,7 +95,7 @@ namespace Mob
 
 		[ClientRpc]
 		void RpcRefreshSyncAvailableSkillCallback(){
-			EventManager.TriggerEvent(Constants.EVENT_REFRESH_SYNC_AVAILABLE_SKILLS);
+			EventManager.TriggerEvent(Constants.EVENT_REFRESH_SYNC_AVAILABLE_SKILLS, new { ownNetId = _race.netId.Value });
 		}
 
 		public void Add<T>(int quantity, Action<T> predicate = null) where T: Skill{
@@ -161,7 +161,7 @@ namespace Mob
 
 		[ClientRpc]
 		void RpcPickedCallback(){
-			EventManager.TriggerEvent (Constants.EVENT_SKILL_PICKED);
+			EventManager.TriggerEvent (Constants.EVENT_SKILL_PICKED, new { ownNetId = _race.netId.Value });
 		}
 
 		[Command]

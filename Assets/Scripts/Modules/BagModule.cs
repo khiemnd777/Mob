@@ -14,7 +14,11 @@ namespace Mob
 
 		public override void Init ()
 		{
-			EventManager.StartListening (Constants.EVENT_ITEM_BOUGHT_FIRED, new Action(RefreshSyncItems));
+			EventManager.StartListening (Constants.EVENT_ITEM_BOUGHT_FIRED, new Action<uint>(ownNetId =>{
+				if (!_race.netId.Value.Equals (ownNetId))
+					return;
+				RefreshSyncItems();
+			}));
 		}
 
 		public void Add<T>(int quantity, Action<T> predicate = null) where T: Item{
@@ -55,7 +59,7 @@ namespace Mob
 
 		[ClientRpc]
 		void RpcRefreshSyncItemsCallback(){
-			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_BAG_ITEMS);
+			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_BAG_ITEMS, new { ownNetId = _race.netId.Value });
 		}
 
 		public void Use<T>(Race[] targets){

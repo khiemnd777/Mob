@@ -17,7 +17,11 @@ namespace Mob
 		GearModule _gearModule;
 
 		void Start(){
-			EventManager.StartListening (Constants.EVENT_RETURN_STAT_VALUE, new Action<string, float> ((name, statVal) => {
+			EventManager.StartListening (Constants.EVENT_RETURN_STAT_VALUE, new Action<string, float, uint> ((name, statVal, ownNetId) => {
+				if(!TryToConnect())
+					return;
+				if(!_character.netId.Value.Equals(ownNetId))
+					return;
 				switch (name) {
 				case "damage":
 					attackDamage.text = Mathf.Floor (statVal).ToString ();

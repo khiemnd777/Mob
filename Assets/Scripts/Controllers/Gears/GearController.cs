@@ -38,12 +38,20 @@ namespace Mob
 			ring.sprite = Resources.Load<Sprite> ("Sprites/buy-ring");
 			artifact.sprite = Resources.Load<Sprite> ("Sprites/none");
 
-			EventManager.StartListening (Constants.EVENT_BOUGHT_GEAR, new Action<GearType>((gearType) => {
+			EventManager.StartListening (Constants.EVENT_BOUGHT_GEAR, new Action<GearType, uint>((gearType, ownNetId) => {
+				if(!TryToConnect())
+					return;
+				if(!_character.netId.Value.Equals(ownNetId))
+					return;
 				FilterItemsByType(gearType);
 				Wear(gearType);
 			}));
 
-			EventManager.StartListening (Constants.EVENT_UPGRADED_GEAR, new Action<GearType>((gearType) => {
+			EventManager.StartListening (Constants.EVENT_UPGRADED_GEAR, new Action<GearType, uint>((gearType, ownNetId) => {
+				if(!TryToConnect())
+					return;
+				if(!_character.netId.Value.Equals(ownNetId))
+					return;
 				Wear(gearType);
 			}));
 		}
@@ -55,10 +63,10 @@ namespace Mob
 
 		bool TryToConnect(){
 			return NetworkHelper.instance.TryToConnect (() => {
-				if(_character != null && _gearModule != null)
+				if(!_character.IsNull() && !_gearModule.IsNull())
 					return true;
 				_character = Race.GetLocalCharacter();
-				if(_character == null)
+				if(_character.IsNull())
 					return false;
 				_gearModule = _character.GetModule<GearModule>();
 				return false;

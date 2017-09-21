@@ -21,31 +21,51 @@ namespace Mob
 				_statModule.CmdAddPoint(statType);
 			});
 
-			EventManager.StartListening(Constants.EVENT_STAT_STRENGTH_CHANGED, new Action<float>((strength) => {
+			EventManager.StartListening(Constants.EVENT_STAT_STRENGTH_CHANGED, new Action<float, uint>((strength, ownNetId) => {
+				if(!TryToConnect())
+					return;
+				if(_character.netId.Value != ownNetId)
+					return;
 				if(statType == StatType.Strength){
 					PrepareItems ("Strength", strength);
 				}
 			}));
 
-			EventManager.StartListening(Constants.EVENT_STAT_DEXTERITY_CHANGED, new Action<float>((dexterity) => {
+			EventManager.StartListening(Constants.EVENT_STAT_DEXTERITY_CHANGED, new Action<float, uint>((dexterity, ownNetId) => {
+				if(!TryToConnect())
+					return;
+				if(_character.netId.Value != ownNetId)
+					return;
 				if(statType == StatType.Dexterity){
 					PrepareItems ("Dexterity", dexterity);
 				}
 			}));
 
-			EventManager.StartListening(Constants.EVENT_STAT_INTELLIGENT_CHANGED, new Action<float>((intelligent) => {
+			EventManager.StartListening(Constants.EVENT_STAT_INTELLIGENT_CHANGED, new Action<float, uint>((intelligent, ownNetId) => {
+				if(!TryToConnect())
+					return;
+				if(_character.netId.Value != ownNetId)
+					return;
 				if(statType == StatType.Intelligent){
 					PrepareItems ("Intelligent", intelligent);
 				}
 			}));
 
-			EventManager.StartListening(Constants.EVENT_STAT_VITALITY_CHANGED, new Action<float>((vitality) => {
+			EventManager.StartListening(Constants.EVENT_STAT_VITALITY_CHANGED, new Action<float, uint>((vitality, ownNetId) => {
+				if(!TryToConnect())
+					return;
+				if(_character.netId.Value != ownNetId)
+					return;
 				if(statType == StatType.Vitality){
 					PrepareItems ("Vitality", vitality);
 				}
 			}));
 
-			EventManager.StartListening(Constants.EVENT_STAT_LUCK_CHANGED, new Action<float>((luck) => {
+			EventManager.StartListening(Constants.EVENT_STAT_LUCK_CHANGED, new Action<float, uint>((luck, ownNetId) => {
+				if(!TryToConnect())
+					return;
+				if(_character.netId.Value != ownNetId)
+					return;
 				if(statType == StatType.Luck){
 					PrepareItems ("Luck", luck);
 				}

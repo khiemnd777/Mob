@@ -28,7 +28,7 @@ namespace Mob
 				return;
 			boughtItem.Buy (_race, boughtItem.price, 1);
 			RefeshSyncItems ();
-			EventManager.TriggerEvent (Constants.EVENT_ITEM_BOUGHT_FIRED);
+			EventManager.TriggerEvent (Constants.EVENT_ITEM_BOUGHT_FIRED, new { ownNetId = _race.netId.Value });
 		}
 
 		[Command]
@@ -43,7 +43,7 @@ namespace Mob
 		[ClientRpc]
 		void RpcBoughtItemCallback(SyncBoughtItem syncBoughtItem){
 			var syncItem = syncItems.FirstOrDefault (x => x.id == syncBoughtItem.id);
-			EventManager.TriggerEvent (Constants.EVENT_BOUGHT_ITEM_FROM_SHOP, new { syncItem = syncItem });
+			EventManager.TriggerEvent (Constants.EVENT_BOUGHT_ITEM_FROM_SHOP, new { syncItem = syncItem, ownNetId = _race.netId.Value });
 		}
 
 		void RefeshSyncItems(){
@@ -75,7 +75,7 @@ namespace Mob
 
 		[ClientRpc]
 		void RpcRefreshSyncItemCallback(){
-			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_SHOP_ITEMS);
+			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_SHOP_ITEMS, new { ownNetId = _race.netId.Value });
 		}
 	}
 }

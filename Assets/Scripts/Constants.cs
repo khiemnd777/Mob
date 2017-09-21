@@ -38,6 +38,7 @@ namespace Mob
 		public const string OPPONENT_CHARACTER = "OpponentCharacter";
 
 		// Event names
+		public const string EVENT_LEVEL_UP_CLIENT = "level-up-client-fired";
 		public const string EVENT_BOUGHT_ITEM_FROM_SHOP = "shop-bought-fired";
 		public const string EVENT_BOUGHT_GEAR = "gear-bought-fired";
 		public const string EVENT_UPGRADED_GEAR = "gear-upgraded-fired";
@@ -84,6 +85,7 @@ namespace Mob
 		public const string EVENT_STAT_LUCK_CHANGED = "stat-luck-changed";
 		public const string EVENT_STAT_LUCK_DICE_CHANGED = "stat-luck-dice-changed";
 		public const string EVENT_STAT_LUCK_REWARD_CHANGED = "stat-luck-reward-changed";
+		public const string EVENT_STAT_AUTO_POINT_ADDED = "stat-auto-point-added";
 	}
 }
 

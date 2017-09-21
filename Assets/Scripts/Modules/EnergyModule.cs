@@ -59,7 +59,7 @@ namespace Mob
 		}
 
 		void OnChangeEnergy(float currentEnergy){
-			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_ENERGY, new { energy = currentEnergy });
+			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_ENERGY, new { energy = currentEnergy, ownNetId = _race.netId.Value });
 		}
 	}
 }

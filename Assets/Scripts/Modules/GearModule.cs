@@ -41,7 +41,7 @@ namespace Mob
 
 		[ClientRpc]
 		void RpcReturnStatValue(string name, float statVal){
-			EventManager.TriggerEvent (Constants.EVENT_RETURN_STAT_VALUE, new { name = name, statVal = statVal });
+			EventManager.TriggerEvent (Constants.EVENT_RETURN_STAT_VALUE, new { name = name, statVal = statVal, ownNetId = _race.netId.Value });
 		}
 
 		public void AddAvailableGear<T>(Action<T> predicate = null) where T: GearBoughtItem {
@@ -161,7 +161,7 @@ namespace Mob
 
 		[ClientRpc]
 		void RpcRefreshSyncGear(){
-			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_GEARS);
+			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_GEARS, new { ownNetId = _race.netId.Value });
 		}
 
 		void RefreshSyncAvailableGears(){
@@ -194,12 +194,12 @@ namespace Mob
 
 		[ClientRpc]
 		void RpcRefreshSyncAvaibleGears(){
-			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_AVAILABLE_GEARS);
+			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_AVAILABLE_GEARS, new {ownNetId = _race.netId.Value});
 		}
 
 		[ClientRpc]
 		void RpcRefreshSyncAvaibleGearsByType(GearType gearType){
-			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_AVAILABLE_GEARS_BY_TYPE, new {gearType = gearType});
+			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_AVAILABLE_GEARS_BY_TYPE, new {gearType = gearType, ownNetId = _race.netId.Value});
 		}
 
 		public bool HasByType(GearType gearType){
@@ -230,7 +230,7 @@ namespace Mob
 
 		[ClientRpc]
 		void RpcBought(GearType gearType){
-			EventManager.TriggerEvent (Constants.EVENT_BOUGHT_GEAR, new { gearType = gearType });
+			EventManager.TriggerEvent (Constants.EVENT_BOUGHT_GEAR, new { gearType = gearType, ownNetId = _race.netId.Value });
 		}
 
 		[Command]
@@ -249,7 +249,7 @@ namespace Mob
 
 		[ClientRpc]
 		void RpcUpgraded(GearType gearType){
-			EventManager.TriggerEvent (Constants.EVENT_UPGRADED_GEAR, new { gearType = gearType });
+			EventManager.TriggerEvent (Constants.EVENT_UPGRADED_GEAR, new { gearType = gearType, ownNetId = _race.netId.Value });
 		}
 
 		[Command]

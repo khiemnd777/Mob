@@ -16,22 +16,32 @@ namespace Mob
 
 		void Start(){
 			list.ClearAll ();
-			EventManager.StartListening (Constants.EVENT_REFRESH_SYNC_AVAILABLE_SKILLS, new Action (RefreshItems));
+			EventManager.StartListening (Constants.EVENT_REFRESH_SYNC_AVAILABLE_SKILLS, new Action<uint> (ownNetId =>{
+				if(!TryToConnect())
+					return;
+				if(!_character.netId.Value.Equals(ownNetId))
+					return;
+				RefreshItems();
+			}));
 		}
 
 		void Update(){
-			if (!NetworkHelper.instance.TryToConnect (() => {
-				if (_character != null && _skillModule != null)
-					return true;
-				_character = Race.GetLocalCharacter ();
-				if(_character == null)
-					return false;
-				_skillModule = _character.GetModule<SkillModule>();
-				return false;
-			}))
+			if (!TryToConnect())
 				return;
 
 			CreateItems ();
+		}
+
+		bool TryToConnect(){
+			return NetworkHelper.instance.TryToConnect (() => {
+				if (_character != null && _skillModule != null)
+					return true;
+				_character = Race.GetLocalCharacter ();
+				if (_character == null)
+					return false;
+				_skillModule = _character.GetModule<SkillModule> ();
+				return false;
+			});
 		}
 
 		bool isCreateItems;

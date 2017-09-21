@@ -26,15 +26,16 @@ namespace Mob
 		public int point;
 
 		void OnPointChanged(int currentPoint){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_POINT_CHANGED, new {point = currentPoint});
+			EventManager.TriggerEvent (Constants.EVENT_STAT_POINT_CHANGED, new {point = currentPoint, ownNetId = _race.netId.Value });
 		}
 
 		[Header("Strength")]
 		[SyncVar(hook="OnStrengthChanged")]	
 		public float strength = 1f;
+		public int addedStrength;
 
 		void OnStrengthChanged(float currentStrength){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_STRENGTH_CHANGED, new { strength = currentStrength });
+			EventManager.TriggerEvent (Constants.EVENT_STAT_STRENGTH_CHANGED, new { strength = currentStrength, ownNetId = _race.netId.Value });
 		}
 
 		[Header("Sub-strength")]
@@ -42,7 +43,7 @@ namespace Mob
 		public float physicalAttack;
 
 		void OnPhysicalAttackChanged (float currentPhysicalAttack){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_PHYSICAL_ATTACK_CHANGED, new {physicalAttack = currentPhysicalAttack});
+			EventManager.TriggerEvent (Constants.EVENT_STAT_PHYSICAL_ATTACK_CHANGED, new {physicalAttack = currentPhysicalAttack, ownNetId = _race.netId.Value});
 		}
 
 		public float extraPhysicalAttack;
@@ -52,7 +53,7 @@ namespace Mob
 		public float physicalDefend;
 
 		void OnPhysicalDefendChanged(float currentPhysicalDefend){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_PHYSICAL_DEFEND_CHANGED, new { physicalDefend = currentPhysicalDefend });
+			EventManager.TriggerEvent (Constants.EVENT_STAT_PHYSICAL_DEFEND_CHANGED, new { physicalDefend = currentPhysicalDefend, ownNetId = _race.netId.Value });
 		}
 
 		public float extraPhysicalDefend;
@@ -61,9 +62,10 @@ namespace Mob
 		[Header("Dexterity")]
 		[SyncVar(hook="OnDexterityChanged")] 	
 		public float dexterity = 1f;
+		public int addedDexterity;
 
 		void OnDexterityChanged(float currentDexterity){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_DEXTERITY_CHANGED, new {dexterity = currentDexterity});
+			EventManager.TriggerEvent (Constants.EVENT_STAT_DEXTERITY_CHANGED, new {dexterity = currentDexterity, ownNetId = _race.netId.Value });
 		}
 
 		[Header("Sub-dexterity")]
@@ -71,42 +73,47 @@ namespace Mob
 		public float attackRating;
 
 		void OnAttackRatingChanged(float currentAttackRating){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_ATTACK_RATING_CHANGED, new {attackRating = currentAttackRating});
+			EventManager.TriggerEvent (Constants.EVENT_STAT_ATTACK_RATING_CHANGED, new {attackRating = currentAttackRating, ownNetId = _race.netId.Value });
 		}
 
 		public float extraAttackRating;
 		public float attackRatingSeed = 1.2f;
 
-		[SyncVar(hook="OnCriticalRatingChanged")] 	public float criticalRating;
+		[SyncVar(hook="OnCriticalRatingChanged")] 	
+		public float criticalRating;
 
 		void OnCriticalRatingChanged(float currentCriticalRating){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_CRITICAL_RATING_CHANGED, new {criticalRating = currentCriticalRating});	
+			EventManager.TriggerEvent (Constants.EVENT_STAT_CRITICAL_RATING_CHANGED, new {criticalRating = currentCriticalRating, ownNetId = _race.netId.Value });	
 		}
 
 		public float extraCriticalRating;
 		public float criticalRatingSeed = 0.75f;
 
 		[Header("Intelligent")]
-		[SyncVar(hook="OnIntelligentChanged")] 	public float intelligent = 1f;
+		[SyncVar(hook="OnIntelligentChanged")] 	
+		public float intelligent = 1f;
+		public int addedIntelligent;
 
 		void OnIntelligentChanged(float currentIntelligent){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_INTELLIGENT_CHANGED, new { intelligent = currentIntelligent });
+			EventManager.TriggerEvent (Constants.EVENT_STAT_INTELLIGENT_CHANGED, new { intelligent = currentIntelligent, ownNetId = _race.netId.Value });
 		}
 
 		[Header("Sub-intelligent")]
-		[SyncVar(hook="OnMagicAttackChanged")] 	public float magicAttack;
+		[SyncVar(hook="OnMagicAttackChanged")] 	
+		public float magicAttack;
 
 		void OnMagicAttackChanged(float currentMagicAttack){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_MAGIC_ATTACK_CHANGED, new { magicAttack = currentMagicAttack });
+			EventManager.TriggerEvent (Constants.EVENT_STAT_MAGIC_ATTACK_CHANGED, new { magicAttack = currentMagicAttack, ownNetId = _race.netId.Value });
 		}
 
 		public float extraMagicAttack;
 		public float magicAttackSeed = 1.25f;
 
-		[SyncVar(hook="OnMagicResistChanged")] 	public float magicResist;
+		[SyncVar(hook="OnMagicResistChanged")] 	
+		public float magicResist;
 
 		void OnMagicResistChanged(float currentMagicResist){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_MAGIC_RESIST_CHANGED, new { magicResist = currentMagicResist });
+			EventManager.TriggerEvent (Constants.EVENT_STAT_MAGIC_RESIST_CHANGED, new { magicResist = currentMagicResist, ownNetId = _race.netId.Value });
 		}
 
 		public float extraMagicResist;
@@ -115,9 +122,10 @@ namespace Mob
 		[Header("Vitality")]
 		[SyncVar(hook="OnVitalityChanged")] 	
 		public float vitality = 1f;
+		public int addedVitality;
 
 		void OnVitalityChanged(float currentVitality){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_VITALITY_CHANGED, new { vitality = currentVitality });	
+			EventManager.TriggerEvent (Constants.EVENT_STAT_VITALITY_CHANGED, new { vitality = currentVitality, ownNetId = _race.netId.Value });	
 		}
 
 		[Header("Sub-vitality")]
@@ -125,7 +133,7 @@ namespace Mob
 		public float maxHp;
 
 		void OnMaxHpChanged(float currentMaxHp){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_MAX_HP_CHANGED, new { maxHp = currentMaxHp });
+			EventManager.TriggerEvent (Constants.EVENT_STAT_MAX_HP_CHANGED, new { maxHp = currentMaxHp, ownNetId = _race.netId.Value });
 		}
 
 		public float extraMaxHp;
@@ -135,7 +143,7 @@ namespace Mob
 		public float regenerateHp;
 
 		void OnRegenerateHpChanged(float currentRegenerateHp){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_REGENERATE_HP_CHANGED, new {regenerateHp = currentRegenerateHp});
+			EventManager.TriggerEvent (Constants.EVENT_STAT_REGENERATE_HP_CHANGED, new {regenerateHp = currentRegenerateHp, ownNetId = _race.netId.Value });
 		}
 
 		public float extraRegenerateHp;
@@ -144,9 +152,10 @@ namespace Mob
 		[Header("Luck")]
 		[SyncVar(hook="OnLuckChanged")]	
 		public float luck = 1f;
+		public int addedLuck;
 
 		void OnLuckChanged(float currentLuck){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_LUCK_CHANGED, new { luck = currentLuck });
+			EventManager.TriggerEvent (Constants.EVENT_STAT_LUCK_CHANGED, new { luck = currentLuck, ownNetId = _race.netId.Value });
 		}
 
 		[Header("Sub-luck")]
@@ -154,7 +163,7 @@ namespace Mob
 		public float luckDice;
 
 		void OnLuckDiceChanged(float currentLuckDice){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_LUCK_DICE_CHANGED, new { luckDice = currentLuckDice });
+			EventManager.TriggerEvent (Constants.EVENT_STAT_LUCK_DICE_CHANGED, new { luckDice = currentLuckDice, ownNetId = _race.netId.Value });
 		}
 
 		public float extraLuckDice;
@@ -164,7 +173,7 @@ namespace Mob
 		public float luckReward;
 
 		void OnLuckRewardChanged(float currentLuckReward){
-			EventManager.TriggerEvent (Constants.EVENT_STAT_LUCK_REWARD_CHANGED, new {luckReward = currentLuckReward});
+			EventManager.TriggerEvent (Constants.EVENT_STAT_LUCK_REWARD_CHANGED, new {luckReward = currentLuckReward, ownNetId = _race.netId.Value});
 		}
 
 		public float extraLuckReward;
@@ -200,6 +209,7 @@ namespace Mob
 			case StatType.Strength:
 				{
 					strength += point;
+					++addedStrength;
 					logPoint += point;
 					Calculate2ndPoint (statType);
 				}
@@ -207,6 +217,7 @@ namespace Mob
 			case StatType.Dexterity:
 				{
 					dexterity += point;
+					++addedDexterity;
 					logPoint += point;
 					Calculate2ndPoint (statType);
 				}
@@ -214,6 +225,7 @@ namespace Mob
 			case StatType.Intelligent:
 				{
 					intelligent += point;
+					++addedIntelligent;
 					logPoint += point;
 					Calculate2ndPoint (statType);
 				}
@@ -221,6 +233,7 @@ namespace Mob
 			case StatType.Vitality:
 				{
 					vitality += point;
+					++addedVitality;
 					logPoint += point;
 					Calculate2ndPoint (statType);
 				}
@@ -228,6 +241,7 @@ namespace Mob
 			case StatType.Luck:
 				{
 					luck += point;
+					++addedLuck;
 					logPoint += point;
 					Calculate2ndPoint (statType);
 				}
@@ -245,6 +259,7 @@ namespace Mob
 			case StatType.Strength:
 				{
 					++strength;
+					++addedStrength;
 					++logPoint;
 					Calculate2ndPoint (statType);
 					point = Mathf.Max(0, point - 1);
@@ -253,6 +268,7 @@ namespace Mob
 			case StatType.Dexterity:
 				{
 					++dexterity;
+					++addedDexterity;
 					++logPoint;
 					Calculate2ndPoint (statType);
 					point = Mathf.Max(0, point - 1);
@@ -261,6 +277,7 @@ namespace Mob
 			case StatType.Intelligent:
 				{
 					++intelligent;
+					++addedIntelligent;
 					++logPoint;
 					Calculate2ndPoint (statType);
 					point = Mathf.Max(0, point - 1);
@@ -269,6 +286,7 @@ namespace Mob
 			case StatType.Vitality:
 				{
 					++vitality;
+					++addedVitality;
 					++logPoint;
 					Calculate2ndPoint (statType);
 					point = Mathf.Max(0, point - 1);
@@ -277,6 +295,7 @@ namespace Mob
 			case StatType.Luck:
 				{
 					++luck;
+					++addedLuck;
 					++logPoint;
 					Calculate2ndPoint (statType);
 					point = Mathf.Max(0, point - 1);
@@ -357,32 +376,61 @@ namespace Mob
 			AddPoint (statType);
 		}
 
+		public void AutoAddPoint(){
+			var total = addedStrength + addedDexterity + addedIntelligent + addedLuck + addedVitality;
+			if (total <= 0)
+				return;
+			var totalP = 100f / total;
+			var strengthP = addedStrength * totalP;
+			var dexterityP = addedDexterity * totalP;
+			var intelligentP = addedIntelligent * totalP;
+			var luckP = addedLuck * totalP;
+			var vitalityP = addedVitality * totalP;
+			AutoCalculateProbability (strengthP, dexterityP, intelligentP, vitalityP, luckP);
+
+			RpcAutoAddPointCallback ();
+		}
+
+		[ClientRpc]
+		void RpcAutoAddPointCallback(){
+			EventManager.TriggerEvent (Constants.EVENT_STAT_AUTO_POINT_ADDED, new { ownNetId = _race.netId.Value });
+		}
+
+		[Command]
+		public void CmdAutoAddPoint(){
+			AutoAddPoint ();
+		}
+
 		void AutoCalculatePoint(){
 			if (_autoAddPoint) {
-				foreach (var statIndex in StatCalculator.GetStatWithProbability (point, strengthPercent, dexterityPercent, intelligentPercent, vitalityPercent, luckPercent)) {
-					switch (statIndex) {
-					case 0:
-						AddPoint (StatType.Strength);
-						break;
-					case 1:
-						AddPoint (StatType.Dexterity);
-						break;
-					case 2:
-						AddPoint (StatType.Intelligent);
-						break;
-					case 3:
-						AddPoint (StatType.Vitality);
-						break;
-					case 4:
-						AddPoint (StatType.Luck);
-						break;
-					default:
-						break;
-					}
-				}
-				this.point = 0;
+				AutoCalculateProbability (strengthPercent, dexterityPercent, intelligentPercent, vitalityPercent, luckPercent);
 				_autoAddPoint = false;
 			}
+		}
+
+		void AutoCalculateProbability(params float[] percents){
+			foreach (var statIndex in StatCalculator.GetStatWithProbability (point, percents)) {
+				switch (statIndex) {
+				case 0:
+					AddPoint (StatType.Strength);
+					break;
+				case 1:
+					AddPoint (StatType.Dexterity);
+					break;
+				case 2:
+					AddPoint (StatType.Intelligent);
+					break;
+				case 3:
+					AddPoint (StatType.Vitality);
+					break;
+				case 4:
+					AddPoint (StatType.Luck);
+					break;
+				default:
+					break;
+				}
+			}
+			this.point = 0;
 		}
 
 		void Update() {
@@ -390,5 +438,3 @@ namespace Mob
 		}
 	}
 }
-
- 

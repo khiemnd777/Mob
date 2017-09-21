@@ -17,7 +17,13 @@ namespace Mob
 
 		void Start(){
 			list.ClearAll ();
-			EventManager.StartListening (Constants.EVENT_REFRESH_SYNC_SKILLS, new Action(PrepareItems));
+			EventManager.StartListening (Constants.EVENT_REFRESH_SYNC_SKILLS, new Action<uint>(ownNetId => {
+				if(!TryToConnect())
+					return;
+				if(!_character.netId.Value.Equals(ownNetId))
+					return;
+				PrepareItems();
+			}));
 		}
 
 		void Update(){

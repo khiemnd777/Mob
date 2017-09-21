@@ -17,7 +17,13 @@ namespace Mob
 
 		void Start(){
 			gridView.ClearAll ();
-			EventManager.StartListening(Constants.EVENT_REFRESH_SYNC_BAG_ITEMS, new Action(RefreshItems));
+			EventManager.StartListening(Constants.EVENT_REFRESH_SYNC_BAG_ITEMS, new Action<uint>(ownNetId => {
+				if(!TryToConnect())
+					return;
+				if(!_character.netId.Value.Equals(ownNetId))
+					return;
+				RefreshItems();
+			}));
 		}
 
 		void Update(){

@@ -66,6 +66,7 @@
      <Compile Include="Assets\Scripts\Controllers\Gears\GearListUpgradeItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\GearStatController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Gears\TouchOnGear.cs" />
+     <Compile Include="Assets\Scripts\Controllers\LeftMiddlePartController.cs" />
      <Compile Include="Assets\Scripts\Controllers\LeftPanelController.cs" />
      <Compile Include="Assets\Scripts\Controllers\PlayerActionPanel.cs" />
      <Compile Include="Assets\Scripts\Controllers\Shops\AvailableItem.cs" />
@@ -78,6 +79,8 @@
      <Compile Include="Assets\Scripts\Controllers\Stats\Stat2ndHListItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\Stat2ndListItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\StatController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Stats\StatH1Controller.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Stats\StatH1ListItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\StatHController.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\StatHListItem.cs" />
      <Compile Include="Assets\Scripts\Controllers\Stats\StatListItem.cs" />

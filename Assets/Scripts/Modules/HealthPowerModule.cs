@@ -98,11 +98,11 @@ namespace Mob
 		}
 
 		void OnChangeHp(float currentHp){
-			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_HP, new { hp = currentHp, maxHp = maxHp });
+			EventManager.TriggerEvent (Constants.EVENT_REFRESH_SYNC_HP, new { hp = currentHp, maxHp = maxHp, ownNetId = _race.netId.Value });
 		}
 
 		void OnChangeMaxHp(float currentMaxHp){
-			EventManager.TriggerEvent(Constants.EVENT_REFRESH_SYNC_HP, new { hp = hp, maxHp = currentMaxHp });
+			EventManager.TriggerEvent(Constants.EVENT_REFRESH_SYNC_HP, new { hp = hp, maxHp = currentMaxHp, ownNetId = _race.netId.Value });
 		}
 	}
 }

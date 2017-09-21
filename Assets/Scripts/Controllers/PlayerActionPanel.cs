@@ -18,6 +18,8 @@ namespace Mob
 		bool shownBag;
 		bool shownCard;
 
+		Race _character;
+
 		const string selectedBtn = "Sprites/gear-equipment => gear_upgrade_btn";
 		const string normalBtn = "Sprites/gear-equipment => gear_buy_btn";
 
@@ -47,8 +49,25 @@ namespace Mob
 				cardBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(selectedBtn);
 			});
 
-			EventManager.StartListening (Constants.EVENT_BOUGHT_ITEM_FROM_SHOP, new Action(ShowBag));
-			EventManager.StartListening (Constants.EVENT_SKILL_PICKED, new Action(ShowAttack));
+			EventManager.StartListening (Constants.EVENT_BOUGHT_ITEM_FROM_SHOP, new Action<SyncBoughtItem, uint>((syncItem, ownNetId) => {
+				if(!TryToConnect())
+					return;
+				if(_character.netId.Value != ownNetId)
+					return;
+				ShowBag();
+			}));
+			EventManager.StartListening (Constants.EVENT_SKILL_PICKED, new Action<uint>(ownNetId => {
+				if(!TryToConnect())
+					return;
+				if(_character.netId.Value != ownNetId)
+					return;
+				ShowAttack();
+			}));
+		}
+
+		void Update(){
+			if (!TryToConnect ())
+				return;
 		}
 
 		void ShowBag(){
@@ -92,6 +111,15 @@ namespace Mob
 			attackGroup.SetPositionOfPivot (new Vector2(0f, attackGroup.parent.GetComponent<RectTransform>().rect.height));
 			bagGroup.SetPositionOfPivot (new Vector2(0f, bagGroup.parent.GetComponent<RectTransform>().rect.height));
 			cardGroup.SetPositionOfPivot (new Vector2(0f, cardGroup.parent.GetComponent<RectTransform>().rect.height));
+		}
+
+		bool TryToConnect(){
+			return NetworkHelper.instance.TryToConnect (() => {
+				if (!_character.IsNull())
+					return true;
+				_character = Race.GetLocalCharacter ();
+				return false;
+			});
 		}
 	}
 }

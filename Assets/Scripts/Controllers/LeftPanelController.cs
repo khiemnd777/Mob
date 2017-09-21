@@ -10,6 +10,7 @@ namespace Mob
 		public Button statsGroupBtn;
 		public Button shopGroupBtn;
 		public Button skillGroupBtn;
+		public Button gearGroupBtn;
 
 		public RectTransform statsGroup;
 		public RectTransform shopGroup;
@@ -37,17 +38,12 @@ namespace Mob
 			Init ();
 
 			EventManager.StartListening ("gear-item-selected", new Action (() => {
-				shownShopGroup = false;
-				shownSkillGroup = false;
-				shownStatGroup = false;
-				if(shownGearGroup)
-					return;
-				shownGearGroup = true;
-				statsGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
-				shopGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
-				skillGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
-				ShowGroup(gearGroup);
+				ShowGearGroup();
 			}));
+
+			gearGroupBtn.onClick.AddListener (() => {
+				ShowGearGroup();
+			});
 
 			statsGroupBtn.onClick.AddListener (() => {
 				shownShopGroup = false;
@@ -56,6 +52,7 @@ namespace Mob
 
 				shopGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
 				skillGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
+				gearGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
 
 				if(shownStatGroup)
 					return;
@@ -70,6 +67,7 @@ namespace Mob
 
 				statsGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
 				skillGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
+				gearGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
 
 				if(shownShopGroup)
 					return;
@@ -82,6 +80,7 @@ namespace Mob
 				shownShopGroup = false;
 				shownGearGroup = false;
 
+				gearGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
 				statsGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
 				shopGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
 
@@ -91,6 +90,23 @@ namespace Mob
 				skillGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(selectedBtn);
 				ShowGroup(skillGroup);
 			});
+		}
+
+		void ShowGearGroup(){
+			shownShopGroup = false;
+			shownSkillGroup = false;
+			shownStatGroup = false;
+
+			statsGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
+			skillGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
+			shopGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(normalBtn);
+
+			if(shownGearGroup)
+				return;
+			
+			shownGearGroup = true;
+			gearGroupBtn.GetComponent<Image>().sprite = IconHelper.instance.GetIcon(selectedBtn);
+			ShowGroup(gearGroup);
 		}
 
 		void ShowGroup(RectTransform rt){

@@ -68,8 +68,6 @@ namespace Mob
 				stat.AddPoint(StatType.Vitality);
 				stat.AddPoint(StatType.Luck);
 
-				stat.point = 999999;
-
 				stat.Init();
 			});
 

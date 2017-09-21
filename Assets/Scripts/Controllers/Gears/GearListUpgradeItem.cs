@@ -25,7 +25,13 @@ namespace Mob
 			upgradeBtn.onClick.AddListener (() => {
 				_gearModule.CmdUpgrade(item);
 			});
-			EventManager.StartListening (Constants.EVENT_REFRESH_SYNC_GEARS, new Action(Refresh));
+			EventManager.StartListening (Constants.EVENT_REFRESH_SYNC_GEARS, new Action<uint>(ownNetId => {
+				if(!TryToConnect())
+					return;
+				if(!_character.netId.Value.Equals(ownNetId))
+					return;
+				Refresh();
+			}));
 		}
 
 		void Update(){
