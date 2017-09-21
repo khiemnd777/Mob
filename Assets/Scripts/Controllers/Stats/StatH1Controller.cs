@@ -36,7 +36,7 @@ namespace Mob
 					return;
 				if(_character.netId.Value != ownNetId)
 					return;
-				autoPointBtn.gameObject.SetActive(false);
+				autoPointBtn.gameObject.SetActive(false); 
 			}));
 
 			EventManager.StartListening (Constants.EVENT_REFRESH_SYNC_LEVEL, new Action<int, uint> ((level, ownNetId) => {
