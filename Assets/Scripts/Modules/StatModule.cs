@@ -409,28 +409,39 @@ namespace Mob
 		}
 
 		void AutoCalculateProbability(params float[] percents){
+			var _0 = 0;
+			var _1 = 0;
+			var _2 = 0;
+			var _3 = 0;
+			var _4 = 0;
 			foreach (var statIndex in StatCalculator.GetStatWithProbability (point, percents)) {
 				switch (statIndex) {
 				case 0:
-					AddPoint (StatType.Strength);
+					++_0;
 					break;
 				case 1:
-					AddPoint (StatType.Dexterity);
+					++_1;
 					break;
 				case 2:
-					AddPoint (StatType.Intelligent);
+					++_2;
 					break;
 				case 3:
-					AddPoint (StatType.Vitality);
+					++_3;
 					break;
 				case 4:
-					AddPoint (StatType.Luck);
+					++_4;
 					break;
 				default:
 					break;
 				}
 			}
 			this.point = 0;
+
+			AddPoint (StatType.Strength, _0);
+			AddPoint (StatType.Dexterity, _1);
+			AddPoint (StatType.Intelligent, _2);
+			AddPoint (StatType.Vitality, _3);
+			AddPoint (StatType.Luck, _4);
 		}
 
 		void Update() {

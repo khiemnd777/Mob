@@ -46,7 +46,7 @@ namespace Mob
 					x.AddEnergy(9999f);
 				});
 				p.GetModule<StatModule> (x => {
-					x.point = 5;
+					x.point = 9999;
 				});
 				p.transform.SetParent (transform);
 				character = p;

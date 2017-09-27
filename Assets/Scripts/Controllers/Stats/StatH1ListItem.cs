@@ -8,6 +8,9 @@ namespace Mob
 {
 	public class StatH1ListItem : MobBehaviour
 	{
+		const float ShowingSubLabelDeltaTime = 0.625f;
+		const float ShowingSubLabelDeltaMoveUp = 35f;
+
 		public StatType statType;
 		public Text statText;
 		public Text statValue;
@@ -39,7 +42,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Strength){
-					PrepareItem ("Strength", strength);
+					var value = strength - _statModule.strength;
+					PrepareItem ("Strength", strength, value);
 				}
 			}));
 
@@ -49,7 +53,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Strength){
-					PrepareItem1 ("Physical attack", physicalAttack);
+					var value = physicalAttack - _statModule.physicalAttack;
+					PrepareItem1 ("Physical attack", physicalAttack, value);
 				}
 			}));
 
@@ -59,7 +64,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Strength){
-					PrepareItem2 ("Physical defend", physicalDefend);
+					var value = physicalDefend - _statModule.physicalDefend;
+					PrepareItem2 ("Physical defend", physicalDefend, value);
 				}
 			}));
 
@@ -69,7 +75,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Dexterity){
-					PrepareItem ("Dexterity", dexterity);
+					var value = dexterity - _statModule.dexterity;
+					PrepareItem ("Dexterity", dexterity, value);
 				}
 			}));
 
@@ -79,7 +86,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Dexterity){
-					PrepareItem1 ("Attack rating", attackRating);
+					var value = attackRating - _statModule.attackRating;
+					PrepareItem1 ("Attack rating", attackRating, value);
 				}
 			}));
 
@@ -89,7 +97,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Dexterity){
-					PrepareItem2 ("Critical rating", criticalRating);
+					var value = criticalRating - _statModule.criticalRating;
+					PrepareItem2 ("Critical rating", criticalRating, value);
 				}
 			}));
 
@@ -99,7 +108,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Intelligent){
-					PrepareItem ("Intelligent", intelligent);
+					var value = intelligent - _statModule.intelligent;
+					PrepareItem ("Intelligent", intelligent, value);
 				}
 			}));
 
@@ -109,7 +119,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Intelligent){
-					PrepareItem1 ("Magic attack", magicAttack);
+					var value = magicAttack - _statModule.magicAttack;
+					PrepareItem1 ("Magic attack", magicAttack, value);
 				}
 			}));
 
@@ -119,7 +130,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Intelligent){
-					PrepareItem2 ("Magic resist", magicResist);
+					var value = magicResist - _statModule.magicResist;
+					PrepareItem2 ("Magic resist", magicResist, value);
 				}
 			}));
 
@@ -129,7 +141,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Vitality){
-					PrepareItem ("Vitality", vitality);
+					var value = vitality - _statModule.vitality;
+					PrepareItem ("Vitality", vitality, value);
 				}
 			}));
 
@@ -139,7 +152,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Vitality){
-					PrepareItem1 ("Max Hp", maxHp);
+					var value = maxHp - _statModule.maxHp;
+					PrepareItem1 ("Max Hp", maxHp, value);
 				}
 			}));
 
@@ -149,7 +163,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Vitality){
-					PrepareItem2 ("Regenerate Hp", regenerateHp);
+					var value = regenerateHp - _statModule.regenerateHp;
+					PrepareItem2 ("Regenerate Hp", regenerateHp, value);
 				}
 			}));
 
@@ -159,7 +174,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Luck){
-					PrepareItem ("Luck", luck);
+					var value = luck - _statModule.luck;
+					PrepareItem ("Luck", luck, value);
 				}
 			}));
 
@@ -169,7 +185,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Luck){
-					PrepareItem1 ("Luck dice", luckDice);
+					var value = luckDice - _statModule.luckDice;
+					PrepareItem1 ("Luck dice", luckDice, value);
 				}
 			}));
 
@@ -179,7 +196,8 @@ namespace Mob
 				if(_character.netId.Value != ownNetId)
 					return;
 				if(statType == StatType.Luck){
-					PrepareItem2 ("Luck reward", luckReward);
+					var value = luckReward - _statModule.luckReward;
+					PrepareItem2 ("Luck reward", luckReward, value);
 				}
 			}));
 		}
@@ -239,19 +257,25 @@ namespace Mob
 			}
 		}
 
-		void PrepareItem(string name, float value){
+		void PrepareItem(string name, float value, float deltaUp = 0){
 			statText.text = name + ":";
 			statValue.text = Mathf.Floor(value).ToString();
+			if(Mathf.FloorToInt(deltaUp) > 0)
+				ShowSubLabel (Constants.INCREASE_LABEL, statValue.transform, deltaUp, deltaTime: ShowingSubLabelDeltaTime, deltaMoveUp: ShowingSubLabelDeltaMoveUp);
 		}
 
-		void PrepareItem1(string name, float value){
+		void PrepareItem1(string name, float value, float deltaUp = 0){
 			statText1.text = name + ":";
 			statValue1.text = Mathf.Floor(value).ToString();
+			if(Mathf.FloorToInt(deltaUp) > 0)
+				ShowSubLabel (Constants.INCREASE_LABEL, statValue1.transform, deltaUp, deltaTime: ShowingSubLabelDeltaTime, deltaMoveUp: ShowingSubLabelDeltaMoveUp);
 		}
 
-		void PrepareItem2(string name, float value){
+		void PrepareItem2(string name, float value, float deltaUp = 0){
 			statText2.text = name + ":";
 			statValue2.text = Mathf.Floor(value).ToString();
+			if(Mathf.FloorToInt(deltaUp) > 0)
+				ShowSubLabel (Constants.INCREASE_LABEL, statValue2.transform, deltaUp, deltaTime: ShowingSubLabelDeltaTime, deltaMoveUp: ShowingSubLabelDeltaMoveUp);
 		}
 	}
 }

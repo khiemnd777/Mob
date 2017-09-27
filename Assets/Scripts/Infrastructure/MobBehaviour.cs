@@ -233,7 +233,7 @@ namespace Mob
 			var percent = .0f;
 			while (percent <= 1f)
 			{
-				percent += Time.fixedDeltaTime * deltaTime;
+				percent += Time.fixedDeltaTime / deltaTime;
 				act.Invoke(percent);
 				yield return new WaitForFixedUpdate();
 			}
@@ -252,7 +252,7 @@ namespace Mob
 			{
 				if (!cond.Invoke())
 					break;
-				percent += Time.fixedDeltaTime * deltaTime;
+				percent += Time.fixedDeltaTime / deltaTime;
 				act.Invoke(percent);
 				yield return new WaitForFixedUpdate();
 			}
@@ -265,7 +265,7 @@ namespace Mob
 			var percent = .0f;
 			while (percent <= 1f)
 			{
-				percent += Time.fixedDeltaTime * deltaTime;
+				percent += Time.fixedDeltaTime / deltaTime;
 				act.Invoke(percent);
 				yield return null;
 			}
@@ -288,7 +288,7 @@ namespace Mob
 			{
 				if (!cond.Invoke())
 					break;
-				percent += Time.fixedDeltaTime * deltaTime;
+				percent += Time.fixedDeltaTime / deltaTime;
 				act.Invoke(percent);
 				yield return new WaitForFixedUpdate();
 			}
@@ -309,7 +309,7 @@ namespace Mob
 			var percent = .0f;
 			while (percent <= 1f)
 			{
-				percent += Time.fixedDeltaTime * deltaTime;
+				percent += Time.fixedDeltaTime / deltaTime;
 				act.Invoke(percent);
 				yield return new WaitForFixedUpdate();
 			}
